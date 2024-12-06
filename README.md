@@ -2,12 +2,13 @@
 ## Description
 This is a .NET 8 solution, designed to be a microservice in an ETL software.
 
-This is the **transformation** part of a SBB CFF FFS app. There are three distinct parts to this solution :
+This is the **transformation** part of a SBB CFF FFS app. There are four distinct parts to this solution :
 
 - The **Restfull API** served with ASP.net core (contains only controllers)
-- Raw format conversion (from text extracted from a PDF) and associated test project :
+- **Common interfaces** : Contains only interfaces for communication between the two main parts
+- **Raw format conversion** (from text extracted from a PDF) and associated test project :
   - Core maintainer : Cyprien Jaquier
-- Business transformation / computation of what was returned by the text parser and associated test project :
+- **Business transformation / computation** of what was returned by the text parser and associated test project :
   - Core maintainer : Eliott Jaquier
 
 ## Getting Started

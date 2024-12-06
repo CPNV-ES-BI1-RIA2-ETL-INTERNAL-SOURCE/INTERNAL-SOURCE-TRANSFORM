@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessTransformerTests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentParserTests", "DocumentParserTests\DocumentParserTests.csproj", "{251B814D-718A-45A7-BA27-A09981A20829}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonInterfaces", "CommonInterfaces\CommonInterfaces.csproj", "{4D7741E9-9240-48F9-9350-A55598011BA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{251B814D-718A-45A7-BA27-A09981A20829}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{251B814D-718A-45A7-BA27-A09981A20829}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{251B814D-718A-45A7-BA27-A09981A20829}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D7741E9-9240-48F9-9350-A55598011BA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D7741E9-9240-48F9-9350-A55598011BA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D7741E9-9240-48F9-9350-A55598011BA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D7741E9-9240-48F9-9350-A55598011BA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
