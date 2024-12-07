@@ -68,6 +68,9 @@ Classes and code structure follow the [Microsoft C# Coding Conventions](https://
 ### Workflow
 * [How to commit](https://www.conventionalcommits.org/en/v1.0.0/)
 * Pull requests are open to merge in the develop branch.
+* Feature branches are created from the develop branch and merged back into it. 
+  * We use the [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
+  * The name of a feature branch should be `feature/feature_branch` in snake case.
 
 ## License
 Distributed under the MIT License. See LICENSE.txt for more information.
