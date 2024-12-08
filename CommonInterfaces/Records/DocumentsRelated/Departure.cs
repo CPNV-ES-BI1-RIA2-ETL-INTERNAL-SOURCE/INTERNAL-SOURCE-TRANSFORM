@@ -9,5 +9,5 @@
 /// <param name="Train">The train number containing G and L. (Ex. IC5, R1, S30)</param>
 /// <param name="Platform">The platform number from which the train departs. (Ex. 13)</param>
 /// <param name="Sector">The sector of the train station from which the train departs. (Ex. A, B, AB). Can be null if it's not specific.</param>
-/// <param name="UniqueSignsIds"></param>
-public record Departure(string Destination, List<string> Via, int DepartureMinute, string? Train, string Platform, string? Sector, List<int> UniqueSignsIds);
+/// <param name="optionalSpecs">The List of train specificities (Ex. #nuit to indicate that it's a night train)</param>
+public record Departure(string Destination, List<string> Via, int DepartureMinute, string? Train, string Platform, string? Sector, List<string> optionalSpecs);
