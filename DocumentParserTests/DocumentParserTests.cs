@@ -67,13 +67,14 @@ public class DocumentParserTests
     public void Revive_ComplexDocument()
     {
         // Given 
-        var rawDocument = "{\"content\": {\"1\": [\"Gare de Yverdon-les-Bains\", \"Gare de Lausanne\"], \"2\": 83, \"3\": 4.5}}";
+        var rawDocument = "{\"content\": {\"1\": [\"Gare de Yverdon-les-Bains\", \"Gare de Lausanne\", {\"1\": [\"Sainte-croix\", \"Neuchatel\"]}], \"2\": 83, \"3\": 4.5}}";
         
         // When
-        var parsedDocument = DocParser.Revive(rawDocument);
+        dynamic parsedDocument = DocParser.Revive(rawDocument);
         
         // Then
-        Assert.That(parsedDocument["1"], Is.EqualTo(new List<string> {"Gare de Yverdon-les-Bains", "Gare de Lausanne"}));
+        Assert.That(parsedDocument["1"][0], Is.EqualTo("Gare de Yverdon-les-Bains"));
+        Assert.That(parsedDocument["1"][2]["1"][1], Is.EqualTo("Neuchatel"));
         Assert.That(parsedDocument["2"], Is.EqualTo(83));
         Assert.That(parsedDocument["3"], Is.EqualTo(4.5));
     }
