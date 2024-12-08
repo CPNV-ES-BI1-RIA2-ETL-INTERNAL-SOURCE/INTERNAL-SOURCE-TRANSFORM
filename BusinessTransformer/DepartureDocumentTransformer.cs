@@ -47,7 +47,7 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
         {
             if (transformedStationName.Contains(prefix))
             {
-                return transformedStationName.Substring(transformedStationName.LastIndexOf(prefix, StringComparison.Ordinal) + prefix.Length).Trim();
+                transformedStationName = transformedStationName.Substring(transformedStationName.LastIndexOf(prefix, StringComparison.Ordinal) + prefix.Length).Trim();
             }
         }
 
@@ -57,8 +57,8 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
             transformedStationName = transformedStationName.Substring(1);
         }
         
-        //Remove the first character (because it is a space)
-        return transformedStationName.Substring(1);
+        //Remove the first character
+        return transformedStationName;
     }
     
     /// <summary>
