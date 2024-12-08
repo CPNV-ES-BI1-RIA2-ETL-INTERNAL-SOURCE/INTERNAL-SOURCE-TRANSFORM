@@ -20,7 +20,7 @@ public class DocumentParserTests
         var parsedDocument = DocParser.Revive(rawDocument);
         
         // Then
-        Assert.AreEqual(45, parsedDocument["1"]);
+        Assert.That(parsedDocument["1"], Is.EqualTo(45));
     }
     
     [Test]
@@ -33,7 +33,7 @@ public class DocumentParserTests
         var parsedDocument = DocParser.Revive(rawDocument);
         
         // Then
-        Assert.AreEqual(45.5, parsedDocument["1"]);
+        Assert.That(parsedDocument["1"], Is.EqualTo(45.5));
     }
 
 
@@ -47,7 +47,7 @@ public class DocumentParserTests
         var parsedDocument = DocParser.Revive(rawDocument);
         
         // Then
-        Assert.AreEqual("Gare de Yverdon-les-Bains", parsedDocument["1"]);
+        Assert.That(parsedDocument["1"], Is.EqualTo("Gare de Yverdon-les-Bains"));
     }
     
     [Test]
@@ -60,7 +60,7 @@ public class DocumentParserTests
         var parsedDocument = DocParser.Revive(rawDocument);
         
         // Then
-        Assert.AreEqual(new List<string> {"Gare de Yverdon-les-Bains", "Gare de Lausanne"}, parsedDocument["1"]);
+        Assert.That(parsedDocument["1"], Is.EqualTo(new List<string> {"Gare de Yverdon-les-Bains", "Gare de Lausanne"}));
     }
     
     [Test]
@@ -73,8 +73,8 @@ public class DocumentParserTests
         var parsedDocument = DocParser.Revive(rawDocument);
         
         // Then
-        Assert.AreEqual(new List<string> {"Gare de Yverdon-les-Bains", "Gare de Lausanne"}, parsedDocument["1"]);
-        Assert.AreEqual(83, parsedDocument["2"]);
-        Assert.AreEqual(4.5, parsedDocument["3"]);
+        Assert.That(parsedDocument["1"], Is.EqualTo(new List<string> {"Gare de Yverdon-les-Bains", "Gare de Lausanne"}));
+        Assert.That(parsedDocument["2"], Is.EqualTo(83));
+        Assert.That(parsedDocument["3"], Is.EqualTo(4.5));
     }
 }
