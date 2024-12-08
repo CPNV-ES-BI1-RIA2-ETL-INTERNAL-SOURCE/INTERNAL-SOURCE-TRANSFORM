@@ -20,7 +20,7 @@ namespace BusinessTransformerTests
         public void Transform_SimpleTrainStationWithoutDepartures_InformationIsCorrectlyMapped()
         {
             // Given: A valid DeparturesDocument from the Document Parser
-            var departuresDocument = new DeparturesDocument("Station A", "2024-10-12", "2024-10-19", new List<DepartureHour>(), new Dictionary<int, string>());
+            var departuresDocument = new DeparturesDocument("Station A", "2024-10-12", "2024-10-19", new List<DepartureHour>());
 
             // When: The API is called to transform the parsed document
             var trainStation = _transformer.Transform(departuresDocument);
@@ -36,10 +36,7 @@ namespace BusinessTransformerTests
         public void Transform_TrainStationWithMondaySymbol_DepartureOnlyPresentOnMondays()
         {
             // Given: A DeparturesDocument for one week with departure tagged with '1' sign (only Mondays)
-            var departuresDocument = new DeparturesDocument("Station A", "2024-10-12", "2024-10-19", new List<DepartureHour>(), new Dictionary<int, string>
-            {
-                { 1, "Monday Only" }
-            });
+            var departuresDocument = new DeparturesDocument("Station A", "2024-10-12", "2024-10-19", new List<DepartureHour>());
 
             // When: The transformation is performed
             var trainStation = _transformer.Transform(departuresDocument);
@@ -61,7 +58,7 @@ namespace BusinessTransformerTests
             var formattedEndInFrench = GetFormattedDate(endDateTime);
 
             var departureDocument = new DeparturesDocument("Station A", formattedStartInFrench, formattedEndInFrench, 
-                CreateDepartureHours(hours), new Dictionary<int, string>());
+                CreateDepartureHours(hours));
 
             // When: The transformation is performed
             var trainStation = _transformer.Transform(departureDocument);
@@ -77,7 +74,7 @@ namespace BusinessTransformerTests
         private DepartureHour CreateFakeDepartureHour(int hour)
         {
             List<int> minutes = new List<int> { 0, 15, 30, 45 };
-            List<Departure> departures = minutes.Select(minute => new Departure("City C", new List<string>{ "City A", "City B"}, minute, "IC5", "13", "A", new List<int>())).ToList();
+            List<Departure> departures = minutes.Select(minute => new Departure("City C", new List<string>{ "City A", "City B"}, minute, "IC5", "13", "A", new List<string>())).ToList();
             return new DepartureHour(hour, departures);
         }
         
