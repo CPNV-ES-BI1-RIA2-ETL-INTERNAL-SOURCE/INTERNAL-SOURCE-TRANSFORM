@@ -27,8 +27,7 @@ namespace BusinessTransformerTests
 
             // Then: A valid TrainStation object is returned with correctly mapped fields and nested structures
             Assert.IsNotNull(trainStation);
-            Assert.That(trainStation.Name, Is.EqualTo("Gare de Yverdon-les-Bains"));
-            Assert.That(trainStation.City.Name, Is.EqualTo("Yverdon-les-Bains"));
+            Assert.That(trainStation.Name, Is.EqualTo("Yverdon-les-Bains"));
             Assert.IsEmpty(trainStation.Departures);
         }
 
@@ -74,8 +73,8 @@ namespace BusinessTransformerTests
             Assert.That(trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Tuesday).Count, Is.EqualTo(1));
             trainStation.Departures.ForEach(d =>
             {
-                Assert.That(d.DestinationCity, Is.EqualTo(new City("City C")));
-                Assert.That(d.Vias, Is.EquivalentTo(new List<string>{ "City A", "City B"}));
+                Assert.That(d.DepartureStationName, Is.EqualTo("City C"));
+                Assert.That(d.ViaStationNames, Is.EquivalentTo(new List<string>{ "City A", "City B"}));
                 Assert.That(d.DepartureTime.Hour, Is.EqualTo(9));
                 Assert.That(d.DepartureTime.Minute, Is.EqualTo(2));
                 Assert.That(d.DepartureTime.Second, Is.EqualTo(0));
@@ -107,8 +106,8 @@ namespace BusinessTransformerTests
             Assert.That(trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Tuesday).Count, Is.EqualTo(1));
             trainStation.Departures.ForEach(d =>
             {
-                Assert.That(d.DestinationCity, Is.EqualTo(new City("City C")));
-                Assert.That(d.Vias, Is.EquivalentTo(new List<string>{ "City A", "City B"}));
+                Assert.That(d.DestinationStationName, Is.EqualTo("City C"));
+                Assert.That(d.ViaStationNames, Is.EquivalentTo(new List<string>{ "City A", "City B"}));
                 Assert.That(d.DepartureTime.Hour, Is.EqualTo(10));
                 Assert.That(d.DepartureTime.Minute, Is.EqualTo(59));
                 Assert.That(d.DepartureTime.Second, Is.EqualTo(0));
