@@ -20,15 +20,15 @@ namespace BusinessTransformerTests
         public void Transform_SimpleTrainStationWithoutDepartures_InformationIsCorrectlyMapped()
         {
             // Given: A valid DeparturesDocument from the Document Parser
-            var departuresDocument = new DeparturesDocument("Station A", GetFormattedDate(new DateTime(2024, 12, 10)), GetFormattedDate(new DateTime(2024, 12, 16)), new List<DepartureHour>());
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)), GetFormattedDate(new DateTime(2024, 12, 16)), new List<DepartureHour>());
 
             // When: The API is called to transform the parsed document
             var trainStation = _transformer.Transform(departuresDocument);
 
             // Then: A valid TrainStation object is returned with correctly mapped fields and nested structures
             Assert.IsNotNull(trainStation);
-            Assert.That(trainStation.Name, Is.EqualTo("Station A"));
-            Assert.That(trainStation.City.Name, Is.EqualTo("City A"));
+            Assert.That(trainStation.Name, Is.EqualTo("Gare de Yverdon-les-Bains"));
+            Assert.That(trainStation.City.Name, Is.EqualTo("Yverdon-les-Bains"));
             Assert.IsEmpty(trainStation.Departures);
         }
 
@@ -36,7 +36,7 @@ namespace BusinessTransformerTests
         public void Transform_TrainStationWithMondaySymbol_DepartureOnlyPresentOnMondaysAndWednesdays()
         {
             // Given: A DeparturesDocument for one week with departure tagged with '#1' ans '#3' sign (only Mondays and Wednesdays)
-            var departuresDocument = new DeparturesDocument("Station A", GetFormattedDate(new DateTime(2024, 12, 10)), GetFormattedDate(new DateTime(2024, 12, 16)), new List<DepartureHour>
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)), GetFormattedDate(new DateTime(2024, 12, 16)), new List<DepartureHour>
             {
                 new DepartureHour(10, new List<Departure>
                 {
@@ -57,12 +57,12 @@ namespace BusinessTransformerTests
         [Test]
         public void Transform_TrainStationWithDeparture_DepartureInfoTransformed()
         {
-            // Given: A DeparturesDocument for one week with departure tagged with '#bike' sign
-            var departuresDocument = new DeparturesDocument("Station A", GetFormattedDate(new DateTime(2024, 12, 10)), GetFormattedDate(new DateTime(2024, 12, 16)), new List<DepartureHour>
+            // Given: A DeparturesDocument for one week with departure tagged with bike sign
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)), GetFormattedDate(new DateTime(2024, 12, 16)), new List<DepartureHour>
             {
                 new DepartureHour(9, new List<Departure>
                 {
-                    new Departure("City C", new List<string>{ "City A", "City B"}, 02, "IC5", "13", "A", new List<string>{ "#bike" }),
+                    new Departure("City C", new List<string>{ "City A", "City B"}, 02, "IC5", "13", "A", new List<string>{ "#vélo" }),
                 }),
             });
 
@@ -90,12 +90,12 @@ namespace BusinessTransformerTests
         [Test]
         public void Transform_TrainStationWithNightDeparture_DepartureInfoTransformed()
         {
-            // Given: A DeparturesDocument for one week with departure tagged with '#bike' sign
-            var departuresDocument = new DeparturesDocument("Station A", GetFormattedDate(new DateTime(2024, 12, 10)), GetFormattedDate(new DateTime(2024, 12, 16)), new List<DepartureHour>
+            // Given: A DeparturesDocument for one week with departure tagged with night sign
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)), GetFormattedDate(new DateTime(2024, 12, 16)), new List<DepartureHour>
             {
                 new DepartureHour(10, new List<Departure>
                 {
-                    new Departure("City C", new List<string>{ "City A", "City B"}, 59, "R20", "12", "B", new List<string>{ "#night" }),
+                    new Departure("City C", new List<string>{ "City A", "City B"}, 59, "R20", "12", "B", new List<string>{ "#nuit" }),
                 }),
             });
 
@@ -131,7 +131,7 @@ namespace BusinessTransformerTests
             var formattedStartInFrench = GetFormattedDate(startDateTime);
             var formattedEndInFrench = GetFormattedDate(endDateTime);
 
-            var departureDocument = new DeparturesDocument("Station A", formattedStartInFrench, formattedEndInFrench, 
+            var departureDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", formattedStartInFrench, formattedEndInFrench, 
                 CreateDepartureHours(hours));
 
             // When: The transformation is performed
