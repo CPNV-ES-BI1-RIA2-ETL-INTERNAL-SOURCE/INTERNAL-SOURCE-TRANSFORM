@@ -203,6 +203,40 @@ namespace BusinessTransformerTests
             // Then: The station name should have all prefixes removed
             Assert.That(trainStation.Name, Is.EqualTo("Lausanne"));
         }
+        
+        [Test]
+        public void Transform_StationNameWithFrenchPrefix_PrefixIsRemoved()
+        {
+            // Given: A DeparturesDocument with a station name containing the French prefix "Gare de"
+            var departuresDocument = new DeparturesDocument(
+                "Gare de Yverdon-Champ Pittet", 
+                GetFormattedDate(new DateTime(2024, 12, 10)), 
+                GetFormattedDate(new DateTime(2024, 12, 16)), 
+                new List<DepartureHour>());
+
+            // When: Transformation is performed
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: The station name should have the prefix "Gare de" removed but not based on space (cause station name be a composite name)
+            Assert.That(trainStation.Name, Is.EqualTo("Yverdon-Champ Pittet"));
+        }
+        
+        [Test]
+        public void Transform_StationNameWithItalianPrefix_PrefixIsRemoved()
+        {
+            // Given: A DeparturesDocument with a station name containing the Italian prefix "Stazione di"
+            var departuresDocument = new DeparturesDocument(
+                "Stazione di Locarno", 
+                GetFormattedDate(new DateTime(2024, 12, 10)), 
+                GetFormattedDate(new DateTime(2024, 12, 16)), 
+                new List<DepartureHour>());
+
+            // When: Transformation is performed
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: The station name should have the prefix "Stazione di" removed
+            Assert.That(trainStation.Name, Is.EqualTo("Locarno"));
+        }
 
         [Test]
         public void Transform_DepartureWithInvalidDateRange_NoDeparturesAreAdded()
