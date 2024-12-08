@@ -20,7 +20,7 @@ namespace BusinessTransformerTests
         public void Transform_SimpleTrainStationWithoutDepartures_InformationIsCorrectlyMapped()
         {
             // Given: A valid DeparturesDocument from the Document Parser
-            var departuresDocument = new DeparturesDocument("Station A", "2024-10-12", "2024-10-19", new List<DepartureHour>());
+            var departuresDocument = new DeparturesDocument("Station A", GetFormattedDate(new DateTime(2024, 12, 10)), GetFormattedDate(new DateTime(2024, 12, 16)), new List<DepartureHour>());
 
             // When: The API is called to transform the parsed document
             var trainStation = _transformer.Transform(departuresDocument);
@@ -36,14 +36,16 @@ namespace BusinessTransformerTests
         public void Transform_TrainStationWithMondaySymbol_DepartureOnlyPresentOnMondays()
         {
             // Given: A DeparturesDocument for one week with departure tagged with '1' sign (only Mondays)
-            var departuresDocument = new DeparturesDocument("Station A", "2024-10-12", "2024-10-19", new List<DepartureHour>());
+            var departuresDocument = new DeparturesDocument("Station A", GetFormattedDate(new DateTime(2024, 12, 10)), GetFormattedDate(new DateTime(2024, 12, 16)), CreateDepartureHours(new List<int>(10)));
 
             // When: The transformation is performed
             var trainStation = _transformer.Transform(departuresDocument);
 
             // Then: The specific departure is present only on Mondays
             var mondayDepartures = trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Monday).ToList();
-            Assert.That(mondayDepartures.Count, Is.EqualTo(1));
+            Assert.That(mondayDepartures.Count, Is.EqualTo(4));
+            var tuesdayDepartures = trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Tuesday).ToList();
+            Assert.That(tuesdayDepartures.Count, Is.EqualTo(0));
         }
 
         [Test]
@@ -90,12 +92,10 @@ namespace BusinessTransformerTests
             var departureHours = new List<DepartureHour>();
             foreach (var hour in hours)
             {
-                departureHours.Add(CreateFakeDepartureHour(hour)); // Assuming CreateFakeDepartureHour is a method to create fake DepartureHour objects
+                departureHours.Add(CreateFakeDepartureHour(hour));
             }
             return departureHours;
         }
-
-        //, List<BusinessTransformer.Records.Departure> departures
         
         // Helper method to validate departure times for a given range of dates and hours
         private List<DateTime> GetDateTimeWithIntervals(DateTime startDateTime, DateTime endDateTime, List<int> hours, List<int> minutes)
@@ -115,6 +115,5 @@ namespace BusinessTransformerTests
             }
             return departureTimes;
         }
-
     }
 }
