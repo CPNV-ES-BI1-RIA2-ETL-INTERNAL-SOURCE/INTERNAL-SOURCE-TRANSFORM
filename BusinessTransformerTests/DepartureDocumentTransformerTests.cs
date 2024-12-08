@@ -73,7 +73,7 @@ namespace BusinessTransformerTests
             Assert.That(trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Tuesday).Count, Is.EqualTo(1));
             trainStation.Departures.ForEach(d =>
             {
-                Assert.That(d.DepartureStationName, Is.EqualTo("City C"));
+                Assert.That(d.DepartureStationName, Is.EqualTo("Yverdon-les-Bains"));
                 Assert.That(d.ViaStationNames, Is.EquivalentTo(new List<string>{ "City A", "City B"}));
                 Assert.That(d.DepartureTime.Hour, Is.EqualTo(9));
                 Assert.That(d.DepartureTime.Minute, Is.EqualTo(2));
