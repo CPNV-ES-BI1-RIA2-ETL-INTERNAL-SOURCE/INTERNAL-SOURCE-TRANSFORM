@@ -33,19 +33,91 @@ namespace BusinessTransformerTests
         }
 
         [Test]
-        public void Transform_TrainStationWithMondaySymbol_DepartureOnlyPresentOnMondays()
+        public void Transform_TrainStationWithMondaySymbol_DepartureOnlyPresentOnMondaysAndWednesdays()
         {
-            // Given: A DeparturesDocument for one week with departure tagged with '1' sign (only Mondays)
-            var departuresDocument = new DeparturesDocument("Station A", GetFormattedDate(new DateTime(2024, 12, 10)), GetFormattedDate(new DateTime(2024, 12, 16)), CreateDepartureHours(new List<int>(10)));
+            // Given: A DeparturesDocument for one week with departure tagged with '#1' ans '#3' sign (only Mondays and Wednesdays)
+            var departuresDocument = new DeparturesDocument("Station A", GetFormattedDate(new DateTime(2024, 12, 10)), GetFormattedDate(new DateTime(2024, 12, 16)), new List<DepartureHour>
+            {
+                new DepartureHour(10, new List<Departure>
+                {
+                    new Departure("City C", new List<string>{ "City A", "City B"}, 10, "IC5", "13", "A", new List<string>{ "#1", "#3" }),
+                }),
+            });
 
             // When: The transformation is performed
             var trainStation = _transformer.Transform(departuresDocument);
 
             // Then: The specific departure is present only on Mondays
-            var mondayDepartures = trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Monday).ToList();
-            Assert.That(mondayDepartures.Count, Is.EqualTo(4));
-            var tuesdayDepartures = trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Tuesday).ToList();
-            Assert.That(tuesdayDepartures.Count, Is.EqualTo(0));
+            Assert.That(trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Monday).Count, Is.EqualTo(1));
+            Assert.That(trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Tuesday).Count, Is.EqualTo(0));
+            Assert.That(trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Wednesday).Count, Is.EqualTo(1));
+            Assert.That(trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Thursday).Count, Is.EqualTo(0));
+        }
+        
+        [Test]
+        public void Transform_TrainStationWithDeparture_DepartureInfoTransformed()
+        {
+            // Given: A DeparturesDocument for one week with departure tagged with '#bike' sign
+            var departuresDocument = new DeparturesDocument("Station A", GetFormattedDate(new DateTime(2024, 12, 10)), GetFormattedDate(new DateTime(2024, 12, 16)), new List<DepartureHour>
+            {
+                new DepartureHour(9, new List<Departure>
+                {
+                    new Departure("City C", new List<string>{ "City A", "City B"}, 02, "IC5", "13", "A", new List<string>{ "#bike" }),
+                }),
+            });
+
+            // When: The transformation is performed
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: The specific departure is present only on Mondays
+            Assert.That(trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Monday).Count, Is.EqualTo(1));
+            Assert.That(trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Tuesday).Count, Is.EqualTo(1));
+            trainStation.Departures.ForEach(d =>
+            {
+                Assert.That(d.DestinationCity, Is.EqualTo(new City("City C")));
+                Assert.That(d.Vias, Is.EquivalentTo(new List<string>{ "City A", "City B"}));
+                Assert.That(d.DepartureTime.Hour, Is.EqualTo(9));
+                Assert.That(d.DepartureTime.Minute, Is.EqualTo(2));
+                Assert.That(d.DepartureTime.Second, Is.EqualTo(0));
+                Assert.That(d.Train, Is.EqualTo(new Train("IC", "5")));
+                Assert.That(d.Platform, Is.EqualTo("13"));
+                Assert.That(d.Sector, Is.EqualTo("A"));
+                Assert.That(d.IsBikeReservationRequired, Is.EqualTo(true));
+                Assert.That(d.IsNight, Is.EqualTo(false));
+            });
+        }
+        
+        [Test]
+        public void Transform_TrainStationWithNightDeparture_DepartureInfoTransformed()
+        {
+            // Given: A DeparturesDocument for one week with departure tagged with '#bike' sign
+            var departuresDocument = new DeparturesDocument("Station A", GetFormattedDate(new DateTime(2024, 12, 10)), GetFormattedDate(new DateTime(2024, 12, 16)), new List<DepartureHour>
+            {
+                new DepartureHour(10, new List<Departure>
+                {
+                    new Departure("City C", new List<string>{ "City A", "City B"}, 59, "R20", "12", "B", new List<string>{ "#night" }),
+                }),
+            });
+
+            // When: The transformation is performed
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: The specific departure is present only on Mondays
+            Assert.That(trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Monday).Count, Is.EqualTo(1));
+            Assert.That(trainStation.Departures.Where(d => d.DepartureTime.DayOfWeek == DayOfWeek.Tuesday).Count, Is.EqualTo(1));
+            trainStation.Departures.ForEach(d =>
+            {
+                Assert.That(d.DestinationCity, Is.EqualTo(new City("City C")));
+                Assert.That(d.Vias, Is.EquivalentTo(new List<string>{ "City A", "City B"}));
+                Assert.That(d.DepartureTime.Hour, Is.EqualTo(10));
+                Assert.That(d.DepartureTime.Minute, Is.EqualTo(59));
+                Assert.That(d.DepartureTime.Second, Is.EqualTo(0));
+                Assert.That(d.Train, Is.EqualTo(new Train("R", "20")));
+                Assert.That(d.Platform, Is.EqualTo("12"));
+                Assert.That(d.Sector, Is.EqualTo("B"));
+                Assert.That(d.IsBikeReservationRequired, Is.EqualTo(false));
+                Assert.That(d.IsNight, Is.EqualTo(true));
+            });
         }
 
         [Test]
