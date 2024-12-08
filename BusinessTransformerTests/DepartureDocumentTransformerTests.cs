@@ -144,6 +144,113 @@ namespace BusinessTransformerTests
             }
         }
         
+        [Test]
+        public void Transform_EmptyDepartureHours_NoDeparturesInTrainStation()
+        {
+            // Given: A DeparturesDocument with no departure hours
+            var departuresDocument = new DeparturesDocument(
+                "Gare de Lausanne", 
+                GetFormattedDate(new DateTime(2024, 12, 1)), 
+                GetFormattedDate(new DateTime(2024, 12, 7)), 
+                new List<DepartureHour>());
+
+            // When: Transformation is performed
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: The TrainStation object should have no departures
+            Assert.That(trainStation.Departures, Is.Empty);
+        }
+
+        [Test]
+        public void Transform_DepartureWithMultipleOptionalSpecs_CorrectFlagsAreSet()
+        {
+            // Given: A DeparturesDocument with a departure containing both night and bike reservation specs
+            var departuresDocument = new DeparturesDocument(
+                "Gare de Genève", 
+                GetFormattedDate(new DateTime(2024, 12, 5)), 
+                GetFormattedDate(new DateTime(2024, 12, 5)), 
+                new List<DepartureHour>
+                {
+                    new DepartureHour(22, new List<Departure>
+                    {
+                        new Departure("City X", new List<string>{ "City Y" }, 45, "IC5", "1", "A", new List<string>{ "#nuit", "#vélo" })
+                    })
+                });
+
+            // When: Transformation is performed
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: Validate that both night and bike reservation flags are true
+            Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
+            var departure = trainStation.Departures.First();
+            Assert.That(departure.IsNight, Is.True);
+            Assert.That(departure.IsBikeReservationRequired, Is.True);
+        }
+
+        [Test]
+        public void Transform_TrainStationNameWithMultiplePrefixes_PrefixesAreRemoved()
+        {
+            // Given: A DeparturesDocument with a station name containing multiple prefixes
+            var departuresDocument = new DeparturesDocument(
+                "Bahnhof/Station/Gare de Lausanne", 
+                GetFormattedDate(new DateTime(2024, 12, 10)), 
+                GetFormattedDate(new DateTime(2024, 12, 16)), 
+                new List<DepartureHour>());
+
+            // When: Transformation is performed
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: The station name should have all prefixes removed
+            Assert.That(trainStation.Name, Is.EqualTo("Lausanne"));
+        }
+
+        [Test]
+        public void Transform_DepartureWithInvalidDateRange_NoDeparturesAreAdded()
+        {
+            // Given: A DeparturesDocument with an invalid date range (fromDate > toDate)
+            var departuresDocument = new DeparturesDocument(
+                "Gare de Fribourg", 
+                GetFormattedDate(new DateTime(2024, 12, 20)), 
+                GetFormattedDate(new DateTime(2024, 12, 15)), 
+                new List<DepartureHour>
+                {
+                    CreateFakeDepartureHour(10)
+                });
+
+            // When: Transformation is performed
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: The TrainStation object should have no departures
+            Assert.That(trainStation.Departures, Is.Empty);
+        }
+
+        [Test]
+        public void Transform_DepartureWithUnrecognizedTrainFormat_DefaultTrainValuesAreSet()
+        {
+            // Given: A DeparturesDocument with an unrecognized train format
+            var departuresDocument = new DeparturesDocument(
+                "Gare de Lausanne", 
+                GetFormattedDate(new DateTime(2024, 12, 10)), 
+                GetFormattedDate(new DateTime(2024, 12, 10)), 
+                new List<DepartureHour>
+                {
+                    new DepartureHour(15, new List<Departure>
+                    {
+                        new Departure("City Z", new List<string>(), 30, "UNKNOWN", "5", "C", new List<string>())
+                    })
+                });
+
+            // When: Transformation is performed
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: Default train values should be used
+            Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
+            var departure = trainStation.Departures.First();
+            Assert.That(departure.Train.G, Is.EqualTo("UNKNOWN"));
+            Assert.That(departure.Train.L, Is.Null);
+        }
+
+        
         private DepartureHour CreateFakeDepartureHour(int hour)
         {
             List<int> minutes = new List<int> { 0, 15, 30, 45 };
