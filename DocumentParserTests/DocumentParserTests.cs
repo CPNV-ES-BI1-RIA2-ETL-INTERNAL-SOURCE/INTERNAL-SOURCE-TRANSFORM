@@ -1,3 +1,6 @@
+using DocParser = DocumentParser.DocumentParser;
+
+
 namespace DocumentParserTests;
 
 public class DocumentParserTests
@@ -14,7 +17,7 @@ public class DocumentParserTests
         string rawDocument = "{\"content\": {\"1\": 45}}";
 
         // When
-        var parsedDocument = DocumentParser.revive(rawDocument);
+        var parsedDocument = DocParser.Revive(rawDocument);
         
         // Then
         Assert.AreEqual(45, parsedDocument["1"]);
@@ -27,7 +30,7 @@ public class DocumentParserTests
         string rawDocument = "{\"content\": {\"1\": 45.5}}";
 
         // When
-        var parsedDocument = DocumentParser.revive(rawDocument);
+        var parsedDocument = DocParser.Revive(rawDocument);
         
         // Then
         Assert.AreEqual(45.5, parsedDocument["1"]);
@@ -41,7 +44,7 @@ public class DocumentParserTests
         string rawDocument = "{\"content\": {\"1\": \"Gare de Yverdon-les-Bains\"}}";
 
         // When
-        var parsedDocument = DocumentParser.revive(rawDocument);
+        var parsedDocument = DocParser.Revive(rawDocument);
         
         // Then
         Assert.AreEqual("Gare de Yverdon-les-Bains", parsedDocument["1"]);
@@ -54,7 +57,7 @@ public class DocumentParserTests
         var rawDocument = "{\"content\": {\"1\": [\"Gare de Yverdon-les-Bains\", \"Gare de Lausanne\"]}}";
         
         // When
-        var parsedDocument = DocumentParser.revive(rawDocument);
+        var parsedDocument = DocParser.Revive(rawDocument);
         
         // Then
         Assert.AreEqual(new List<string> {"Gare de Yverdon-les-Bains", "Gare de Lausanne"}, parsedDocument["1"]);
@@ -67,7 +70,7 @@ public class DocumentParserTests
         var rawDocument = "{\"content\": {\"1\": [\"Gare de Yverdon-les-Bains\", \"Gare de Lausanne\"], \"2\": 83, \"3\": 4.5}}";
         
         // When
-        var parsedDocument = DocumentParser.revive(rawDocument);
+        var parsedDocument = DocParser.Revive(rawDocument);
         
         // Then
         Assert.AreEqual(new List<string> {"Gare de Yverdon-les-Bains", "Gare de Lausanne"}, parsedDocument["1"]);
