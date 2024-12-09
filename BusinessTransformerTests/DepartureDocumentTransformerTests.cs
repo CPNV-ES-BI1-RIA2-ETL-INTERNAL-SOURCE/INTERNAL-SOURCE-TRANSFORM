@@ -30,6 +30,17 @@ namespace BusinessTransformerTests
             Assert.That(trainStation.Name, Is.EqualTo("Yverdon-les-Bains"));
             Assert.IsEmpty(trainStation.Departures);
         }
+        
+        [Test]
+        public void Transform_InvalidDate_ThrowInvalidArgumentException()
+        {
+            // Given: A DeparturesDocument with invalid date format
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "NOT A DATE", "2024-12-16", new List<DepartureHour>());
+
+            // When: The API is called to transform the parsed document
+            // Then: An exception is thrown
+            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument));
+        }
 
         [Test]
         public void Transform_TrainStationWithMondaySymbol_DepartureOnlyPresentOnMondaysAndWednesdays()
