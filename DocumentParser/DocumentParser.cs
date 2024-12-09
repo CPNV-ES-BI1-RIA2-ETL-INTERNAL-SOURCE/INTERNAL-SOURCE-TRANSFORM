@@ -27,21 +27,24 @@ public class DocumentParser
 
         foreach (var keyValue in json)
         {
-            var value = keyValue.Value;
-
-            object? convertedValue = value.ValueKind switch
-            {
-                JsonValueKind.Number when value.TryGetInt32(out var intValue) => intValue,
-                JsonValueKind.Number when value.TryGetDouble(out var doubleValue) => doubleValue,
-                JsonValueKind.String => value.GetString(),
-                JsonValueKind.Array => value.EnumerateArray().Select(elem => elem.ValueKind == JsonValueKind.String ? elem.GetString() : elem.ToString()).ToList(),
-                JsonValueKind.True => true,
-                JsonValueKind.False => false,
-                _ => value
-            };
-
-            result[keyValue.Key] = convertedValue ?? "null";
+            result[keyValue.Key] = ConvertValue(keyValue) ?? keyValue.Value.ToString();
         }
+
         return result;
+    }
+
+    private static object? ConvertValue(KeyValuePair<string, JsonElement> keyValue)
+    {
+        var value = keyValue.Value;
+        return value.ValueKind switch
+        {
+            JsonValueKind.Number when value.TryGetInt32(out var intValue) => intValue,
+            JsonValueKind.Number when value.TryGetDouble(out var doubleValue) => doubleValue,
+            JsonValueKind.String => value.GetString(),
+            JsonValueKind.Array => value.EnumerateArray().Select(elem => elem.ValueKind == JsonValueKind.String ? elem.GetString() : elem.ToString()).ToList(),
+            JsonValueKind.True => true,
+            JsonValueKind.False => false,
+            _ => value
+        };
     }
 }
