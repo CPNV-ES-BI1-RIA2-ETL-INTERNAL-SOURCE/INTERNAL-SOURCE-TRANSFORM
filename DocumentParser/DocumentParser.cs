@@ -23,28 +23,25 @@ public class DocumentParser
 
     private static Dictionary<string, object> CreateDictionary(Dictionary<string, JsonElement> json)
     {
-        var result = new Dictionary<string, object>();
-
-        foreach (var keyValue in json)
-        {
-            result[keyValue.Key] = ConvertValue(keyValue) ?? keyValue.Value.ToString();
-        }
-
-        return result;
+        return json.ToDictionary(
+            kvp => kvp.Key,
+            kvp => ConvertValue(kvp.Value) ?? kvp.Value.ToString()
+        );
     }
 
-    private static object? ConvertValue(KeyValuePair<string, JsonElement> keyValue)
+    private static object? ConvertValue(JsonElement element)
     {
-        var value = keyValue.Value;
-        return value.ValueKind switch
+        return element.ValueKind switch
         {
-            JsonValueKind.Number when value.TryGetInt32(out var intValue) => intValue,
-            JsonValueKind.Number when value.TryGetDouble(out var doubleValue) => doubleValue,
-            JsonValueKind.String => value.GetString(),
-            JsonValueKind.Array => value.EnumerateArray().Select(elem => elem.ValueKind == JsonValueKind.String ? elem.GetString() : elem.ToString()).ToList(),
+            JsonValueKind.Object => element.EnumerateObject().ToDictionary(property => property.Name, property => ConvertValue(property.Value)),
+            JsonValueKind.Array => element.EnumerateArray().Select(ConvertValue).ToList(),
+            JsonValueKind.String => element.GetString(),
+            JsonValueKind.Number when element.TryGetInt32(out var intValue) => intValue,
+            JsonValueKind.Number => element.GetDouble(),
             JsonValueKind.True => true,
             JsonValueKind.False => false,
-            _ => value
+            JsonValueKind.Null => null,
+            _ => element.ToString()
         };
     }
 }
