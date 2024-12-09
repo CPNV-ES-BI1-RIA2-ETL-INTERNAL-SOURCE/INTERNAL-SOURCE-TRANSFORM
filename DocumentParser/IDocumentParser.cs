@@ -1,23 +1,23 @@
+using CommonInterfaces.DocumentsRelated;
+
 namespace DocumentParser;
 
 /// <summary>
 /// Interface for the DocumentParser
 /// </summary>
-/// <typeparam name="TInput">The type of the input document.</typeparam>
-/// <typeparam name="TOutput">The type / structure of the object to output.</typeparam>
-public interface IDocumentParser<TInput, TOutput>
+public interface IDocumentParser
 {
     /// <summary>
-    /// Parse the input (json businessless structure) to the output object.
+    /// Parse the input (single string) to returns a formated json.
     /// </summary>
-    /// <param name="input">The input document (json) to parse (json with a "visual" hierarchical structure).</param>
-    /// <returns>An instance of the object with a minimal business structure</returns>
-    TOutput Parse(TInput input);
+    /// <param name="rawDocument">The input document (as string) with specific patterns (Ex. tables rows are sepparated by min 3 spaces)</param>
+    /// <returns>A formated json (key: value)</returns>
+    string Parse(string rawDocument);
 
     /// <summary>
-    /// Unserialize the input (json businessless structure) to an instance.
+    /// Unserialize the json to a business instance.
     /// </summary>
-    /// <param name="input">The input document (json) to parse (json with a "visual" hierarchical structure).</param>
-    /// <returns>An instance of the object with no business structure</returns>
-    object Revive(TInput input);
+    /// <param name="jsonDocument">The json document like the returns of the previous Parse method.</param>
+    /// <returns>An instance of DeparturesDocument business structure</returns>
+    DeparturesDocument Revive(string jsonDocument);
 }
