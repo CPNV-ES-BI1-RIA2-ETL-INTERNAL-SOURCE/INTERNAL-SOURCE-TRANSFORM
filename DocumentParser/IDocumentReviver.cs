@@ -1,0 +1,15 @@
+namespace DocumentParser;
+
+/// <summary>
+/// Interface for the DocumentReviver
+/// </summary>
+/// <typeparam name="TOutput">The type / structure of the object to output.</typeparam>
+public interface IDocumentReviver<TOutput>
+{
+    /// <summary>
+    /// Unserialize the json to a business instance.
+    /// </summary>
+    /// <param name="jsonDocument">The json document structured in a business way.</param>
+    /// <returns>An instance of the want (TOutput) object</returns>
+    TOutput Revive(string jsonDocument);
+}
