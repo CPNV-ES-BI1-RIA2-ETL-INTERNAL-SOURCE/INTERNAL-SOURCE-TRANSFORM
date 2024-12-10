@@ -4,23 +4,23 @@ using DeparturesDocument = CommonInterfaces.DocumentsRelated.DeparturesDocument;
 
 
 namespace DocumentParser;
-public class DocumentParser {
+public class DocumentParser: IDocumentParser {
     const string tableColumnSeparator = "   ";
 
-    public static string Parse(string rawDocument) {
+    public string Parse(string rawDocument) {
         var lines = ParseLines(rawDocument);
         var result = ProcessLines(lines);
         return JsonSerializer.Serialize(result);
     }
     
-    private static List<string> ParseLines(string rawDocument) {
+    private List<string> ParseLines(string rawDocument) {
         return rawDocument
             .Split('\n', StringSplitOptions.RemoveEmptyEntries)
             .Select(line => line.Trim())
             .ToList();
     }
 
-    private static List<object> ProcessLines(List<string> lines) {
+    private List<object> ProcessLines(List<string> lines) {
         var result = new List<object>();
         var tableHeaders = new List<string>();
         var tableRows = new List<Dictionary<string, string>>();
@@ -52,7 +52,7 @@ public class DocumentParser {
         return result;
     }
 
-    private static Dictionary<string, string> ParseDataRow(string dataLine, List<string> headers, List<int> columnStarts) {
+    private Dictionary<string, string> ParseDataRow(string dataLine, List<string> headers, List<int> columnStarts) {
         var row = new Dictionary<string, string>();
 
         for (var i = 0; i < headers.Count; i++)  {
@@ -65,7 +65,7 @@ public class DocumentParser {
         return row;
     }
 
-    public static DeparturesDocument Revive(string rawDocument) {
+    public DeparturesDocument Revive(string rawDocument) {
         throw new NotImplementedException();
     }
 }
