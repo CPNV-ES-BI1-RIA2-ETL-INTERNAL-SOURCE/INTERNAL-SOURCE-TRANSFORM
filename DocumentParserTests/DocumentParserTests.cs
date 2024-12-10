@@ -1,9 +1,18 @@
-using DocParser = DocumentParser.DocumentParser;
+using _documentParser = DocumentParser.DocumentParser;
+using IDocumentParser = DocumentParser.IDocumentParser;
 
 namespace DocumentParserTests;
 
 public class DocumentParserTests
 {  
+    private IDocumentParser _documentParser;
+
+    [SetUp]
+    public void Setup()
+    {
+        _documentParser = new _documentParser();
+    }
+    
     [Test]
     public void Revive_SingleString()
     {
@@ -11,7 +20,7 @@ public class DocumentParserTests
         string rawDocument = "Gare de Yverdon-les-Bains";
 
         // When
-        var parsedDocument = DocParser.Parse(rawDocument);
+        var parsedDocument = _documentParser.Parse(rawDocument);
 
         // Then
         Assert.That(parsedDocument,Is.EqualTo("[\"Gare de Yverdon-les-Bains\"]"));
@@ -24,7 +33,7 @@ public class DocumentParserTests
         string rawDocument = "Heure de départ        Ligne    Destination         Vias                                              Voie\n";
 
         // When
-        var parsedDocument = DocParser.Parse(rawDocument);
+        var parsedDocument = _documentParser.Parse(rawDocument);
 
         // Then
         Assert.That(parsedDocument,Is.EqualTo("[]"));
@@ -39,7 +48,7 @@ public class DocumentParserTests
                              " 16 45                  IC 5     Genève Aéroport     Morges                                            2";
 
         // When
-        var parsedDocument = DocParser.Parse(rawDocument);
+        var parsedDocument = _documentParser.Parse(rawDocument);
 
         // Then
         Assert.That(parsedDocument,Is.EqualTo("[[{\"Heure de d\\u00E9part\":\"8 00\",\"Ligne\":\"IC 5\",\"Destination\":\"Lausanne\",\"Vias\":\"\",\"Voie\":\"2\"},{\"Heure de d\\u00E9part\":\"16 45\",\"Ligne\":\"IC 5\",\"Destination\":\"Gen\\u00E8ve A\\u00E9roport\",\"Vias\":\"Morges\",\"Voie\":\"2\"}]]"));
@@ -58,7 +67,7 @@ public class DocumentParserTests
                              "Départ pour le 9 décembre 2024\n";
 
         // When
-        var parsedDocument = DocParser.Parse(rawDocument);
+        var parsedDocument = _documentParser.Parse(rawDocument);
 
         // Then
         Assert.That(parsedDocument,Is.EqualTo("[\"Gare de Yverdon-les-Bains\",[{\"Heure de d\\u00E9part\":\"8 00\",\"Ligne\":\"IC 5\",\"Destination\":\"Lausanne\",\"Vias\":\"\",\"Voie\":\"2\"},{\"Heure de d\\u00E9part\":\"16 45\",\"Ligne\":\"IC 5\",\"Destination\":\"Gen\\u00E8ve A\\u00E9roport\",\"Vias\":\"Morges\",\"Voie\":\"2\"}],\"D\\u00E9part pour le 9 d\\u00E9cembre 2024\"]"));
