@@ -1,11 +1,9 @@
 ﻿using System.Text.Json;
-using System.Text.RegularExpressions;
 using DeparturesDocument = CommonInterfaces.DocumentsRelated.DeparturesDocument;
-
 
 namespace DocumentParser;
 public class DocumentParser: IDocumentParser {
-    const string tableColumnSeparator = "   ";
+    private const string tableColumnSeparator = "   ";
 
     public string Parse(string rawDocument) {
         var lines = ParseLines(rawDocument);
@@ -63,9 +61,5 @@ public class DocumentParser: IDocumentParser {
             row[headers[i]] = (columnStart < dataLine.Length ? dataLine.Substring(columnStart, columnLength).Trim() : "");
         }
         return row;
-    }
-
-    public DeparturesDocument Revive(string rawDocument) {
-        throw new NotImplementedException();
     }
 }
