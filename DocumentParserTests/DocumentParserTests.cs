@@ -14,7 +14,7 @@ public class DocumentParserTests
     }
     
     [Test]
-    public void Revive_SingleString()
+    public void Parse_SingleString()
     {
         // Given 
         string rawDocument = "Gare de Yverdon-les-Bains";
@@ -27,7 +27,7 @@ public class DocumentParserTests
     }
     
     [Test]
-    public void Revive_HeadersWithoutValues()
+    public void Parse_HeadersWithoutValues()
     {
         // Given 
         string rawDocument = "Heure de départ        Ligne    Destination         Vias                                              Voie\n";
@@ -40,7 +40,7 @@ public class DocumentParserTests
     }
     
     [Test]
-    public void Revive_HeadersWithValues()
+    public void Parse_HeadersWithValues()
     {
         // Given 
         string rawDocument = " Heure de départ        Ligne    Destination         Vias                                              Voie\n" +
@@ -55,7 +55,7 @@ public class DocumentParserTests
     }
     
     [Test]
-    public void Revive_CompleteDocument()
+    public void Parse_CompleteDocument()
     {
         // Given 
         string rawDocument = "Gare de Yverdon-les-Bains\n" +
