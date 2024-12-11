@@ -1,4 +1,3 @@
-using System.Globalization;
 using BusinessTransformer;
 using BusinessTransformer.Records;
 using CommonInterfaces.DocumentsRelated;
@@ -15,8 +14,6 @@ namespace BusinessTransformerTests
         public void Setup()
         {
             _transformer = new DepartureDocumentTransformer();
-            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("fr-FR");
-            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("fr-FR");
         }
 
         [Test]
