@@ -1,3 +1,6 @@
+using BusinessTransformer;
+using DocumentParser;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,29 +19,20 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+// TODO : Should we use POST /documents/{id}/transform with id is path to bucket instead ?
+app.MapPost("/documents/transform", async (string content) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
+    var parser = new DocumentParser.DocumentParser();
+    var reviver = new DeparturesDocumentReviver();
+    var transformer = new DepartureDocumentTransformer();
+    
+    var parsedDocument = parser.Parse(content);
+    var departuresDocument = reviver.Revive(parsedDocument);
+    var transformedDocument = transformer.Transform(departuresDocument);
+    
+    return Results.Ok(transformedDocument);
+})
+.WithName("TransformDocument")
+.WithOpenApi();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
