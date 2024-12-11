@@ -159,6 +159,7 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// <returns>A list of strings.</returns>
     private List<string> ParseVia(string via)
     {
+        if(String.IsNullOrEmpty(via.Trim())) return new List<string>();
         return via.Split(',').Select(v => v.Trim()).ToList();
     }
 
