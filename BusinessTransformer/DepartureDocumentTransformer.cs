@@ -115,7 +115,7 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// </example>
     private Train ParseTrain(string train)
     {
-        Regex regex = new Regex(@"(?<g>[A-Z]+)(?<l>\d+)?");
+        Regex regex = new Regex(@"(?<g>[A-Z]+)\s*(?<l>\d+)?");
         Match match = regex.Match(train);
         string g = match.Groups["g"].Value;
         string l = match.Groups["l"].Value;
