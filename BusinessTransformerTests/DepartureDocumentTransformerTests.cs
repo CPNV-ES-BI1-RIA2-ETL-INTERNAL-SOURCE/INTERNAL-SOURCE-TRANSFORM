@@ -211,6 +211,16 @@ namespace BusinessTransformerTests
             Assert.That(departure.DepartureTime, Is.EqualTo(new DateTime(2024, 12, 10, 13, 0, 0)));
         }
         
+        [Test]
+        public void Transform_SimpleTrainStationWithoutDepartures_ShouldTrowFormatException()
+        {
+            // Given: A valid DeparturesDocument from the Document Parser
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "Not a date", new List<Departure>());
+
+            // When + Then: An exception is thrown
+            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument));
+        }
+        
         // Helper method to generate formatted dates in French
         private string GetFormattedDate(DateTime date)
         {
