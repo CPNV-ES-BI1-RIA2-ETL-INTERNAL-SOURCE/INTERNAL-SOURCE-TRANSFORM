@@ -49,12 +49,6 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
                 transformedStationName = transformedStationName.Substring(transformedStationName.LastIndexOf(prefix, StringComparison.Ordinal) + prefix.Length).Trim();
             }
         }
-
-        //Remove slashes at the beginning if there were multiple prefixes
-        while (transformedStationName[0] == '/')
-        {
-            transformedStationName = transformedStationName.Substring(1);
-        }
         
         //Remove the first character
         return transformedStationName;
@@ -164,11 +158,14 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     private (int hour, int minute) ParseHour(string hour)
     {
         string[] parts = hour.Split(' ');
-        if (parts.Length != 2) throw new FormatException("The hour string is not in the correct format. Expected 'hour minute'.");
+        if (parts.Length != 2) 
+            throw new FormatException("The hour string is not in the correct format. Expected 'hour minute'.");
         int parsedHour = int.Parse(parts[0]);
         int minute = int.Parse(parts[1]);
-        if (parsedHour < 0 || parsedHour > 23) throw new FormatException("The hour is not in the correct format. Expected a number between 0 and 23.");
-        if (minute < 0 || minute > 59) throw new FormatException("The minute is not in the correct format. Expected a number between 0 and 59.");
+        if (parsedHour < 0 || parsedHour > 23) 
+            throw new FormatException("The hour is not in the correct format. Expected a number between 0 and 23.");
+        if (minute < 0 || minute > 59) 
+            throw new FormatException("The minute is not in the correct format. Expected a number between 0 and 59.");
         return (parsedHour, minute);
     }
 
