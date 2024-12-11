@@ -195,14 +195,14 @@ namespace BusinessTransformerTests
         }
 
         [Test]
-        public void Transform_DepartureWithUnrecognizedTrainFormat_DefaultTrainValuesAreSet()
+        public void Transform_DepartureWithTrainFormatWithoutLine_LTrainValueIsNull()
         {
             // Given: A DeparturesDocument with an unrecognized train format
             var departuresDocument = new DeparturesDocument(
                 "Gare de Lausanne", 
                 GetFormattedDate(new DateTime(2024, 12, 10)), 
                 [
-                    new Departure("City Z", "", "10 30", "UNKNOWN", "5C")
+                    new Departure("City Z", "", "10 30", "TGV", "5C")
                 ]);
 
             // When: Transformation is performed
@@ -211,7 +211,7 @@ namespace BusinessTransformerTests
             // Then: Default train values should be used
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
             var departure = trainStation.Departures.First();
-            Assert.That(departure.Train.G, Is.EqualTo("UNKNOWN"));
+            Assert.That(departure.Train.G, Is.EqualTo("TGV"));
             Assert.That(departure.Train.L, Is.Null);
         }
         
@@ -249,6 +249,21 @@ namespace BusinessTransformerTests
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
             var departure = trainStation.Departures.First();
             Assert.That(departure.DepartureTime, Is.EqualTo(new DateTime(2024, 12, 10, 13, 0, 0)));
+        }
+        
+        [Test]
+        public void Transform_SimpleTrainStationWithEnglishPrefixedDate_InformationIsCorrectlyMapped()
+        {
+            // Given: A valid DeparturesDocument from the Document Parser
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "Departure on 25 February 2024", CreateFakeDepartures([13], [0]));
+
+            // When: The API is called to transform the parsed document
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: A valid TrainStation object is returned with correct date
+            Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
+            var departure = trainStation.Departures.First();
+            Assert.That(departure.DepartureTime, Is.EqualTo(new DateTime(2024, 2, 25, 13, 0, 0)));
         }
         
         [Test]
