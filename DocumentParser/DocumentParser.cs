@@ -14,7 +14,6 @@ public class DocumentParser: IDocumentParser {
     private List<string> ParseLines(string rawDocument) {
         return rawDocument
             .Split('\n', StringSplitOptions.RemoveEmptyEntries)
-            .Select(line => line.Trim())
             .ToList();
     }
 
