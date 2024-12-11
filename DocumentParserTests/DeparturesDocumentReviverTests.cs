@@ -41,8 +41,8 @@ public class DeparturesDocumentReviverTests
         // Then
         var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "Départ pour le 9 décembre 2024", new List<Departure>
         {
-            new Departure("Lausanne", new List<string>(), "8 00", "IC 5", "2"),
-            new Departure("Genève Aéroport", new List<string> { "Morges" }, "16 45", "IC 5", "2")
+            new Departure("Lausanne", "", "8 00", "IC 5", "2"),
+            new Departure("Genève Aéroport", "Morges", "16 45", "IC 5", "2")
         });
         
         Assert.That(JsonSerializer.Serialize(RevivedDocument), Is.EqualTo(JsonSerializer.Serialize(departuresDocument)));

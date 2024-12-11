@@ -32,11 +32,10 @@ public class DeparturesDocumentReviver: IDocumentReviver<DeparturesDocument>
         
         foreach (var departure in jsonArray) {
             var departureObject = departure.AsObject();
-            var viasString = departureObject["Vias"].ToString();
 
             Departures.Add(new Departure(
                 departureObject["Destination"].ToString(),
-                string.IsNullOrEmpty(viasString) ? new List<string>() : viasString.Split(", ").ToList(),
+                departureObject["Vias"].ToString(),
                 departureObject["Heure de d\u00E9part"].ToString(),
                 departureObject["Ligne"].ToString(),
                 departureObject["Voie"].ToString()
