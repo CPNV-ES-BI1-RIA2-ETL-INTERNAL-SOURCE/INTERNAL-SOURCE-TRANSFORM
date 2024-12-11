@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 using BusinessTransformer.Records;
 using CommonInterfaces.DocumentsRelated;
 using Departure = BusinessTransformer.Records.Departure;
@@ -119,19 +120,37 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// <summary>
     /// Converts a prefixed date string into a DateTime object.
     /// </summary>
-    /// <param name="date">A prefixed date string.</param>
+    /// <param name="date">A prefixed date string. (Ex. 'Départ pour le 9 décembre 2024' or 'Start am 9 December 2024')</param>
     /// <returns>The parsed date.</returns>
     /// <exception cref="FormatException">Date does not contain a valid string representation of a date and time.</exception>
     private DateTime ParseDate(string date)
     {
-        string[] prefixes = ["Départ pour le ", "Start am ", "Departure on ", "Partenza il "];
+        string[] prefixes = { "Départ pour le ", "Start am ", "Departure on ", "Partenza il " };
+        var cultures = new[] { new CultureInfo("fr-FR"), new CultureInfo("de-DE"), new CultureInfo("en-US"), new CultureInfo("it-IT") };
         string dateString = date;
+
+        //Remove the prefix
         foreach (var prefix in prefixes)
         {
-            if (dateString.Contains(prefix)) dateString = dateString.Substring(dateString.LastIndexOf(prefix, StringComparison.Ordinal) + prefix.Length);
+            if (dateString.Contains(prefix))
+            {
+                dateString = dateString.Substring(dateString.LastIndexOf(prefix, StringComparison.Ordinal) + prefix.Length);
+                break;
+            }
         }
-        return DateTime.Parse(dateString);
+
+        //Parse the date in culture specific formats
+        foreach (var culture in cultures)
+        {
+            if (DateTime.TryParseExact(dateString, "d MMMM yyyy", culture, DateTimeStyles.None, out var parsedDate))
+            {
+                return parsedDate;
+            }
+        }
+
+        throw new FormatException($"Date string '{date}' is not in a recognized format.");
     }
+
     
     /// <summary>
     /// Parse the via string into a list of strings. (Separated by a ', ')
