@@ -117,6 +117,46 @@ namespace BusinessTransformerTests
         }
         
         [Test]
+        public void Transform_TrainStationWithInvalidDepartureHourNumber_ShouldTrowFormatException()
+        {
+            // Given: A DeparturesDocument with an invalid departure hour
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)),
+            [
+                new Departure("City C", "City A, City B", "25 02", "IC5", "13A")
+            ]);
+
+            // When + Then: An exception is thrown
+            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument));
+        }
+        
+        
+        [Test]
+        public void Transform_TrainStationWithInvalidDepartureMinuteNumber_ShouldTrowFormatException()
+        {
+            // Given: A DeparturesDocument with an invalid departure hour
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)),
+            [
+                new Departure("City C", "City A, City B", "01 60", "IC5", "13A")
+            ]);
+
+            // When + Then: An exception is thrown
+            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument));
+        }
+        
+        [Test]
+        public void Transform_TrainStationWithInvalidDepartureHour_ShouldTrowFormatException()
+        {
+            // Given: A DeparturesDocument with an invalid departure hour
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)),
+            [
+                new Departure("City C", "City A, City B", "hello", "IC5", "13A")
+            ]);
+
+            // When + Then: An exception is thrown
+            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument));
+        }
+        
+        [Test]
         public void Transform_MultipleDepartureWithHourAndMinute_DepartureTimeIsCorrectlyFormatted()
         {
             // Given: A departure with DepartureHour parent and minute field
