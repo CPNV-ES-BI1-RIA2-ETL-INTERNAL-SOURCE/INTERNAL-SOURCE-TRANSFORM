@@ -1,6 +1,9 @@
 @RestAPI_HostAddress = http://localhost:5067
 
-GET {{RestAPI_HostAddress}}/weatherforecast/
-Accept: application/json
+### Post document transformation
+POST {{RestAPI_HostAddress}}/documents/transform
+Content-Type: application/json
 
-###
+{
+  "content": "Your document content as a string"
+}
