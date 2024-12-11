@@ -32,6 +32,53 @@ namespace BusinessTransformerTests
         }
         
         [Test]
+        public void Transform_TrainStationNameWithMultiplePrefixes_PrefixesAreRemoved()
+        {
+            // Given: A DeparturesDocument with a station name containing multiple prefixes
+            var departuresDocument = new DeparturesDocument(
+                "Bahnhof/Station/Gare de Lausanne", 
+                GetFormattedDate(new DateTime(2024, 12, 10)), []);
+
+            // When: Transformation is performed
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: The station name should have all prefixes removed
+            Assert.That(trainStation.Name, Is.EqualTo("Lausanne"));
+        }
+        
+        [Test]
+        public void Transform_StationNameWithFrenchPrefix_PrefixIsRemoved()
+        {
+            // Given: A DeparturesDocument with a station name containing the French prefix "Gare de"
+            var departuresDocument = new DeparturesDocument(
+                "Gare de Yverdon-Champ Pittet", 
+                GetFormattedDate(new DateTime(2024, 12, 10)), []);
+
+            // When: Transformation is performed
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: The station name should have the prefix "Gare de" removed but not based on space (cause station name be a composite name)
+            Assert.That(trainStation.Name, Is.EqualTo("Yverdon-Champ Pittet"));
+        }
+        
+        
+        [Test]
+        public void Transform_StationNameWithItalianPrefix_PrefixIsRemoved()
+        {
+            // Given: A DeparturesDocument with a station name containing the Italian prefix "Stazione di"
+            var departuresDocument = new DeparturesDocument(
+                "Stazione di Locarno", 
+                GetFormattedDate(new DateTime(2024, 12, 10)), 
+                []);
+
+            // When: Transformation is performed
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: The station name should have the prefix "Stazione di" removed
+            Assert.That(trainStation.Name, Is.EqualTo("Locarno"));
+        }
+        
+        [Test]
         public void Transform_InvalidDate_ThrowInvalidArgumentException()
         {
             // Given: A DeparturesDocument with invalid date format
@@ -70,7 +117,7 @@ namespace BusinessTransformerTests
         }
         
         [Test]
-        public void Transform_DepartureWithHourAndMinute_DepartureTimeIsCorrectlyFormatted()
+        public void Transform_MultipleDepartureWithHourAndMinute_DepartureTimeIsCorrectlyFormatted()
         {
             // Given: A departure with DepartureHour parent and minute field
             var documentDate = new DateTime(2024, 10, 12);
@@ -108,52 +155,6 @@ namespace BusinessTransformerTests
         }
 
         [Test]
-        public void Transform_TrainStationNameWithMultiplePrefixes_PrefixesAreRemoved()
-        {
-            // Given: A DeparturesDocument with a station name containing multiple prefixes
-            var departuresDocument = new DeparturesDocument(
-                "Bahnhof/Station/Gare de Lausanne", 
-                GetFormattedDate(new DateTime(2024, 12, 10)), []);
-
-            // When: Transformation is performed
-            var trainStation = _transformer.Transform(departuresDocument);
-
-            // Then: The station name should have all prefixes removed
-            Assert.That(trainStation.Name, Is.EqualTo("Lausanne"));
-        }
-        
-        [Test]
-        public void Transform_StationNameWithFrenchPrefix_PrefixIsRemoved()
-        {
-            // Given: A DeparturesDocument with a station name containing the French prefix "Gare de"
-            var departuresDocument = new DeparturesDocument(
-                "Gare de Yverdon-Champ Pittet", 
-                GetFormattedDate(new DateTime(2024, 12, 10)), []);
-
-            // When: Transformation is performed
-            var trainStation = _transformer.Transform(departuresDocument);
-
-            // Then: The station name should have the prefix "Gare de" removed but not based on space (cause station name be a composite name)
-            Assert.That(trainStation.Name, Is.EqualTo("Yverdon-Champ Pittet"));
-        }
-        
-        [Test]
-        public void Transform_StationNameWithItalianPrefix_PrefixIsRemoved()
-        {
-            // Given: A DeparturesDocument with a station name containing the Italian prefix "Stazione di"
-            var departuresDocument = new DeparturesDocument(
-                "Stazione di Locarno", 
-                GetFormattedDate(new DateTime(2024, 12, 10)), 
-                []);
-
-            // When: Transformation is performed
-            var trainStation = _transformer.Transform(departuresDocument);
-
-            // Then: The station name should have the prefix "Stazione di" removed
-            Assert.That(trainStation.Name, Is.EqualTo("Locarno"));
-        }
-
-        [Test]
         public void Transform_DepartureWithUnrecognizedTrainFormat_DefaultTrainValuesAreSet()
         {
             // Given: A DeparturesDocument with an unrecognized train format
@@ -174,7 +175,41 @@ namespace BusinessTransformerTests
             Assert.That(departure.Train.L, Is.Null);
         }
         
-        //TODO : Test german date format
+        [Test]
+        public void Transform_DepartureWithSpacedTrainFormat_TrainValuesAreSet()
+        {
+            // Given: A DeparturesDocument with an unrecognized train format
+            var departuresDocument = new DeparturesDocument(
+                "Gare de Lausanne", 
+                GetFormattedDate(new DateTime(2024, 12, 10)), 
+                [
+                    new Departure("City Z", "", "10 30", "IC 5", "5C")
+                ]);
+
+            // When: Transformation is performed
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: Train values are correct
+            Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
+            var departure = trainStation.Departures.First();
+            Assert.That(departure.Train.G, Is.EqualTo("IC"));
+            Assert.That(departure.Train.L, Is.EqualTo("5"));
+        }
+        
+        [Test]
+        public void Transform_SimpleTrainStationWithPrefixedDate_InformationIsCorrectlyMapped()
+        {
+            // Given: A valid DeparturesDocument from the Document Parser
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "Départ pour le "+GetFormattedDate(new DateTime(2024, 12, 10)), CreateFakeDepartures([13], [0]));
+
+            // When: The API is called to transform the parsed document
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: A valid TrainStation object is returned with correct date
+            Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
+            var departure = trainStation.Departures.First();
+            Assert.That(departure.DepartureTime, Is.EqualTo(new DateTime(2024, 12, 10, 13, 0, 0)));
+        }
         
         // Helper method to generate formatted dates in French
         private string GetFormattedDate(DateTime date)
