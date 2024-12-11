@@ -20,13 +20,13 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // TODO : Should we use POST /documents/{id}/transform with id is path to bucket instead ?
-app.MapPost("/documents/transform", async (string content) =>
+app.MapPost("/documents/transform", async (DocumentTransformRequest request) =>
 {
     var parser = new DocumentParser.DocumentParser();
     var reviver = new DeparturesDocumentReviver();
     var transformer = new DepartureDocumentTransformer();
     
-    var parsedDocument = parser.Parse(content);
+    var parsedDocument = parser.Parse(request.content);
     var departuresDocument = reviver.Revive(parsedDocument);
     var transformedDocument = transformer.Transform(departuresDocument);
     
@@ -36,3 +36,8 @@ app.MapPost("/documents/transform", async (string content) =>
 .WithOpenApi();
 
 app.Run();
+
+public class DocumentTransformRequest
+{
+    public string content { get; set; }  // The document content as a string
+}
