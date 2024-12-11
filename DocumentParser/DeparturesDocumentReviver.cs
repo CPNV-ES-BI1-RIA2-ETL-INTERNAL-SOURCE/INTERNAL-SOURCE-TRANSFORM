@@ -5,9 +5,7 @@ namespace DocumentParser;
 
 public class DeparturesDocumentReviver: IDocumentReviver<DeparturesDocument>
 {
-    public DeparturesDocument Revive(string rawDocument) {
-        // Instantiate a json document from the raw
-        var jsonDocument = new DocumentParser().Parse(rawDocument);
+    public DeparturesDocument Revive(string jsonDocument) {
         var jsonArray = JsonNode.Parse(jsonDocument).AsArray();
         
         CheckFormat(jsonArray);
