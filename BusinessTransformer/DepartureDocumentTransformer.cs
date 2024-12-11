@@ -18,10 +18,9 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// <exception cref="FormatException">If the input dates are not in the correct format.</exception> 
     public TrainStation Transform(DeparturesDocument input)
     {
-        DateTime fromDate = DateTime.Parse(input.FromDate);
-        DateTime toDate = DateTime.Parse(input.ToDate);
+        DateTime documentDate = ParseDate(input.Date);
         string stationName = GetStationNameWithoutPrefix(input.RelatedTrainStationName);
-        List<Departure> departures = GetDepartures(stationName, fromDate, toDate, input.DepartureHours);
+        List<Departure> departures = GetDepartures(stationName, documentDate, input.Departures);
         return new TrainStation(stationName, departures);
     }
     
@@ -62,33 +61,22 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     }
     
     /// <summary>
-    /// Get the business departures for the given station and date range.
+    /// Get the business departures for the given station and date.
     /// </summary>
     /// <param name = "stationName">The name of the station to get the departures for.</param>
-    /// <param name="fromDate">The starting date of the departures hours calendar.</param>
-    /// <param name="tomDate">The ending date of the departures hours calendar.</param>
-    /// <param name="departureHours">The list of departure hours with their associated departures children.</param>
+    /// <param name="date">The date the departures are for.</param>
+    /// <param name="departures">The list of departure to parse.</param>
     /// <returns>A list of business departures for the given station and date range ordered by departure time (complete datetime).</returns>
-    private List<Departure> GetDepartures(string stationName, DateTime fromDate, DateTime tomDate, List<DepartureHour> departureHours)
+    private List<Departure> GetDepartures(string stationName, DateTime date, List<CommonInterfaces.DocumentsRelated.Departure> departures)
     {
-        List<Departure> departures = new List<Departure>();
+        List<Departure> parsedDepartures = new List<Departure>();
         
-        //Traverse the departure hours and departures tree to get the business departures
-        foreach (DepartureHour departureHour in departureHours)
+        foreach (CommonInterfaces.DocumentsRelated.Departure departure in departures)
         {
-            foreach (CommonInterfaces.DocumentsRelated.Departure departure in departureHour.Departures)
-            {
-                foreach (DateTime date in GetAllDaysIncluding(fromDate, tomDate))
-                {
-                    if (IsDepartureValidForDate(date, departure.optionalSpecs))
-                    {
-                        departures.Add(GetBusinessDeparture(stationName, date, departureHour, departure));
-                    }
-                }
-            }
+            parsedDepartures.Add(GetBusinessDeparture(stationName, date, departure));
         }
 
-        return departures.OrderBy(d => d.DepartureTime).ToList();
+        return parsedDepartures.OrderBy(d => d.DepartureTime).ToList();
     }
     
     /// <summary>
@@ -100,19 +88,25 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// <param name="hour">The hour of the departure.</param>
     /// <param name="documentDeparture">The document minute departure to transform.</param>
     /// <returns>The business departure transformed.</returns>
-    private Departure GetBusinessDeparture(string stationName, DateTime date, DepartureHour hour, CommonInterfaces.DocumentsRelated.Departure documentDeparture)
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Year is less than 1 or greater than 9999.
+    /// month is less than 1 or greater than 12.
+    /// day is less than 1 or greater than the number of days in month.
+    /// </exception>
+    private Departure GetBusinessDeparture(string stationName, DateTime date, CommonInterfaces.DocumentsRelated.Departure documentDeparture)
     {
-        DateTime departureTime = new DateTime(date.Year, date.Month, date.Day, hour.HourOfDeparture, documentDeparture.DepartureMinute, 0);
+        (int hour, int minute) = ParseHour(documentDeparture.DepartureHour);
+        DateTime departureTime = new DateTime(date.Year, date.Month, date.Day, hour, minute, 0);
         Train train = ParseTrain(documentDeparture.Train);
-        bool isNightTrain = documentDeparture.optionalSpecs.Contains("#nuit");
-        bool isBikeReservationRequired = documentDeparture.optionalSpecs.Contains("#vélo");
-        return new Departure(stationName, documentDeparture.Destination, documentDeparture.Via, departureTime, train, documentDeparture.Platform, documentDeparture.Sector, isNightTrain, isBikeReservationRequired);
+        List<string> vias = ParseVia(documentDeparture.Via);
+        (string platform, string? sector) = ParsePlatform(documentDeparture.Platform);
+        return new Departure(stationName, documentDeparture.Destination, vias, departureTime, train, platform, sector);
     }
     
     /// <summary>
     /// Parses the train number and type from the input string.
     /// </summary>
-    /// <param name="train">The train number and type in the format IR15, RE2, S30, IC1, S1, SN, SN8, RJX, TGV</param>
+    /// <param name="train">The train number and type in the format IR 15, RE 2, S30, IC1, S1, SN, SN8, RJX, TGV</param>
     /// <returns>The train number and type parsed.</returns>
     /// <example>
     /// IR15 -> IR 15
@@ -127,54 +121,67 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
         string l = match.Groups["l"].Value;
         return new Train(g, String.IsNullOrEmpty(l) ? null : l);
     }
-    
+
     /// <summary>
-    /// Get all days between two dates. (The input dates are included in the result)
+    /// Converts a prefixed date string into a DateTime object.
     /// </summary>
-    /// <param name="fromDate">The starting date.</param>
-    /// <param name="toDate">The ending date.</param>
-    /// <returns>A list of all days between the two dates.</returns>
-    private List<DateTime> GetAllDaysIncluding(DateTime fromDate, DateTime toDate)
+    /// <param name="date">A prefixed date string.</param>
+    /// <returns>The parsed date.</returns>
+    /// <exception cref="FormatException">Date does not contain a valid string representation of a date and time.</exception>
+    private DateTime ParseDate(string date)
     {
-        DateTime currentDay = fromDate;
-        List<DateTime> days = new List<DateTime>();
-        while (currentDay <= toDate)
+        string[] prefixes = ["Départ pour le ", "Start am ", "Departure on ", "Partenza il "];
+        string dateString = date;
+        foreach (var prefix in prefixes)
         {
-            days.Add(currentDay);
-            currentDay = currentDay.AddDays(1);
+            if (dateString.Contains(prefix)) dateString = dateString.Substring(dateString.LastIndexOf(prefix, StringComparison.Ordinal) + prefix.Length);
         }
-        return days;
+        return DateTime.Parse(dateString);
     }
     
     /// <summary>
-    /// Based on the optional specs, checks if the departure is valid for the given date.
+    /// Parse the via string into a list of strings. (Separated by a ', ')
     /// </summary>
-    /// <param name="date">The date to check the departure for.</param>
-    /// <param name="optionalSpecs">The list of optional specs for the departure. (potentially inclusing #1, #2, #3, #4, #5, #6, #7)</param>
-    /// <returns>True if the departure is valid for the given date, false otherwise.</returns>
-    /// <example>
-    /// new DateTime(2025, 1, 1), new List<string> { "#3" } -> true
-    /// new DateTime(2025, 1, 1), new List<string> { "#1", "#2" } -> false
-    /// new DateTime(2025, 1, 1), new List<string> { } -> true
-    /// </example>
-    private bool IsDepartureValidForDate(DateTime date, List<string> optionalSpecs)
+    /// <param name="via">The via string to parse.</param>
+    /// <returns>A list of strings.</returns>
+    private List<string> ParseVia(string via)
     {
-        Regex regex = new Regex(@"#(?<day>\d+)");
-        bool foundOneSpecWithDay = false;
-        foreach (string spec in optionalSpecs)
-        {
-            Match match = regex.Match(spec);
-            if (match.Success)
-            {
-                foundOneSpecWithDay = true;
-                int day = int.Parse(match.Groups["day"].Value);
-                //TODO : Check for Dimanche
-                if (date.DayOfWeek == (DayOfWeek)day)
-                {
-                    return true;
-                }
-            }
-        }
-        return !foundOneSpecWithDay;
+        return via.Split(',').Select(v => v.Trim()).ToList();
+    }
+
+    /// <summary>
+    /// Parse the hour string into a tuple of hour and minute. (Separated by a space)
+    /// </summary>
+    /// <param name="hour">The 'hour minute' string to parse.</param>
+    /// <returns>A tuple of hour and minute.</returns>
+    /// <exception cref="FormatException">
+    /// parts length is not 2.
+    /// int.Parse failed.
+    /// Hour is not between 0 and 23 (included).
+    /// Minute is not between 0 and 59 (included).
+    /// </exception>
+    /// <exception cref="OverflowException">String represents a number less than Int32.MinValue or greater than Int32.MaxValue.</exception>
+    private (int hour, int minute) ParseHour(string hour)
+    {
+        string[] parts = hour.Split(' ');
+        if (parts.Length != 2) throw new FormatException("The hour string is not in the correct format. Expected 'hour minute'.");
+        int parsedHour = int.Parse(parts[0]);
+        int minute = int.Parse(parts[1]);
+        if (parsedHour < 0 || parsedHour > 23) throw new FormatException("The hour is not in the correct format. Expected a number between 0 and 23.");
+        if (minute < 0 || minute > 59) throw new FormatException("The minute is not in the correct format. Expected a number between 0 and 59.");
+        return (parsedHour, minute);
+    }
+
+    /// <summary>
+    /// Split sector of the platform.
+    /// </summary>
+    /// <param name="platform">The platform string to split. Ex. 13D, 1</param>
+    /// <returns>A tuple of platform and sector. (13, D) or (1, null)</returns>
+    private (string platformOnly, string? sector) ParsePlatform(string platform)
+    {
+        // Separate numbers and letters
+        string platformOnly = new string(platform.Where(char.IsDigit).ToArray());
+        string sector = new string(platform.Where(char.IsLetter).ToArray());
+        return (platformOnly, String.IsNullOrEmpty(sector) ? null : sector);
     }
 }
