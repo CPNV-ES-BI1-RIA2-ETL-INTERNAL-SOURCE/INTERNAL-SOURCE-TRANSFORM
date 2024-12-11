@@ -106,6 +106,7 @@ namespace BusinessTransformerTests
             trainStation.Departures.ForEach(d =>
             {
                 Assert.That(d.DepartureStationName, Is.EqualTo("Yverdon-les-Bains"));
+                Assert.That(d.DestinationStationName, Is.EqualTo("City C"));
                 Assert.That(d.ViaStationNames, Is.EquivalentTo(new List<string>{ "City A", "City B"}));
                 Assert.That(d.DepartureTime.Hour, Is.EqualTo(9));
                 Assert.That(d.DepartureTime.Minute, Is.EqualTo(2));
@@ -114,6 +115,23 @@ namespace BusinessTransformerTests
                 Assert.That(d.Platform, Is.EqualTo("13"));
                 Assert.That(d.Sector, Is.EqualTo("A"));
             });
+        }
+        
+        [Test]
+        public void Transform_TrainStationEmptyViaDeparture_ViaListShouldBeEmpty()
+        {
+            // Given: A DeparturesDocument for one week with departure tagged with bike sign
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)),
+            [
+                new Departure("City C", " ", "09 02", "IC5", "13A")
+            ]);
+
+            // When: The transformation is performed
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: The specific departure is correctly transformed
+            Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
+            Assert.That(trainStation.Departures.First().ViaStationNames, Is.Empty);
         }
         
         [Test]
