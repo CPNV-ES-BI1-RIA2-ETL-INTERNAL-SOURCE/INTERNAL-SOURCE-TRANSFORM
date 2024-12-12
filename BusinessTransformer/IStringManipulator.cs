@@ -14,14 +14,6 @@ public interface IStringManipulator
     /// <param name="separator">The separator (multiple chars) to split the string by.</param>
     /// <returns>The list of strings after splitting. If input is empty, return 0 elements.</returns>
     IEnumerable<string> Split(string input, string separator);
-
-    /// <summary>
-    /// Cleans a string by removing leading and trailing characters.
-    /// </summary>
-    /// <param name="input">The input string to clean.</param>
-    /// <param name="charsToTrim">The characters to remove from the beginning and end of the string.</param>
-    /// <returns>The cleaned string.</returns>
-    string Trim(string input, char[] charsToTrim);
     
     /// <summary>
     /// Does not contain content if the string is null, empty or only with whitespaces.

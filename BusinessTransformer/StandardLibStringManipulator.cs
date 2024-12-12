@@ -15,12 +15,7 @@ public class StandardLibStringManipulator : IStringManipulator, ITimeParser
         }
         return input.Split(separator);
     }
-
-    public string Trim(string input, char[] charsToTrim)
-    {
-        return input.Trim(charsToTrim);
-    }
-
+    
     public bool DoesStringContainsContent(string input)
     {
         return !string.IsNullOrWhiteSpace(input.Trim());
@@ -65,11 +60,7 @@ public class StandardLibStringManipulator : IStringManipulator, ITimeParser
 
     public (int hour, int minute) ParseHourMinute(string input, string separator)
     {
-        if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(separator))
-        {
-            throw new ArgumentException("Input and separator cannot be null or empty.");
-        }
-        var parts = input.Split(new[] { separator }, StringSplitOptions.None);
+        var parts = input.Split(separator);
         if (parts.Length != 2)
         {
             throw new FormatException("Input does not contain exactly two parts separated by the separator.");
