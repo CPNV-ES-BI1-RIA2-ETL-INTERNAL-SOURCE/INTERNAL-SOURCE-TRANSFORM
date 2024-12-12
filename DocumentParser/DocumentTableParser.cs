@@ -62,7 +62,7 @@ public class DocumentTableParser
     private void ProcessRow(string line)
     {
         // Ignore the row if it's a 'header reminder'
-        if (ProcessTableHeaders(line) == _tableHeaders) return;
+        if (ProcessTableHeaders(line).SequenceEqual(_tableHeaders)) return;
         var row = ParseDataRow(line);
         if (row != null) TableRows.Add(row);
     }
@@ -72,16 +72,16 @@ public class DocumentTableParser
     /// </summary>
     /// <param name="dataLine"></param>
     /// <returns>Data of the row as a Dictionary</returns>
-    private Dictionary<string, string> ParseDataRow(string dataLine)
+    private Dictionary<string, string> ParseDataRow(string line)
     {
         var row = new Dictionary<string, string>();
 
         for (var i = 0; i < _tableHeaders.Count; i++)  {
             var columnStart = _tableColumnStarts[i];
-            var columnEnd = i < _tableHeaders.Count - 1 ? _tableColumnStarts[i + 1] : dataLine.Length;
-            var columnLength = Math.Min(columnEnd - columnStart, dataLine.Length - columnStart);
+            var columnEnd = i < _tableHeaders.Count - 1 ? _tableColumnStarts[i + 1] : line.Length;
+            var columnLength = Math.Min(columnEnd - columnStart, line.Length - columnStart);
             // Take the value from column (or empty string if the data is missing/empty)
-            row[_tableHeaders[i]] = (columnStart < dataLine.Length ? dataLine.Substring(columnStart, columnLength).Trim() : "");
+            row[_tableHeaders[i]] = (columnStart < line.Length ? line.Substring(columnStart, columnLength).Trim() : "");
         }
         return row;
     }

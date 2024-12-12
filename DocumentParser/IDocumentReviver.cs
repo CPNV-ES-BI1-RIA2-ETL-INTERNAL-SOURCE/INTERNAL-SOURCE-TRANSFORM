@@ -10,6 +10,6 @@ public interface IDocumentReviver<T>
     /// Unserialize the json to a business instance.
     /// </summary>
     /// <param name="jsonDocument">The json document structured in a business way.</param>
-    /// <returns>An instance of the want (TOutput) object</returns>
+    /// <returns>An instance of the want (T) object</returns>
     T Revive(string jsonDocument);
 }
