@@ -61,6 +61,8 @@ public class DocumentTableParser
     /// <param name="line"></param>
     private void ProcessRow(string line)
     {
+        // Ignore the row if it's a 'header reminder'
+        if (ProcessTableHeaders(line) == _tableHeaders) return;
         var row = ParseDataRow(line);
         if (row != null) TableRows.Add(row);
     }
