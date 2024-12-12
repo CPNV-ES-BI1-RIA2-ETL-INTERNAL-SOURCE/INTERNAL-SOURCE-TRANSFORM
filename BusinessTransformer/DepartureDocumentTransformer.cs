@@ -104,7 +104,7 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
         Match match = regex.Match(train);
         string g = match.Groups["g"].Value;
         string l = match.Groups["l"].Value;
-        return new Train(g, String.IsNullOrEmpty(l) ? null : l);
+        return new Train(g, _stringManipulator.DoesStringContainsContent(l) ? l : null);
     }
 
     /// <summary>
@@ -141,6 +141,6 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     private (string platformOnly, string? sector) ParsePlatform(string platform)
     {
         (string sector, string platformOnly) = _stringManipulator.SplitLetterNumber(platform);
-        return (platformOnly, String.IsNullOrEmpty(sector) ? null : sector);
+        return (platformOnly, _stringManipulator.DoesStringContainsContent(sector) ? sector : null);
     }
 }
