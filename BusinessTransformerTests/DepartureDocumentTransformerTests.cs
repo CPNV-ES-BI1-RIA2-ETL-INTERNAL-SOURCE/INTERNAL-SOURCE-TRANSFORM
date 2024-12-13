@@ -285,6 +285,21 @@ namespace BusinessTransformerTests
         }
         
         [Test]
+        public void Transform_SimpleTrainStationWithRandomTextPrefixedDate_InformationIsCorrectlyMapped()
+        {
+            // Given: A valid DeparturesDocument from the Document Parser
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", new Random().Next(10000)+"État au 12 décembre 2024", CreateFakeDepartures([13], [0]));
+
+            // When: The API is called to transform the parsed document
+            var trainStation = _transformer.Transform(departuresDocument);
+
+            // Then: A valid TrainStation object is returned with correct date
+            Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
+            var departure = trainStation.Departures.First();
+            Assert.That(departure.DepartureTime, Is.EqualTo(new DateTime(2024, 12, 12, 13, 0, 0)));
+        }
+        
+        [Test]
         public void Transform_SimpleTrainStationWithoutDepartures_ShouldTrowFormatException()
         {
             // Given: A valid DeparturesDocument from the Document Parser
