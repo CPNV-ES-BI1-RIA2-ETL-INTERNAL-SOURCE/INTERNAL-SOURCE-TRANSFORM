@@ -3,20 +3,9 @@
 namespace DocumentParser;
 public class DocumentParser: IDocumentParser {
     public string Parse(string rawDocument) {
-        var lines = SplitLines(rawDocument);
+        var lines = JsonSerializer.Deserialize<List<string>>(rawDocument);
         var result = ProcessLines(lines);
         return JsonSerializer.Serialize(result);
-    }
-    
-    /// <summary>
-    /// Devide the document into lines
-    /// </summary>
-    /// <param name="rawDocument"></param>
-    /// <returns>Each lines of the document in a list</returns>
-    private List<string> SplitLines(string rawDocument) {
-        return rawDocument
-            .Split('\n', StringSplitOptions.RemoveEmptyEntries)
-            .ToList();
     }
 
     /// <summary>

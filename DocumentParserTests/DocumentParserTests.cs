@@ -17,7 +17,7 @@ public class DocumentParserTests
     public void Parse_SingleString()
     {
         // Given 
-        string rawDocument = "Gare de Yverdon-les-Bains";
+        string rawDocument = "[\"Gare de Yverdon-les-Bains\"]";
 
         // When
         var parsedDocument = _documentParser.Parse(rawDocument);
@@ -30,7 +30,7 @@ public class DocumentParserTests
     public void Parse_HeadersWithoutValues()
     {
         // Given 
-        string rawDocument = "Heure de départ        Ligne    Destination         Vias                                              Voie\n";
+        string rawDocument = "[\"Heure de départ        Ligne    Destination         Vias                                              Voie\"]";
 
         // When
         var parsedDocument = _documentParser.Parse(rawDocument);
@@ -43,9 +43,7 @@ public class DocumentParserTests
     public void Parse_HeadersWithValues()
     {
         // Given 
-        string rawDocument = " Heure de départ        Ligne    Destination         Vias                                              Voie\n" +
-                             " 8 00                   IC 5     Lausanne                                                              2\n" +
-                             " 16 45                  IC 5     Genève Aéroport     Morges                                            2";
+        string rawDocument = "[\"Heure de départ        Ligne    Destination         Vias                                              Voie\", \"8 00                   IC 5     Lausanne                                                              2\", \"16 45                  IC 5     Genève Aéroport     Morges                                            2\"]";
 
         // When
         var parsedDocument = _documentParser.Parse(rawDocument);
@@ -58,13 +56,7 @@ public class DocumentParserTests
     public void Parse_CompleteDocument()
     {
         // Given 
-        string rawDocument = "Gare de Yverdon-les-Bains\n" +
-                             " Heure de départ        Ligne    Destination         Vias                                              Voie\n" +
-                             " 8 00                   IC 5     Lausanne                                                              2\n" +
-                             " 16 45                  IC 5     Genève Aéroport     Morges                                            2\n" +
-                             "\n" +
-                             "\n" +
-                             "Départ pour le 9 décembre 2024\n";
+        string rawDocument = "[\"Gare de Yverdon-les-Bains\", \"Heure de départ        Ligne    Destination         Vias                                              Voie\", \"8 00                   IC 5     Lausanne                                                              2\", \"16 45                  IC 5     Genève Aéroport     Morges                                            2\", \"Départ pour le 9 décembre 2024\"]";
 
         // When
         var parsedDocument = _documentParser.Parse(rawDocument);
@@ -77,13 +69,7 @@ public class DocumentParserTests
     public void Parse_CompleteDocumentWithManyMissingValues()
     {
         // Given 
-        string rawDocument = "Gare de Yverdon-les-Bains\n" +
-                             " Heure de départ        Ligne    Destination         Vias                                              Voie\n" +
-                             " 8 00                            Lausanne                                                               \n" +
-                             "                        IC 5     Genève Aéroport     Morges                                            2\n" +
-                             "\n" +
-                             "\n" +
-                             "Départ pour le 9 décembre 2024\n";
+        string rawDocument = "[\"Gare de Yverdon-les-Bains\", \"Heure de départ        Ligne    Destination         Vias                                              Voie\", \"8 00                            Lausanne                                                               \", \"                        IC 5     Genève Aéroport     Morges                                            2\", \"Départ pour le 9 décembre 2024\"]";
 
         // When
         var parsedDocument = _documentParser.Parse(rawDocument);
@@ -96,14 +82,7 @@ public class DocumentParserTests
     public void Parse_CompleteDocumentWithHeadersReminder()
     {
         // Given 
-        string rawDocument = "Gare de Yverdon-les-Bains\n" +
-                             " Heure de départ        Ligne    Destination         Vias                                              Voie\n" +
-                             " 8 00                   IC 5     Lausanne                                                              2\n" +
-                             " Heure de départ        Ligne    Destination         Vias                                              Voie\n" +
-                             " 16 45                  IC 5     Genève Aéroport     Morges                                            2\n" +
-                             "\n" +
-                             "\n" +
-                             "Départ pour le 9 décembre 2024\n";
+        string rawDocument = "[\"Gare de Yverdon-les-Bains\", \"Heure de départ        Ligne    Destination         Vias                                              Voie\", \"8 00                   IC 5     Lausanne                                                              2\", \"Heure de départ        Ligne    Destination         Vias                                              Voie\", \"16 45                  IC 5     Genève Aéroport     Morges                                            2\", \"Départ pour le 9 décembre 2024\"]";
 
         // When
         var parsedDocument = _documentParser.Parse(rawDocument);
