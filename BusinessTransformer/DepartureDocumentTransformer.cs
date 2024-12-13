@@ -9,11 +9,9 @@ namespace BusinessTransformer;
 /// <summary>
 /// A class that transforms a DeparturesDocument into a TrainStation.
 /// </summary>
-public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocument, TrainStation>
+public class DepartureDocumentTransformer(ITimeParser timeParser, IStringManipulator stringManipulator)
+    : IDocumentTransformer<DeparturesDocument, TrainStation>
 {
-    private ITimeParser _timeParser = new StandardLibStringManipulator();
-    private IStringManipulator _stringManipulator = new StandardLibStringManipulator();
-
     /// <summary>
     /// Transforms the input (document like structure) to the output object.
     /// </summary>
@@ -43,7 +41,7 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     private string GetStationNameWithoutPrefix(string stationName)
     {
         string[] prefixes = ["Bahnhof", "Station", "Gare de", "Stazione di"];
-        return _stringManipulator.RemovePrefixes(stationName, prefixes, '/');
+        return stringManipulator.RemovePrefixes(stationName, prefixes, '/');
     }
     
     /// <summary>
@@ -80,7 +78,7 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// </exception>
     private Departure GetBusinessDeparture(string stationName, DateTime date, CommonInterfaces.DocumentsRelated.Departure documentDeparture)
     {
-        (int hour, int minute) = _timeParser.ParseHourMinute(documentDeparture.DepartureHour, " ");
+        (int hour, int minute) = timeParser.ParseHourMinute(documentDeparture.DepartureHour, " ");
         DateTime departureTime = new DateTime(date.Year, date.Month, date.Day, hour, minute, 0);
         Train train = ParseTrain(documentDeparture.Train);
         List<string> vias = ParseVia(documentDeparture.Via);
@@ -104,7 +102,7 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
         Match match = regex.Match(train);
         string g = match.Groups["g"].Value;
         string l = match.Groups["l"].Value;
-        return new Train(g, _stringManipulator.DoesStringContainsContent(l) ? l : null);
+        return new Train(g, stringManipulator.DoesStringContainsContent(l) ? l : null);
     }
 
     /// <summary>
@@ -116,7 +114,7 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     private DateTime ParseDate(string date)
     {
         var cultures = new[] { new CultureInfo("fr-FR"), new CultureInfo("de-DE"), new CultureInfo("en-US"), new CultureInfo("it-IT") };
-        return _timeParser.ParseLocalisedDate(date, "d MMMM yyyy", cultures);
+        return timeParser.ParseLocalisedDate(date, "d MMMM yyyy", cultures);
     }
 
     
@@ -127,7 +125,7 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// <returns>A list of strings.</returns>
     private List<string> ParseVia(string via)
     {
-        return _stringManipulator.Split(via, ", ").ToList();
+        return stringManipulator.Split(via, ", ").ToList();
     }
 
     /// <summary>
@@ -137,7 +135,7 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// <returns>A tuple of platform and sector. (13, D) or (1, null)</returns>
     private (string platformOnly, string? sector) ParsePlatform(string platform)
     {
-        (string sector, string platformOnly) = _stringManipulator.SplitLetterNumber(platform);
-        return (platformOnly, _stringManipulator.DoesStringContainsContent(sector) ? sector : null);
+        (string sector, string platformOnly) = stringManipulator.SplitLetterNumber(platform);
+        return (platformOnly, stringManipulator.DoesStringContainsContent(sector) ? sector : null);
     }
 }
