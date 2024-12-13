@@ -2,9 +2,8 @@
 
 namespace DocumentParser;
 public class DocumentParser: IDocumentParser {
-    public string Parse(string rawDocument) {
-        var lines = JsonSerializer.Deserialize<List<string>>(rawDocument);
-        var result = ProcessLines(lines);
+    public string Parse(IEnumerable<string> rawDocument) {
+        var result = ProcessLines(rawDocument);
         return JsonSerializer.Serialize(result);
     }
 
@@ -13,7 +12,7 @@ public class DocumentParser: IDocumentParser {
     /// </summary>
     /// <param name="lines"></param>
     /// <returns>The generated json</returns>
-    private List<object> ProcessLines(List<string> lines) {
+    private List<object> ProcessLines(IEnumerable<string> lines) {
         var tableParser = new DocumentTableParser();
         var objectsResult = new List<object>();
         
