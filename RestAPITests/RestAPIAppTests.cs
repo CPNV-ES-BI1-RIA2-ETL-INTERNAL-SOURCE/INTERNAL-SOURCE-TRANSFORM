@@ -4,6 +4,8 @@ using BusinessTransformer.Records;
 using Microsoft.AspNetCore.Mvc.Testing;
 using RestAPI.Controllers;
 
+namespace RestAPITests;
+
 /// <summary>
 /// End-to-end tests for the REST API.
 /// </summary>
