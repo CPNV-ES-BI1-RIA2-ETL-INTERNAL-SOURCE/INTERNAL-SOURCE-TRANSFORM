@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentParserTests", "Docu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonInterfaces", "CommonInterfaces\CommonInterfaces.csproj", "{4D7741E9-9240-48F9-9350-A55598011BA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestAPITests", "RestAPITests\RestAPITests.csproj", "{A40CEFB8-08CA-4366-BB8A-D89BA8C27CD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{4D7741E9-9240-48F9-9350-A55598011BA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D7741E9-9240-48F9-9350-A55598011BA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D7741E9-9240-48F9-9350-A55598011BA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A40CEFB8-08CA-4366-BB8A-D89BA8C27CD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A40CEFB8-08CA-4366-BB8A-D89BA8C27CD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A40CEFB8-08CA-4366-BB8A-D89BA8C27CD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A40CEFB8-08CA-4366-BB8A-D89BA8C27CD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
