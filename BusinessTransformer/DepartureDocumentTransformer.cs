@@ -9,7 +9,8 @@ namespace BusinessTransformer;
 /// <summary>
 /// A class that transforms a DeparturesDocument into a TrainStation.
 /// </summary>
-public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocument, TrainStation>
+public class DepartureDocumentTransformer(ITimeParser timeParser, IStringManipulator stringManipulator)
+    : IDocumentTransformer<DeparturesDocument, TrainStation>
 {
     /// <summary>
     /// Transforms the input (document like structure) to the output object.
@@ -39,20 +40,8 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// </example>
     private string GetStationNameWithoutPrefix(string stationName)
     {
-        string[] prefixes = new string[] { "Bahnhof", "Station", "Gare de", "Stazione di" };
-        string transformedStationName = stationName;
-        
-        //Remove the prefix
-        foreach (string prefix in prefixes)
-        {
-            if (transformedStationName.Contains(prefix))
-            {
-                transformedStationName = transformedStationName.Substring(transformedStationName.LastIndexOf(prefix, StringComparison.Ordinal) + prefix.Length).Trim();
-            }
-        }
-        
-        //Remove the first character
-        return transformedStationName;
+        string[] prefixes = ["Bahnhof", "Station", "Gare de", "Stazione di"];
+        return stringManipulator.RemovePrefixes(stationName, prefixes, '/');
     }
     
     /// <summary>
@@ -80,7 +69,6 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// </summary>
     /// <param name="stationName">The name of the station to get the departures for.</param>
     /// <param name="date">The day of the departure.</param>
-    /// <param name="hour">The hour of the departure.</param>
     /// <param name="documentDeparture">The document minute departure to transform.</param>
     /// <returns>The business departure transformed.</returns>
     /// <exception cref="ArgumentOutOfRangeException">
@@ -90,7 +78,7 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// </exception>
     private Departure GetBusinessDeparture(string stationName, DateTime date, CommonInterfaces.DocumentsRelated.Departure documentDeparture)
     {
-        (int hour, int minute) = ParseHour(documentDeparture.DepartureHour);
+        (int hour, int minute) = timeParser.ParseHourMinute(documentDeparture.DepartureHour, " ");
         DateTime departureTime = new DateTime(date.Year, date.Month, date.Day, hour, minute, 0);
         Train train = ParseTrain(documentDeparture.Train);
         List<string> vias = ParseVia(documentDeparture.Via);
@@ -114,7 +102,7 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
         Match match = regex.Match(train);
         string g = match.Groups["g"].Value;
         string l = match.Groups["l"].Value;
-        return new Train(g, String.IsNullOrEmpty(l) ? null : l);
+        return new Train(g, stringManipulator.DoesStringContainsContent(l) ? l : null);
     }
 
     /// <summary>
@@ -125,30 +113,8 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// <exception cref="FormatException">Date does not contain a valid string representation of a date and time.</exception>
     private DateTime ParseDate(string date)
     {
-        string[] prefixes = { "Départ pour le ", "Start am ", "Departure on ", "Partenza il " };
         var cultures = new[] { new CultureInfo("fr-FR"), new CultureInfo("de-DE"), new CultureInfo("en-US"), new CultureInfo("it-IT") };
-        string dateString = date;
-
-        //Remove the prefix
-        foreach (var prefix in prefixes)
-        {
-            if (dateString.Contains(prefix))
-            {
-                dateString = dateString.Substring(dateString.LastIndexOf(prefix, StringComparison.Ordinal) + prefix.Length);
-                break;
-            }
-        }
-
-        //Parse the date in culture specific formats
-        foreach (var culture in cultures)
-        {
-            if (DateTime.TryParseExact(dateString, "d MMMM yyyy", culture, DateTimeStyles.None, out var parsedDate))
-            {
-                return parsedDate;
-            }
-        }
-
-        throw new FormatException($"Date string '{date}' is not in a recognized format.");
+        return timeParser.ParseLocalisedDate(date, "d MMMM yyyy", cultures);
     }
 
     
@@ -159,33 +125,7 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// <returns>A list of strings.</returns>
     private List<string> ParseVia(string via)
     {
-        return via.Split(',').Select(v => v.Trim()).ToList();
-    }
-
-    /// <summary>
-    /// Parse the hour string into a tuple of hour and minute. (Separated by a space)
-    /// </summary>
-    /// <param name="hour">The 'hour minute' string to parse.</param>
-    /// <returns>A tuple of hour and minute.</returns>
-    /// <exception cref="FormatException">
-    /// parts length is not 2.
-    /// int.Parse failed.
-    /// Hour is not between 0 and 23 (included).
-    /// Minute is not between 0 and 59 (included).
-    /// </exception>
-    /// <exception cref="OverflowException">String represents a number less than Int32.MinValue or greater than Int32.MaxValue.</exception>
-    private (int hour, int minute) ParseHour(string hour)
-    {
-        string[] parts = hour.Split(' ');
-        if (parts.Length != 2) 
-            throw new FormatException("The hour string is not in the correct format. Expected 'hour minute'.");
-        int parsedHour = int.Parse(parts[0]);
-        int minute = int.Parse(parts[1]);
-        if (parsedHour < 0 || parsedHour > 23) 
-            throw new FormatException("The hour is not in the correct format. Expected a number between 0 and 23.");
-        if (minute < 0 || minute > 59) 
-            throw new FormatException("The minute is not in the correct format. Expected a number between 0 and 59.");
-        return (parsedHour, minute);
+        return stringManipulator.Split(via, ", ").ToList();
     }
 
     /// <summary>
@@ -195,9 +135,7 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// <returns>A tuple of platform and sector. (13, D) or (1, null)</returns>
     private (string platformOnly, string? sector) ParsePlatform(string platform)
     {
-        // Separate numbers and letters
-        string platformOnly = new string(platform.Where(char.IsDigit).ToArray());
-        string sector = new string(platform.Where(char.IsLetter).ToArray());
-        return (platformOnly, String.IsNullOrEmpty(sector) ? null : sector);
+        (string sector, string platformOnly) = stringManipulator.SplitLetterNumber(platform);
+        return (platformOnly, stringManipulator.DoesStringContainsContent(sector) ? sector : null);
     }
 }
