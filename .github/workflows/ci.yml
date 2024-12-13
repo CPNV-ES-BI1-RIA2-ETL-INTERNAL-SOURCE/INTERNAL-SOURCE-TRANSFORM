@@ -28,3 +28,5 @@ jobs:
         run: dotnet test ./BusinessTransformerTests/BusinessTransformerTests.csproj --no-build --configuration Release
       - name: Test DocumentParser
         run: dotnet test ./DocumentParserTests/DocumentParserTests.csproj --no-build --configuration Release
+      - name: Test Api
+        run: dotnet test ./RestAPITests/RestAPITests.csproj --no-build --configuration Release
