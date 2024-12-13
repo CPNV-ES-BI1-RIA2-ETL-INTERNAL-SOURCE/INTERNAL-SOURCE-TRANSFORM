@@ -13,8 +13,7 @@ namespace BusinessTransformerTests
         [SetUp]
         public void Setup()
         {
-            var stringManipulator = new StandardLibStringManipulator();
-            _transformer = new DepartureDocumentTransformer(stringManipulator, stringManipulator);
+            _transformer = new DepartureDocumentTransformer(new StandardLibStringManipulator());
         }
 
         [Test]

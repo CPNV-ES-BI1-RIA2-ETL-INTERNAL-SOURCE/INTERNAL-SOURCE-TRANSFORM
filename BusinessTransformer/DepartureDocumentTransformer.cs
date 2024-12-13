@@ -9,7 +9,7 @@ namespace BusinessTransformer;
 /// <summary>
 /// A class that transforms a DeparturesDocument into a TrainStation.
 /// </summary>
-public class DepartureDocumentTransformer(ITimeParser timeParser, IStringManipulator stringManipulator)
+public class DepartureDocumentTransformer(IStringManipulator stringManipulator)
     : IDocumentTransformer<DeparturesDocument, TrainStation>
 {
     /// <summary>
@@ -78,7 +78,7 @@ public class DepartureDocumentTransformer(ITimeParser timeParser, IStringManipul
     /// </exception>
     private Departure GetBusinessDeparture(string stationName, DateTime date, CommonInterfaces.DocumentsRelated.Departure documentDeparture)
     {
-        (int hour, int minute) = timeParser.ParseHourMinute(documentDeparture.DepartureHour, " ");
+        (int hour, int minute) = stringManipulator.ParseHourMinute(documentDeparture.DepartureHour, " ");
         DateTime departureTime = new DateTime(date.Year, date.Month, date.Day, hour, minute, 0);
         Train train = ParseTrain(documentDeparture.Train);
         List<string> vias = ParseVia(documentDeparture.Via);
@@ -114,7 +114,7 @@ public class DepartureDocumentTransformer(ITimeParser timeParser, IStringManipul
     private DateTime ParseDate(string date)
     {
         var cultures = new[] { new CultureInfo("fr-FR"), new CultureInfo("de-DE"), new CultureInfo("en-US"), new CultureInfo("it-IT") };
-        return timeParser.ParseLocalisedDate(date, "d MMMM yyyy", cultures);
+        return stringManipulator.ParseLocalisedDate(date, "d MMMM yyyy", cultures);
     }
 
     
