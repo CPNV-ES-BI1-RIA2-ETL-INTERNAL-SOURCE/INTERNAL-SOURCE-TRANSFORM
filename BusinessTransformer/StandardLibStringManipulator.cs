@@ -6,7 +6,7 @@ namespace BusinessTransformer;
 /// <summary>
 /// An implementation of the string manipulator using the standard .NET library.
 /// </summary>
-public class StandardLibStringManipulator : IStringManipulator, ITimeParser
+public class StandardLibStringManipulator : IStringManipulator
 {
     public IEnumerable<string> Split(string input, string separator)
     {
