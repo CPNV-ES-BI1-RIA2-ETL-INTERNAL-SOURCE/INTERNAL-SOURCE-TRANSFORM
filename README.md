@@ -54,11 +54,13 @@ dotnet test
 ├───.idea                      // Project metadata for Rider configuration
 ├── .gitignore                 // Git ignore rules
 ├───Doc                        // Project documentation in markdown
+├───CommonInterfaces           // Some interfaces and structures every part of the project should use (no logic inside)
 ├───BusinessTransformer        // Core logic for business transformation and computation
 ├───BusinessTransformerTests   // NUnit3 tests for BusinessTransformer
 ├───DocumentParser             // Handles raw format conversion from PDF-extracted text
 ├───DocumentParserTests        // NUnit3 tests for DocumentParser
 ├───RestAPI                    // RESTful API using ASP.NET Core, contains only controllers
+├───RestAPITests               // Contains ent to end tests of RESTful API using ASP.NET Core
 ├── LICENSE.txt                // MIT License for the project
 ├── README.md                  // Project overview and usage instructions
 ```
