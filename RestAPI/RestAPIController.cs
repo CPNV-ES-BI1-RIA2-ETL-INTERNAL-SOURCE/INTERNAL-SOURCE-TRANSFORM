@@ -1,7 +1,7 @@
 using BusinessTransformer;
 using DocumentParser;
 
-public class Program
+public class RestAPIController
 {
     public static void Main(string[] args)
     {
