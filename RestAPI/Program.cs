@@ -28,7 +28,7 @@ public class Program
             {
                 var parser = new DocumentParser.DocumentParser();
                 var reviver = new DeparturesDocumentReviver();
-                var transformer = new DepartureDocumentTransformer();
+                var transformer = new DepartureDocumentTransformer(new StandardLibStringManipulator(), new StandardLibStringManipulator());
 
                 var parsedDocument = parser.Parse(request.content);
                 var departuresDocument = reviver.Revive(parsedDocument);
