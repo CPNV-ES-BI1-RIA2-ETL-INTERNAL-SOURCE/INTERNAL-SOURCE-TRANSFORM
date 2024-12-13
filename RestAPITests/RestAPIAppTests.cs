@@ -27,10 +27,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     {
         // Arrange
         var client = factory.CreateClient();
-        var request = new DocumentTransformRequest
-        {
-            content = ValidExampleDocument
-        };
+        var request = ValidExampleDocument;
 
         // Act
         var response = await client.PostAsJsonAsync("/documents/transform", request);
@@ -47,10 +44,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     {
         // Arrange
         var client = factory.CreateClient();
-        var request = new DocumentTransformRequest
-        {
-            content = new List<string> {"Invalid document"}
-        };
+        var request =  new List<string> {"Invalid document"};
 
         // Act
         var response = await client.PostAsJsonAsync("/documents/transform", request);

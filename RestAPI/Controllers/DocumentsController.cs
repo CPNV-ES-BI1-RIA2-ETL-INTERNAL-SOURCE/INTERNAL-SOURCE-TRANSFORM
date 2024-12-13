@@ -15,11 +15,11 @@ public class DocumentsController(
     : ControllerBase
 {
     [HttpPost("transform")]
-    public IActionResult TransformDocument([FromBody] DocumentTransformRequest request)
+    public IActionResult TransformDocument([FromBody] List<string> request)
     {
         try
         {
-            string parsedDocument = parser.Parse(request.content);
+            string parsedDocument = parser.Parse(request);
             DeparturesDocument departuresDocument = reviver.Revive(parsedDocument);
             TrainStation transformedDocument = transformer.Transform(departuresDocument);
 
@@ -36,9 +36,4 @@ public class DocumentsController(
             return StatusCode(500, new { error = "An unexpected error occurred." });
         }
     }
-}
-
-public class DocumentTransformRequest
-{
-    public string content { get; set; } // The document content as a string
 }
