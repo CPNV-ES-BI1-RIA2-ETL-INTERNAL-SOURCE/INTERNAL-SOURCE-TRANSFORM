@@ -1,4 +1,6 @@
 ﻿using BusinessTransformer;
+using BusinessTransformer.Records;
+using CommonInterfaces.DocumentsRelated;
 using DocumentParser;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,9 +9,9 @@ namespace RestAPI.Controllers;
 [ApiController]
 [Route("documents")]
 public class DocumentsController(
-    DocumentParser.DocumentParser parser,
-    DeparturesDocumentReviver reviver,
-    DepartureDocumentTransformer transformer)
+    IDocumentParser parser,
+    IDocumentReviver<DeparturesDocument> reviver,
+    IDocumentTransformer<DeparturesDocument, TrainStation> transformer)
     : ControllerBase
 {
     [HttpPost("transform")]
@@ -17,9 +19,9 @@ public class DocumentsController(
     {
         try
         {
-            var parsedDocument = parser.Parse(request.content);
-            var departuresDocument = reviver.Revive(parsedDocument);
-            var transformedDocument = transformer.Transform(departuresDocument);
+            string parsedDocument = parser.Parse(request.content);
+            DeparturesDocument departuresDocument = reviver.Revive(parsedDocument);
+            TrainStation transformedDocument = transformer.Transform(departuresDocument);
 
             return Ok(transformedDocument);
         }
