@@ -3,22 +3,19 @@ using System.Net.Http.Json;
 using BusinessTransformer.Records;
 using Microsoft.AspNetCore.Mvc.Testing;
 
-public class RestApiEntToEndTests 
+/// <summary>
+/// End-to-end tests for the REST API.
+/// </summary>
+public class RestApiEntToEndTests(WebApplicationFactory<Program> factory)
     : IClassFixture<WebApplicationFactory<Program>>
 {
-    private readonly WebApplicationFactory<Program> _factory;
     private const string ValidExampleDocument = "Gare de Yverdon-les-Bains\n Heure de départ        Ligne    Destination         Vias                                              Voie\n 8 00                   IC 5     Lausanne                                                              2\n 16 45                  IC 5     Genève Aéroport     Morges                                            2\n 23 00                  IC 5     Rorschar            Neuchâtel, Biel/Bienne, Olten, St. Gallen         1\n 13 18                  S 30     Fribourg/Freiburg   Yverdon-Champ Pittet, Yvonand, Cheyres, Payerne   3D\n\n\n\n\nDépart pour le 9 décembre 2024";
-
-    public RestApiEntToEndTests(WebApplicationFactory<Program> factory)
-    {
-        _factory = factory;
-    }
 
     [Fact]
     public async Task Post_DocumentTransform_ShouldReturnTransformedDocument_WhenInputIsValid()
     {
         // Arrange
-        var client = _factory.CreateClient();
+        var client = factory.CreateClient();
         var request = new Program.DocumentTransformRequest
         {
             content = ValidExampleDocument
@@ -38,7 +35,7 @@ public class RestApiEntToEndTests
     public async Task Post_DocumentTransform_ShouldReturnTransformedDocument_WhenInputIsInvalid()
     {
         // Arrange
-        var client = _factory.CreateClient();
+        var client = factory.CreateClient();
         var request = new Program.DocumentTransformRequest
         {
             content = "Invalid document"
