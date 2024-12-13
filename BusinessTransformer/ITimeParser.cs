@@ -8,9 +8,9 @@ namespace BusinessTransformer;
 public interface ITimeParser
 {
     /// <summary>
-    /// Parses a date from a localised string containing a date.
+    /// Parses a date from a localised string containing a date but can have other text as prefix or suffix.
     /// </summary>
-    /// <param name="input">Input string containing a date with a localised format. (Ex. '9 décembre 2024' '9 December 2024')</param>
+    /// <param name="input">Input string containing a date with a localised format. (Ex. 'Départ le 9 décembre 2024' 'Let's go 9 December 2024')</param>
     /// <param name="format">The format of the date to parse. (Ex. 'd MMMM yyyy' for '9 décembre 2024')</param>
     /// <param name="cultures">The list of cultures to use for parsing the date.</param>
     /// <returns>The date parsed from the input string.</returns>

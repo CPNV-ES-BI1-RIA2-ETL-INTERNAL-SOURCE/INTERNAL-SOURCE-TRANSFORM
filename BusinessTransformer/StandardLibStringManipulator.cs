@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace BusinessTransformer;
 
@@ -48,14 +49,18 @@ public class StandardLibStringManipulator : IStringManipulator, ITimeParser
 
     public DateTime ParseLocalisedDate(string input, string format, IEnumerable<CultureInfo> cultures)
     {
+        string datePattern = @"\b(\d{1,2}[./]\d{1,2}[./]?\d{2,4}|\d{1,2}\s\w+\s\d{2,4})\b";
+        Match match = Regex.Match(input, datePattern);
+        string inputWithOnlyDate = match.Value;
+
         foreach (var culture in cultures)
         {
-            if (DateTime.TryParseExact(input, format, culture, DateTimeStyles.None, out var parsedDate))
+            if (DateTime.TryParseExact(inputWithOnlyDate, format, culture, DateTimeStyles.None, out var parsedDate))
             {
                 return parsedDate;
             }
         }
-        throw new FormatException($"Date string '{input}' is not in a recognized format.");
+        throw new FormatException($"Date string '{input}' is not in a recognized format. Input date detected : '{inputWithOnlyDate}'");
     }
 
     public (int hour, int minute) ParseHourMinute(string input, string separator)

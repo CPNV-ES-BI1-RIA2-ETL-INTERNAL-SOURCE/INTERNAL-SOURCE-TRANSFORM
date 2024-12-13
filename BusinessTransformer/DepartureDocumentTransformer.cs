@@ -115,11 +115,8 @@ public class DepartureDocumentTransformer : IDocumentTransformer<DeparturesDocum
     /// <exception cref="FormatException">Date does not contain a valid string representation of a date and time.</exception>
     private DateTime ParseDate(string date)
     {
-        string[] prefixes = { "Départ pour le", "Start am", "Departure on", "Partenza il" };
         var cultures = new[] { new CultureInfo("fr-FR"), new CultureInfo("de-DE"), new CultureInfo("en-US"), new CultureInfo("it-IT") };
-        
-        string dateString = _stringManipulator.RemovePrefixes(date, prefixes, '/');
-        return _timeParser.ParseLocalisedDate(dateString, "d MMMM yyyy", cultures);
+        return _timeParser.ParseLocalisedDate(date, "d MMMM yyyy", cultures);
     }
 
     
