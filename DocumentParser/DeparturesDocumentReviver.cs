@@ -12,7 +12,7 @@ public class DeparturesDocumentReviver: IDocumentReviver<DeparturesDocument>
         var jsonArray = JsonNode.Parse(jsonDocument).AsArray();
         CheckFormat(jsonArray);
         
-        return new DeparturesDocument(jsonArray[0].ToString(), jsonArray[2].ToString(), ReviveDepartures(jsonArray[1].AsArray()));
+        return new DeparturesDocument(jsonArray[0].ToString(), jsonArray[1].ToString(), ReviveDepartures(jsonArray[2].AsArray()));
     }
     
     /// <summary>
@@ -23,13 +23,13 @@ public class DeparturesDocumentReviver: IDocumentReviver<DeparturesDocument>
     private void CheckFormat(JsonArray jsonArray) {
         if (jsonArray.Count != 3 ||
             !(jsonArray[0] is JsonValue) ||
-            !(jsonArray[1] is JsonArray) ||
-            !(jsonArray[2] is JsonValue) ||
-            !DeparturePropertyExists(jsonArray[1], "Destination")  ||
-            !DeparturePropertyExists(jsonArray[1], "Vias")  ||
-            !DeparturePropertyExists(jsonArray[1], "Heure de d\u00E9part")  ||
-            !DeparturePropertyExists(jsonArray[1], "Ligne")  ||
-            !DeparturePropertyExists(jsonArray[1], "Voie")
+            !(jsonArray[2] is JsonArray) ||
+            !(jsonArray[1] is JsonValue) ||
+            !DeparturePropertyExists(jsonArray[2], "Destination")  ||
+            !DeparturePropertyExists(jsonArray[2], "Vias")  ||
+            !DeparturePropertyExists(jsonArray[2], "Heure de d\u00E9part")  ||
+            !DeparturePropertyExists(jsonArray[2], "Ligne")  ||
+            !DeparturePropertyExists(jsonArray[2], "Voie")
         ){
             throw new FormatException();
         }
