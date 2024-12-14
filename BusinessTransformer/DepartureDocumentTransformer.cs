@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Text.RegularExpressions;
 using BusinessTransformer.Records;
-using CommonInterfaces.DocumentsRelated;
+using CommonInterfaces.Records.DocumentsRelated;
 using Departure = BusinessTransformer.Records.Departure;
 
 namespace BusinessTransformer;
@@ -51,11 +51,11 @@ public class DepartureDocumentTransformer(IStringManipulator stringManipulator)
     /// <param name="date">The date the departures are for.</param>
     /// <param name="departures">The list of departure to parse.</param>
     /// <returns>A list of business departures for the given station and date range ordered by departure time (complete datetime).</returns>
-    private List<Departure> GetDepartures(string stationName, DateTime date, List<CommonInterfaces.DocumentsRelated.Departure> departures)
+    private List<Departure> GetDepartures(string stationName, DateTime date, List<DepartureEntry> departures)
     {
         List<Departure> parsedDepartures = new List<Departure>();
         
-        foreach (CommonInterfaces.DocumentsRelated.Departure departure in departures)
+        foreach (DepartureEntry departure in departures)
         {
             parsedDepartures.Add(GetBusinessDeparture(stationName, date, departure));
         }
@@ -69,21 +69,21 @@ public class DepartureDocumentTransformer(IStringManipulator stringManipulator)
     /// </summary>
     /// <param name="stationName">The name of the station to get the departures for.</param>
     /// <param name="date">The day of the departure.</param>
-    /// <param name="documentDeparture">The document minute departure to transform.</param>
+    /// <param name="documentDepartureEntry">The document minute departure to transform.</param>
     /// <returns>The business departure transformed.</returns>
     /// <exception cref="ArgumentOutOfRangeException">
     /// Year is less than 1 or greater than 9999.
     /// month is less than 1 or greater than 12.
     /// day is less than 1 or greater than the number of days in month.
     /// </exception>
-    private Departure GetBusinessDeparture(string stationName, DateTime date, CommonInterfaces.DocumentsRelated.Departure documentDeparture)
+    private Departure GetBusinessDeparture(string stationName, DateTime date, DepartureEntry documentDepartureEntry)
     {
-        (int hour, int minute) = stringManipulator.ParseHourMinute(documentDeparture.DepartureHour, " ");
+        (int hour, int minute) = stringManipulator.ParseHourMinute(documentDepartureEntry.DepartureHour, " ");
         DateTime departureTime = new DateTime(date.Year, date.Month, date.Day, hour, minute, 0);
-        Train train = ParseTrain(documentDeparture.Train);
-        List<string> vias = ParseVia(documentDeparture.Via);
-        (string platform, string? sector) = ParsePlatform(documentDeparture.Platform);
-        return new Departure(stationName, documentDeparture.Destination, vias, departureTime, train, platform, sector);
+        Train train = ParseTrain(documentDepartureEntry.Train);
+        List<string> vias = ParseVia(documentDepartureEntry.Via);
+        (string platform, string? sector) = ParsePlatform(documentDepartureEntry.Platform);
+        return new Departure(stationName, documentDepartureEntry.Destination, vias, departureTime, train, platform, sector);
     }
     
     /// <summary>

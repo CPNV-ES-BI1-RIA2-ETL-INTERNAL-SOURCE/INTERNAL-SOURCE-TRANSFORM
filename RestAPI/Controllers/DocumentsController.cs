@@ -1,6 +1,6 @@
 ﻿using BusinessTransformer;
 using BusinessTransformer.Records;
-using CommonInterfaces.DocumentsRelated;
+using CommonInterfaces.Records.DocumentsRelated;
 using DocumentParser;
 using Microsoft.AspNetCore.Mvc;
 
