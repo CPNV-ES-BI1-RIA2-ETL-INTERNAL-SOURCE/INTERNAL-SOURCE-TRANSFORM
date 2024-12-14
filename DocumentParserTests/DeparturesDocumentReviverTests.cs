@@ -27,7 +27,7 @@ public class DeparturesDocumentReviverTests
     public void Revive_CompleteDocument()
     {
         // Given 
-        var jsonDocument = "[\"Gare de Yverdon-les-Bains\",[{\"Heure de d\\u00E9part\":\"8 00\",\"Ligne\":\"IC 5\",\"Destination\":\"Lausanne\",\"Vias\":\"\",\"Voie\":\"2\"},{\"Heure de d\\u00E9part\":\"16 45\",\"Ligne\":\"IC 5\",\"Destination\":\"Gen\\u00E8ve A\\u00E9roport\",\"Vias\":\"Morges\",\"Voie\":\"2\"}],\"D\\u00E9part pour le 9 d\\u00E9cembre 2024\"]";
+        var jsonDocument = "[\"Gare de Yverdon-les-Bains\",\"D\\u00E9part pour le 9 d\\u00E9cembre 2024\" ,[{\"Heure de d\\u00E9part\":\"8 00\",\"Ligne\":\"IC 5\",\"Destination\":\"Lausanne\",\"Vias\":\"\",\"Voie\":\"2\"},{\"Heure de d\\u00E9part\":\"16 45\",\"Ligne\":\"IC 5\",\"Destination\":\"Gen\\u00E8ve A\\u00E9roport\",\"Vias\":\"Morges\",\"Voie\":\"2\"}]]";
 
         // When
         var RevivedDocument = _documentReviver.Revive(jsonDocument);
