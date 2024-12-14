@@ -68,7 +68,9 @@ dotnet test
 ### General Architecture
 The project is divided into four parts: CommonInterfaces, BusinessTransformer, DocumentParser, and RestAPI.
 Here is the dependency graph (exported image of astah uml) of the project:
+
 ![Dependency graph](Doc/UMLExports/PackageDependencies.png)
+
 We have 3 layers in the project: 
  - The common interfaces for all project parts
  - Standalone models layers (like the document parser or the business transformer)
