@@ -80,7 +80,8 @@ For the RestAPI, we have end-to-end tests that test the API endpoints.
 
 It is impossible to have a circular dependency between the projects (this generally implies a bad design).
 
-For more information, see the [UML diagrams](Doc/UML.asta) and the main [Technologies documentation](Doc/Technologies.md) used in the project.
+For more information, see the [UML diagrams](Doc/UML.asta), the main [Technologies documentation](Doc/Technologies.md) used in the project and the [Definition Of Done](Doc/DefinitionOfDone.md).
+
 ### Class syntax
 Classes and code structure follow the [Microsoft C# Coding Conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions).
 
