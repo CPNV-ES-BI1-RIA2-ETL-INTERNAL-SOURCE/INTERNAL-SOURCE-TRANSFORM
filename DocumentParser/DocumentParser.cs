@@ -2,8 +2,8 @@
 
 namespace DocumentParser;
 public class DocumentParser: IDocumentParser {
-    public string Parse(IEnumerable<string> rawDocument) {
-        var result = ProcessLines(rawDocument);
+    public string Parse(IEnumerable<string> lines) {
+        var result = ProcessLines(lines);
         return JsonSerializer.Serialize(result);
     }
 
