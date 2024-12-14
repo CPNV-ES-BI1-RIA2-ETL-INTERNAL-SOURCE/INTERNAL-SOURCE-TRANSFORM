@@ -14,12 +14,12 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
 {
     private static readonly IEnumerable<string> ValidExampleDocument = new List<string> {
         "Gare de Yverdon-les-Bains", 
+        "Départ pour le 9 décembre 2024",
         " Heure de départ        Ligne    Destination         Vias                                              Voie", 
         " 8 00                   IC 5     Lausanne                                                              2", 
         " 16 45                  IC 5     Genève Aéroport     Morges                                            2", 
         " 23 00                  IC 5     Rorschar            Neuchâtel, Biel/Bienne, Olten, St. Gallen         1", 
-        " 13 18                  S 30     Fribourg/Freiburg   Yverdon-Champ Pittet, Yvonand, Cheyres, Payerne   3D", 
-        "Départ pour le 9 décembre 2024"
+        " 13 18                  S 30     Fribourg/Freiburg   Yverdon-Champ Pittet, Yvonand, Cheyres, Payerne   3D"
     };
 
     [Fact]
