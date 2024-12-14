@@ -64,6 +64,23 @@ dotnet test
 ├── LICENSE.txt                // MIT License for the project
 ├── README.md                  // Project overview and usage instructions
 ```
+
+### General Architecture
+The project is divided into four parts: CommonInterfaces, BusinessTransformer, DocumentParser, and RestAPI.
+Here is the dependency graph (exported image of astah uml) of the project:
+![Dependency graph](Doc/UMLExports/PackageDependencies.png)
+We have 3 layers in the project: 
+ - The common interfaces for all project parts
+ - Standalone models layers (like the document parser or the business transformer)
+ - The RestAPI, with controllers, using all models and interfaces.
+
+For model layers, we have tests projects that test the implementation of the interfaces (unit and integration tests).
+
+For the RestAPI, we have end-to-end tests that test the API endpoints.
+
+It is impossible to have a circular dependency between the projects (this generally implies a bad design).
+
+For more information, see the [UML diagrams](Doc/UML.asta) and the main [Technologies documentation](Doc/Technologies.md) used in the project.
 ### Class syntax
 Classes and code structure follow the [Microsoft C# Coding Conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions).
 
