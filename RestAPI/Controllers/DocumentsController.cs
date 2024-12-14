@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace RestAPI.Controllers;
 
 [ApiController]
-[Route("documents")]
+[Route("v1/documents")]
 public class DocumentsController(
     IDocumentParser parser,
     IDocumentReviver<DeparturesDocument> reviver,

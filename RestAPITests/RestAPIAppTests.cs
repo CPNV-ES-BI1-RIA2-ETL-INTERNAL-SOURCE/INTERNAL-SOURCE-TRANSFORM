@@ -30,11 +30,11 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         var request = ValidExampleDocument;
 
         // Act
-        var response = await client.PostAsJsonAsync("/documents/transform", request);
+        var response = await client.PostAsJsonAsync("/v1/documents/transform", request);
 
         // Assert (also that it's in JSON format)
         response.EnsureSuccessStatusCode();
-        var transformedDocument = await response.Content.ReadFromJsonAsync<TrainStation>(); // Replace object with your expected type
+        var transformedDocument = await response.Content.ReadFromJsonAsync<TrainStation>();
         Assert.NotNull(transformedDocument);
     }
     
@@ -47,7 +47,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         var request =  new List<string> {"Invalid document"};
 
         // Act
-        var response = await client.PostAsJsonAsync("/documents/transform", request);
+        var response = await client.PostAsJsonAsync("/v1/documents/transform", request);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
