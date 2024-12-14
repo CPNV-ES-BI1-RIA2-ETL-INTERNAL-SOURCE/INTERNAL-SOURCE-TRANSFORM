@@ -1,6 +1,7 @@
-using CommonInterfaces.DocumentsRelated;
 using DocumentParser;
 using System.Text.Json;
+using CommonInterfaces.Records.DocumentsRelated;
+
 namespace DocumentParserTests;
 
 public class DeparturesDocumentReviverTests
@@ -33,10 +34,10 @@ public class DeparturesDocumentReviverTests
         var RevivedDocument = _documentReviver.Revive(jsonDocument);
 
         // Then
-        var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "Départ pour le 9 décembre 2024", new List<Departure>
+        var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "Départ pour le 9 décembre 2024", new List<DepartureEntry>
         {
-            new Departure("Lausanne", "", "8 00", "IC 5", "2"),
-            new Departure("Genève Aéroport", "Morges", "16 45", "IC 5", "2")
+            new DepartureEntry("Lausanne", "", "8 00", "IC 5", "2"),
+            new DepartureEntry("Genève Aéroport", "Morges", "16 45", "IC 5", "2")
         });
         
         Assert.That(JsonSerializer.Serialize(RevivedDocument), Is.EqualTo(JsonSerializer.Serialize(departuresDocument)));

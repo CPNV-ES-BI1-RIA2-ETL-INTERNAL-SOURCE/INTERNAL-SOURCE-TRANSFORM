@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Nodes;
-using CommonInterfaces.DocumentsRelated;
+using CommonInterfaces.Records.DocumentsRelated;
 
 namespace DocumentParser;
 
@@ -51,12 +51,12 @@ public class DeparturesDocumentReviver: IDocumentReviver<DeparturesDocument>
     /// </summary>
     /// <param name="jsonArray"></param>
     /// <returns>A list of Departure</returns>
-    private List<Departure> ReviveDepartures(JsonArray jsonArray) {
-        var Departures = new List<Departure>();
+    private List<DepartureEntry> ReviveDepartures(JsonArray jsonArray) {
+        var Departures = new List<DepartureEntry>();
         
         foreach (var departure in jsonArray) {
             var departureObject = departure.AsObject();
-            Departures.Add(new Departure(
+            Departures.Add(new DepartureEntry(
                 departureObject["Destination"].ToString(),
                 departureObject["Vias"].ToString(),
                 departureObject["Heure de d\u00E9part"].ToString(),

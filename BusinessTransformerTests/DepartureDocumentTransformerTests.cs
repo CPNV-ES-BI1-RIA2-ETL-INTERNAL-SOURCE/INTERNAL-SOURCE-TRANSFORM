@@ -1,8 +1,7 @@
 using BusinessTransformer;
 using BusinessTransformer.Records;
-using CommonInterfaces.DocumentsRelated;
+using CommonInterfaces.Records.DocumentsRelated;
 using NUnit.Framework;
-using Departure = CommonInterfaces.DocumentsRelated.Departure;
 
 namespace BusinessTransformerTests
 {
@@ -20,7 +19,7 @@ namespace BusinessTransformerTests
         public void Transform_SimpleTrainStationWithoutDepartures_InformationIsCorrectlyMapped()
         {
             // Given: A valid DeparturesDocument from the Document Parser
-            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)), new List<Departure>());
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)), new List<DepartureEntry>());
 
             // When: The API is called to transform the parsed document
             var trainStation = _transformer.Transform(departuresDocument);
@@ -82,7 +81,7 @@ namespace BusinessTransformerTests
         public void Transform_InvalidDate_ThrowInvalidArgumentException()
         {
             // Given: A DeparturesDocument with invalid date format
-            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "NOT A DATE", new List<Departure>());
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "NOT A DATE", new List<DepartureEntry>());
 
             // When: The API is called to transform the parsed document
             // Then: An exception is thrown
@@ -95,7 +94,7 @@ namespace BusinessTransformerTests
             // Given: A DeparturesDocument for one week with departure tagged with bike sign
             var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)),
             [
-                new Departure("City C", "City A, City B", "09 02", "IC5", "13A")
+                new DepartureEntry("City C", "City A, City B", "09 02", "IC5", "13A")
             ]);
 
             // When: The transformation is performed
@@ -123,7 +122,7 @@ namespace BusinessTransformerTests
             // Given: A DeparturesDocument for one week with departure tagged with bike sign
             var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)),
             [
-                new Departure("City C", " ", "09 02", "IC5", "13A")
+                new DepartureEntry("City C", " ", "09 02", "IC5", "13A")
             ]);
 
             // When: The transformation is performed
@@ -140,7 +139,7 @@ namespace BusinessTransformerTests
             // Given: A DeparturesDocument with an invalid departure hour
             var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)),
             [
-                new Departure("City C", "City A, City B", "25 02", "IC5", "13A")
+                new DepartureEntry("City C", "City A, City B", "25 02", "IC5", "13A")
             ]);
 
             // When + Then: An exception is thrown
@@ -154,7 +153,7 @@ namespace BusinessTransformerTests
             // Given: A DeparturesDocument with an invalid departure hour
             var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)),
             [
-                new Departure("City C", "City A, City B", "01 60", "IC5", "13A")
+                new DepartureEntry("City C", "City A, City B", "01 60", "IC5", "13A")
             ]);
 
             // When + Then: An exception is thrown
@@ -167,7 +166,7 @@ namespace BusinessTransformerTests
             // Given: A DeparturesDocument with an invalid departure hour
             var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)),
             [
-                new Departure("City C", "City A, City B", "hello", "IC5", "13A")
+                new DepartureEntry("City C", "City A, City B", "hello", "IC5", "13A")
             ]);
 
             // When + Then: An exception is thrown
@@ -220,7 +219,7 @@ namespace BusinessTransformerTests
                 "Gare de Lausanne", 
                 GetFormattedDate(new DateTime(2024, 12, 10)), 
                 [
-                    new Departure("City Z", "", "10 30", "TGV", "5C")
+                    new DepartureEntry("City Z", "", "10 30", "TGV", "5C")
                 ]);
 
             // When: Transformation is performed
@@ -241,7 +240,7 @@ namespace BusinessTransformerTests
                 "Gare de Lausanne", 
                 GetFormattedDate(new DateTime(2024, 12, 10)), 
                 [
-                    new Departure("City Z", "", "10 30", "IC 5", "5C")
+                    new DepartureEntry("City Z", "", "10 30", "IC 5", "5C")
                 ]);
 
             // When: Transformation is performed
@@ -303,7 +302,7 @@ namespace BusinessTransformerTests
         public void Transform_SimpleTrainStationWithoutDepartures_ShouldTrowFormatException()
         {
             // Given: A valid DeparturesDocument from the Document Parser
-            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "Not a date", new List<Departure>());
+            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "Not a date", new List<DepartureEntry>());
 
             // When + Then: An exception is thrown
             Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument));
@@ -316,14 +315,14 @@ namespace BusinessTransformerTests
         }
 
         // Helper method to generate a list of Departure based on hours
-        private List<Departure> CreateFakeDepartures(List<int> hours, List<int> minutes)
+        private List<DepartureEntry> CreateFakeDepartures(List<int> hours, List<int> minutes)
         {
-            List<Departure> departures = new List<Departure>();
+            List<DepartureEntry> departures = new List<DepartureEntry>();
             foreach (var hour in hours)
             {
                 foreach (var minute in minutes)
                 {
-                    departures.Add(new Departure("City C", "City A, City B", hour+" "+minute, "IC 5", "13A"));
+                    departures.Add(new DepartureEntry("City C", "City A, City B", hour+" "+minute, "IC 5", "13A"));
                 }
             }
             return departures;
