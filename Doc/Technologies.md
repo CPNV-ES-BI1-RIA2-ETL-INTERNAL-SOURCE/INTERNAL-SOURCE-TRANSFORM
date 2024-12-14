@@ -40,3 +40,10 @@ Plus, it already contains a lot of features out of the box, like **dependency in
 Even better, there are a lot of examples to create microservices with it.
 
 **Warning**: *Although we could have used the new .NET 8 minimal APIs, we chose to use ASP.NET Core because it is more mature and has more features out of the box. This makes it easier to develop BUT also heavier in terms of resources, making it less efficient than lighter alternatives for small, microservices applications.
+
+## Astah UML 8.4
+We chose Astah UML for all our UML diagrams because it is a tool that can produce high-quality UML diagrams in a really short time and in a uniform way (things described in a class diagram can be reused in a sequence diagram, etc.).
+
+We can also freely choose the placement of elements (to demonstrate, for example, the application's layers).
+
+But, unlike document as code like PlantUml or mermaid, this requires tracking changes on Git in binary form (which is not practical). To resolve this, each feature has it's own astah file, and we can simpliy move the information to the master UML.astah file after the feature is merged. If features need to change a dependency, the developer will have to update the master UML file in develop branch and merge it back to the feature branch.
