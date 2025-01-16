@@ -1,7 +1,4 @@
 using BusinessTransformer;
-using BusinessTransformer.Records;
-using CommonInterfaces.Records.DocumentsRelated;
-using NUnit.Framework;
 
 namespace BusinessTransformerTests
 {

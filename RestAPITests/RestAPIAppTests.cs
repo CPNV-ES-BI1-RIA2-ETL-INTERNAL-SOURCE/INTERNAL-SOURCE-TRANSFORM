@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using BusinessTransformer.Records;
 using Microsoft.AspNetCore.Mvc.Testing;
 using RestAPI.Controllers;
 
@@ -34,7 +33,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
 
         // Assert (also that it's in JSON format)
         response.EnsureSuccessStatusCode();
-        var transformedDocument = await response.Content.ReadFromJsonAsync<TrainStation>();
+        var transformedDocument = await response.Content.ReadAsStringAsync();
         Assert.NotNull(transformedDocument);
     }
     

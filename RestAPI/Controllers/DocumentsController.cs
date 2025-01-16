@@ -1,6 +1,5 @@
-﻿using BusinessTransformer;
-using BusinessTransformer.Records;
-using CommonInterfaces.Records.DocumentsRelated;
+﻿using System.Text.Json.Nodes;
+using BusinessTransformer;
 using DocumentParser;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,8 +9,7 @@ namespace RestAPI.Controllers;
 [Route("v1/documents")]
 public class DocumentsController(
     IDocumentParser parser,
-    IDocumentReviver<DeparturesDocument> reviver,
-    IDocumentTransformer<DeparturesDocument, TrainStation> transformer)
+    IMappingTransformer<JsonArray> transformer)
     : ControllerBase
 {
     [HttpPost("transform")]
@@ -20,8 +18,12 @@ public class DocumentsController(
         try
         {
             string parsedDocument = parser.Parse(request);
-            DeparturesDocument departuresDocument = reviver.Revive(parsedDocument);
-            TrainStation transformedDocument = transformer.Transform(departuresDocument);
+            //TODO : Parser should return a JsonArray instead of a string
+            JsonArray rivided = JsonNode.Parse(parsedDocument).AsArray();
+            
+            //TODO : Mapping should be taken from request body
+            JsonArray mapping = JsonNode.Parse(System.IO.File.ReadAllText("config.json")).AsArray();
+            JsonArray transformedDocument = transformer.Transform(rivided, mapping);
 
             return Ok(transformedDocument);
         }

@@ -1,0 +1,123 @@
+[
+  {
+    "from": 0,
+    "name": "Name",
+    "methods": [
+      {
+        "name": "RemovePrefixes",
+        "params": {
+          "prefixes": [
+            "Bahnhof",
+            "Station",
+            "Gare de",
+            "Stazione di"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "from": 1,
+    "onlyBag": true,
+    "name": "Date",
+    "methods": [
+      {
+        "name": "ParseDate",
+        "params": {
+          "cultures": [
+            "fr-FR",
+            "de-DE",
+            "en-US",
+            "it-IT"
+          ],
+          "format": "d MMMM yyyy"
+        }
+      }
+    ]
+  },
+  {
+    "from": 2,
+    "name": "Departures",
+    "methods": [
+      {
+        "name": "ProcessArray",
+        "params": {
+          "fields": [
+            {
+              "from": "Destination",
+              "name": "DestinationStationName",
+              "methods": []
+            },
+            {
+              "from": "Vias",
+              "name": "ViaStationNames",
+              "methods": [
+                {
+                  "name": "Split",
+                  "params": {
+                    "separator": ", "
+                  }
+                }
+              ]
+            },
+            {
+              "from": "Heure de d\u00E9part",
+              "name": "DepartureTime",
+              "methods": [
+                {
+                  "name": "ParseHourMinute",
+                  "params": {
+                    "separator": " "
+                  }
+                },
+                {
+                  "name": "ToDate",
+                  "params": {
+                    "year": "Date.Year",
+                    "month": "Date.Month",
+                    "day": "Date.Day",
+                    "hour": "Hour",
+                    "minute": "Minute",
+                    "second": 0
+                  }
+                }
+              ]
+            },
+            {
+              "from": "Ligne",
+              "name": "Train",
+              "methods": [
+                {
+                  "name": "Regex",
+                  "params": {
+                    "pattern": "(?<g>[A-Z]+)\\s*(?<l>\\d+)?"
+                  }
+                }
+              ]
+            },
+            {
+              "from": "Voie",
+              "name": "Platform",
+              "methods": [
+                {
+                  "name": "LettersOnly",
+                  "params": {}
+                }
+              ]
+            },
+            {
+              "from": "Voie",
+              "name": "Sector",
+              "methods": [
+                {
+                  "name": "NumbersOnly",
+                  "params": {}
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+]
