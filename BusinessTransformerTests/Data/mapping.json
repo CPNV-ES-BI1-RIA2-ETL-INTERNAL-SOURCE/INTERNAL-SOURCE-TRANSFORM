@@ -5,13 +5,14 @@
     "methods": [
       {
         "name": "RemovePrefixes",
-        "params": {
+        "parameters": {
           "prefixes": [
             "Bahnhof",
             "Station",
             "Gare de",
             "Stazione di"
-          ]
+          ],
+          "separator": "/"
         }
       }
     ]
@@ -23,7 +24,7 @@
     "methods": [
       {
         "name": "ParseDate",
-        "params": {
+        "parameters": {
           "cultures": [
             "fr-FR",
             "de-DE",
@@ -41,7 +42,7 @@
     "methods": [
       {
         "name": "ProcessArray",
-        "params": {
+        "parameters": {
           "fields": [
             {
               "from": "Destination",
@@ -54,7 +55,7 @@
               "methods": [
                 {
                   "name": "Split",
-                  "params": {
+                  "parameters": {
                     "separator": ", "
                   }
                 }
@@ -66,13 +67,13 @@
               "methods": [
                 {
                   "name": "ParseHourMinute",
-                  "params": {
+                  "parameters": {
                     "separator": " "
                   }
                 },
                 {
                   "name": "ToDate",
-                  "params": {
+                  "parameters": {
                     "year": "Date.Year",
                     "month": "Date.Month",
                     "day": "Date.Day",
@@ -89,7 +90,7 @@
               "methods": [
                 {
                   "name": "Regex",
-                  "params": {
+                  "parameters": {
                     "pattern": "(?<g>[A-Z]+)\\s*(?<l>\\d+)?"
                   }
                 }
@@ -101,7 +102,7 @@
               "methods": [
                 {
                   "name": "LettersOnly",
-                  "params": {}
+                  "parameters": {}
                 }
               ]
             },
@@ -111,7 +112,7 @@
               "methods": [
                 {
                   "name": "NumbersOnly",
-                  "params": {}
+                  "parameters": {}
                 }
               ]
             }

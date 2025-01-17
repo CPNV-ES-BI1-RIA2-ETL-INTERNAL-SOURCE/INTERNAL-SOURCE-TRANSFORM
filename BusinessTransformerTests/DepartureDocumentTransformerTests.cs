@@ -1,12 +1,13 @@
 using System.Text.Json.Nodes;
 using BusinessTransformer;
+using Newtonsoft.Json;
 
 namespace BusinessTransformerTests
 {
     public class DepartureDocumentTransformerTests
     {
         private IMappingTransformer _transformer;
-        private JsonArray _mapping;
+        private dynamic _mapping;
 
         [SetUp]
         public void Setup()
@@ -15,10 +16,10 @@ namespace BusinessTransformerTests
             _mapping = GetTestData("mapping.json");
         }
         
-        private static JsonArray GetTestData(string fileName)
+        private static dynamic GetTestData(string fileName)
         {
             var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "Data", fileName);
-            return JsonNode.Parse(File.ReadAllText(path)).AsArray();
+            return JsonConvert.DeserializeObject(File.ReadAllText(path));
         }
 
         [Test]
