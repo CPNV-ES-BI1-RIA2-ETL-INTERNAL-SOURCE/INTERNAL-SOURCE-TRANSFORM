@@ -17,13 +17,11 @@ public class DocumentsController(
     {
         try
         {
-            string parsedDocument = parser.Parse(request);
-            //TODO : Parser should return a JsonArray instead of a string
-            JsonArray rivided = JsonNode.Parse(parsedDocument).AsArray();
+            List<dynamic> parsedDocument = parser.Parse(request);
             
             //TODO : Mapping should be taken from request body
             JsonArray mapping = JsonNode.Parse(System.IO.File.ReadAllText("config.json")).AsArray();
-            JsonArray transformedDocument = transformer.Transform(rivided, mapping);
+            JsonArray transformedDocument = transformer.Transform(parsedDocument, mapping);
 
             return Ok(transformedDocument);
         }
