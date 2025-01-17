@@ -16,7 +16,7 @@ public class RestAPIApp
         // Register your dependencies (if needed)
         builder.Services.AddScoped<IStringManipulator, StandardLibStringManipulator>();
         builder.Services.AddScoped<IDocumentParser, DocumentParser.DocumentParser>();
-        builder.Services.AddScoped<IMappingTransformer<JsonArray>, JsonMappingTransformer>();
+        builder.Services.AddScoped<IMappingTransformer, JsonMappingTransformer>();
         builder.Services.AddScoped<StandardLibStringManipulator>();
 
         var app = builder.Build();

@@ -9,7 +9,7 @@ namespace RestAPI.Controllers;
 [Route("v1/documents")]
 public class DocumentsController(
     IDocumentParser parser,
-    IMappingTransformer<JsonArray> transformer)
+    IMappingTransformer transformer)
     : ControllerBase
 {
     [HttpPost("transform")]
