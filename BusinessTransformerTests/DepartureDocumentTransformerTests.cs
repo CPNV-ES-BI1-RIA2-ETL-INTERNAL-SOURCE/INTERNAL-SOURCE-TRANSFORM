@@ -1,25 +1,34 @@
+using System.Text.Json.Nodes;
 using BusinessTransformer;
 
 namespace BusinessTransformerTests
 {
     public class DepartureDocumentTransformerTests
     {
-        private IDocumentTransformer<DeparturesDocument, TrainStation> _transformer;
+        private IMappingTransformer _transformer;
+        private JsonArray _mapping;
 
         [SetUp]
         public void Setup()
         {
-            _transformer = new DepartureDocumentTransformer(new StandardLibStringManipulator());
+            _transformer = new JsonMappingTransformer(new StandardLibStringManipulator());
+            _mapping = GetTestData("mapping.json");
+        }
+        
+        private static JsonArray GetTestData(string fileName)
+        {
+            var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "Data", fileName);
+            return JsonNode.Parse(File.ReadAllText(path)).AsArray();
         }
 
         [Test]
         public void Transform_SimpleTrainStationWithoutDepartures_InformationIsCorrectlyMapped()
         {
             // Given: A valid DeparturesDocument from the Document Parser
-            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)), new List<DepartureEntry>());
+            var departuresDocument = GetTestData("simple_without_departures.json");
 
             // When: The API is called to transform the parsed document
-            var trainStation = _transformer.Transform(departuresDocument);
+            var trainStation = _transformer.Transform(departuresDocument, _mapping).AsObject();
 
             // Then: A valid TrainStation object is returned with correctly mapped fields and nested structures
             Assert.IsNotNull(trainStation);
@@ -31,12 +40,10 @@ namespace BusinessTransformerTests
         public void Transform_TrainStationNameWithMultiplePrefixes_PrefixesAreRemoved()
         {
             // Given: A DeparturesDocument with a station name containing multiple prefixes
-            var departuresDocument = new DeparturesDocument(
-                "Bahnhof/Station/Gare de Lausanne", 
-                GetFormattedDate(new DateTime(2024, 12, 10)), []);
+            var departuresDocument = GetTestData("simple_multiple_prefixes.json");
 
             // When: Transformation is performed
-            var trainStation = _transformer.Transform(departuresDocument);
+            var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: The station name should have all prefixes removed
             Assert.That(trainStation.Name, Is.EqualTo("Lausanne"));
@@ -46,12 +53,9 @@ namespace BusinessTransformerTests
         public void Transform_StationNameWithFrenchPrefix_PrefixIsRemoved()
         {
             // Given: A DeparturesDocument with a station name containing the French prefix "Gare de"
-            var departuresDocument = new DeparturesDocument(
-                "Gare de Yverdon-Champ Pittet", 
-                GetFormattedDate(new DateTime(2024, 12, 10)), []);
-
+            var departuresDocument = GetTestData("french_prefix.json");
             // When: Transformation is performed
-            var trainStation = _transformer.Transform(departuresDocument);
+            var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: The station name should have the prefix "Gare de" removed but not based on space (cause station name be a composite name)
             Assert.That(trainStation.Name, Is.EqualTo("Yverdon-Champ Pittet"));
@@ -62,13 +66,10 @@ namespace BusinessTransformerTests
         public void Transform_StationNameWithItalianPrefix_PrefixIsRemoved()
         {
             // Given: A DeparturesDocument with a station name containing the Italian prefix "Stazione di"
-            var departuresDocument = new DeparturesDocument(
-                "Stazione di Locarno", 
-                GetFormattedDate(new DateTime(2024, 12, 10)), 
-                []);
+            var departuresDocument = GetTestData("italian_prefix.json");
 
             // When: Transformation is performed
-            var trainStation = _transformer.Transform(departuresDocument);
+            var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: The station name should have the prefix "Stazione di" removed
             Assert.That(trainStation.Name, Is.EqualTo("Locarno"));
@@ -78,52 +79,44 @@ namespace BusinessTransformerTests
         public void Transform_InvalidDate_ThrowInvalidArgumentException()
         {
             // Given: A DeparturesDocument with invalid date format
-            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "NOT A DATE", new List<DepartureEntry>());
+            var departuresDocument = GetTestData("invalid_date.json");
 
             // When: The API is called to transform the parsed document
             // Then: An exception is thrown
-            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument));
+            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument, _mapping));
         }
         
         [Test]
         public void Transform_TrainStationWithDeparture_DepartureInfoTransformed()
         {
-            // Given: A DeparturesDocument for one week with departure tagged with bike sign
-            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)),
-            [
-                new DepartureEntry("City C", "City A, City B", "09 02", "IC5", "13A")
-            ]);
+            // Given: A DeparturesDocument for one week with departure
+            var departuresDocument = GetTestData("simple.json");
 
             // When: The transformation is performed
-            var trainStation = _transformer.Transform(departuresDocument);
+            var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: The specific departure is correctly transformed
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
-            trainStation.Departures.ForEach(d =>
-            {
-                Assert.That(d.DepartureStationName, Is.EqualTo("Yverdon-les-Bains"));
-                Assert.That(d.DestinationStationName, Is.EqualTo("City C"));
-                Assert.That(d.ViaStationNames, Is.EquivalentTo(new List<string>{ "City A", "City B"}));
-                Assert.That(d.DepartureTime.Hour, Is.EqualTo(9));
-                Assert.That(d.DepartureTime.Minute, Is.EqualTo(2));
-                Assert.That(d.DepartureTime.Second, Is.EqualTo(0));
-                Assert.That(d.Train, Is.EqualTo(new Train("IC", "5")));
-                Assert.That(d.Platform, Is.EqualTo("13"));
-                Assert.That(d.Sector, Is.EqualTo("A"));
-            });
+            var departure = trainStation.Departures.First();
+            Assert.That(departure.DepartureStationName, Is.EqualTo("Yverdon-les-Bains"));
+            Assert.That(departure.DestinationStationName, Is.EqualTo("City C"));
+            Assert.That(departure.ViaStationNames, Is.EquivalentTo(new List<string>{ "City A", "City B"}));
+            Assert.That(departure.DepartureTime.Hour, Is.EqualTo(9));
+            Assert.That(departure.DepartureTime.Minute, Is.EqualTo(2));
+            Assert.That(departure.DepartureTime.Second, Is.EqualTo(0));
+            Assert.That(departure.Train, Is.EqualTo(new { G = "IC", L = "5" }));
+            Assert.That(departure.Platform, Is.EqualTo("13"));
+            Assert.That(departure.Sector, Is.EqualTo("A"));
         }
         
         [Test]
         public void Transform_TrainStationEmptyViaDeparture_ViaListShouldBeEmpty()
         {
             // Given: A DeparturesDocument for one week with departure tagged with bike sign
-            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)),
-            [
-                new DepartureEntry("City C", " ", "09 02", "IC5", "13A")
-            ]);
+            var departuresDocument = GetTestData("simple_without_vias.json");
 
             // When: The transformation is performed
-            var trainStation = _transformer.Transform(departuresDocument);
+            var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: The specific departure is correctly transformed
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
@@ -134,40 +127,30 @@ namespace BusinessTransformerTests
         public void Transform_TrainStationWithInvalidDepartureHourNumber_ShouldTrowFormatException()
         {
             // Given: A DeparturesDocument with an invalid departure hour
-            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)),
-            [
-                new DepartureEntry("City C", "City A, City B", "25 02", "IC5", "13A")
-            ]);
+            var departuresDocument = GetTestData("simple_invalid_departure_hour.json");
 
             // When + Then: An exception is thrown
-            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument));
+            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument, _mapping));
         }
-        
         
         [Test]
         public void Transform_TrainStationWithInvalidDepartureMinuteNumber_ShouldTrowFormatException()
         {
             // Given: A DeparturesDocument with an invalid departure hour
-            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)),
-            [
-                new DepartureEntry("City C", "City A, City B", "01 60", "IC5", "13A")
-            ]);
+            var departuresDocument = GetTestData("simple_invalid_departure_minute.json");
 
             // When + Then: An exception is thrown
-            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument));
+            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument, _mapping));
         }
         
         [Test]
         public void Transform_TrainStationWithInvalidDepartureHour_ShouldTrowFormatException()
         {
             // Given: A DeparturesDocument with an invalid departure hour
-            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", GetFormattedDate(new DateTime(2024, 12, 10)),
-            [
-                new DepartureEntry("City C", "City A, City B", "hello", "IC5", "13A")
-            ]);
+            var departuresDocument = GetTestData("simple_invalid_departure.json");
 
             // When + Then: An exception is thrown
-            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument));
+            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument, _mapping));
         }
         
         [Test]
@@ -177,12 +160,11 @@ namespace BusinessTransformerTests
             var documentDate = new DateTime(2024, 10, 12);
             var hours = new List<int> { 12, 13 };
             var minutes = new List<int> { 0, 15, 30, 45 };
-            var formattedDateInFrench = GetFormattedDate(documentDate);
 
-            var departureDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", formattedDateInFrench, CreateFakeDepartures(hours, minutes));
+            var departuresDocument = GetTestData("multiple.json");
 
             // When: The transformation is performed
-            var trainStation = _transformer.Transform(departureDocument);
+            var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: Validate that DepartureTime is correctly represented as DateTime for all combinations
             List<DateTime> departureTimes = GetDateTimeWithIntervals(documentDate, hours, minutes);
@@ -196,13 +178,10 @@ namespace BusinessTransformerTests
         public void Transform_EmptyDepartureHours_NoDeparturesInTrainStation()
         {
             // Given: A DeparturesDocument with no departure hours
-            var departuresDocument = new DeparturesDocument(
-                "Gare de Lausanne", 
-                GetFormattedDate(new DateTime(2024, 12, 1)), 
-                []);
+            var departuresDocument = GetTestData("simple_without_departures.json");
 
             // When: Transformation is performed
-            var trainStation = _transformer.Transform(departuresDocument);
+            var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: The TrainStation object should have no departures
             Assert.That(trainStation.Departures, Is.Empty);
@@ -211,16 +190,11 @@ namespace BusinessTransformerTests
         [Test]
         public void Transform_DepartureWithTrainFormatWithoutLine_LTrainValueIsNull()
         {
-            // Given: A DeparturesDocument with an unrecognized train format
-            var departuresDocument = new DeparturesDocument(
-                "Gare de Lausanne", 
-                GetFormattedDate(new DateTime(2024, 12, 10)), 
-                [
-                    new DepartureEntry("City Z", "", "10 30", "TGV", "5C")
-                ]);
+            // Given: A DeparturesDocument with a train format that does not contain a line (L part)
+            var departuresDocument = GetTestData("no-line_no-l.json");
 
             // When: Transformation is performed
-            var trainStation = _transformer.Transform(departuresDocument);
+            var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: Default train values should be used
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
@@ -233,15 +207,10 @@ namespace BusinessTransformerTests
         public void Transform_DepartureWithSpacedTrainFormat_TrainValuesAreSet()
         {
             // Given: A DeparturesDocument with an unrecognized train format
-            var departuresDocument = new DeparturesDocument(
-                "Gare de Lausanne", 
-                GetFormattedDate(new DateTime(2024, 12, 10)), 
-                [
-                    new DepartureEntry("City Z", "", "10 30", "IC 5", "5C")
-                ]);
+            var departuresDocument = GetTestData("simple.json");
 
             // When: Transformation is performed
-            var trainStation = _transformer.Transform(departuresDocument);
+            var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: Train values are correct
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
@@ -254,25 +223,25 @@ namespace BusinessTransformerTests
         public void Transform_SimpleTrainStationWithPrefixedDate_InformationIsCorrectlyMapped()
         {
             // Given: A valid DeparturesDocument from the Document Parser
-            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "Départ pour le "+GetFormattedDate(new DateTime(2024, 12, 10)), CreateFakeDepartures([13], [0]));
-
+            var departuresDocument = GetTestData("simple.json");
+            
             // When: The API is called to transform the parsed document
-            var trainStation = _transformer.Transform(departuresDocument);
+            var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: A valid TrainStation object is returned with correct date
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
             var departure = trainStation.Departures.First();
-            Assert.That(departure.DepartureTime, Is.EqualTo(new DateTime(2024, 12, 10, 13, 0, 0)));
+            Assert.That(departure.DepartureTime, Is.EqualTo(new DateTime(2024, 12, 10, 9, 2, 0)));
         }
         
         [Test]
         public void Transform_SimpleTrainStationWithEnglishPrefixedDate_InformationIsCorrectlyMapped()
         {
             // Given: A valid DeparturesDocument from the Document Parser
-            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "Departure on 25 February 2024", CreateFakeDepartures([13], [0]));
+            var departuresDocument = GetTestData("english_prefix.json");
 
             // When: The API is called to transform the parsed document
-            var trainStation = _transformer.Transform(departuresDocument);
+            var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: A valid TrainStation object is returned with correct date
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
@@ -284,45 +253,15 @@ namespace BusinessTransformerTests
         public void Transform_SimpleTrainStationWithRandomTextPrefixedDate_InformationIsCorrectlyMapped()
         {
             // Given: A valid DeparturesDocument from the Document Parser
-            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", new Random().Next(10000)+"État au 12 décembre 2024", CreateFakeDepartures([13], [0]));
+            var departuresDocument = GetTestData("prefixed_departure.json");
 
             // When: The API is called to transform the parsed document
-            var trainStation = _transformer.Transform(departuresDocument);
+            var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: A valid TrainStation object is returned with correct date
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
             var departure = trainStation.Departures.First();
             Assert.That(departure.DepartureTime, Is.EqualTo(new DateTime(2024, 12, 12, 13, 0, 0)));
-        }
-        
-        [Test]
-        public void Transform_SimpleTrainStationWithoutDepartures_ShouldTrowFormatException()
-        {
-            // Given: A valid DeparturesDocument from the Document Parser
-            var departuresDocument = new DeparturesDocument("Gare de Yverdon-les-Bains", "Not a date", new List<DepartureEntry>());
-
-            // When + Then: An exception is thrown
-            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument));
-        }
-        
-        // Helper method to generate formatted dates in French
-        private string GetFormattedDate(DateTime date)
-        {
-            return date.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("fr-FR"));
-        }
-
-        // Helper method to generate a list of Departure based on hours
-        private List<DepartureEntry> CreateFakeDepartures(List<int> hours, List<int> minutes)
-        {
-            List<DepartureEntry> departures = new List<DepartureEntry>();
-            foreach (var hour in hours)
-            {
-                foreach (var minute in minutes)
-                {
-                    departures.Add(new DepartureEntry("City C", "City A, City B", hour+" "+minute, "IC 5", "13A"));
-                }
-            }
-            return departures;
         }
         
         // Helper method to validate departure times for a specific date
