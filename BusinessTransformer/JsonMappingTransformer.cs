@@ -62,10 +62,42 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
                 "Take" => Take(result, parameters.property.ToString()),
                 "ProcessArray" => ProcessArray(result, parameters.fields, bag),
                 "CombineDateTime" => CombineDateTime(result, parameters.dateToAppend.ToObject<DateTime>()),
+                "EmptyToNull" => EmptyToNull(result),
                 _ => throw new NotImplementedException($"Method {methodName} is not implemented.")
             };
         }
 
+        return result;
+    }
+
+    private dynamic EmptyToNull(dynamic result)
+    {
+        if(!stringManipulator.DoesStringContainsContent(result.ToString())) return null;
+        
+        //Remove key + value if value is empty on dictionary
+        if(result is IDictionary<string, string> enumerable)
+        {
+            var resultDict = new Dictionary<string, string>();
+            foreach (var (key, value) in enumerable)
+            {
+                if (stringManipulator.DoesStringContainsContent(value))
+                    resultDict[key] = value;
+            }
+            return resultDict;
+        }
+        
+        // Remove entry if value is empty in array
+        if (result is IEnumerable<string> enumerableArray)
+        {
+            var resultArray = new List<string>();
+            foreach (var item in enumerableArray)
+            {
+                if (stringManipulator.DoesStringContainsContent(item))
+                    resultArray.Add(item);
+            }
+            return resultArray;
+        }
+        
         return result;
     }
 

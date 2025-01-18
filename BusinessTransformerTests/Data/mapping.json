@@ -88,6 +88,10 @@
                   "parameters": {
                     "pattern": "(?<G>[A-Z]+)\\s*(?<L>\\d+)?"
                   }
+                },
+                {
+                  "name": "EmptyToNull",
+                  "parameters": {}
                 }
               ]
             },
