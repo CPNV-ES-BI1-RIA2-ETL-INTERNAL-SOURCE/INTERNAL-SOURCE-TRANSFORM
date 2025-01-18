@@ -45,14 +45,14 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
 
             result = methodName switch
             {
-                "RemovePrefixes" => _stringManipulator.RemovePrefixes(result, parameters.prefixes, (char)parameters.separator),
-                "ParseDate" => _stringManipulator.ParseLocalisedDate(result, (string)parameters.format, 
-                    (parameters.cultures as IEnumerable<string>).Select(c => new CultureInfo(c))),
-                "Split" => _stringManipulator.Split(result, (string)parameters.separator),
-                "ParseHourMinute" => _stringManipulator.ParseHourMinute(result, (string)parameters.separator),
-                "Regex" => ApplyRegex(result, (string)parameters.pattern),
-                "LettersOnly" => _stringManipulator.SplitLetterNumber(result).letter,
-                "NumbersOnly" => _stringManipulator.SplitLetterNumber(result).number,
+                "RemovePrefixes" => _stringManipulator.RemovePrefixes(result.ToString(), parameters.prefixes.ToObject<string[]>(), Convert.ToChar(parameters.separator)),
+                "ParseDate" => _stringManipulator.ParseLocalisedDate(result.ToString(), parameters.format.ToString(), 
+                    (parameters.cultures.ToObject<string[]>() as IEnumerable<string>).Select(c => new CultureInfo(c))),
+                "Split" => _stringManipulator.Split(result.ToString(), parameters.separator.ToString()),
+                "ParseHourMinute" => _stringManipulator.ParseHourMinute(result.ToString(), parameters.separator.ToString()),
+                "Regex" => ApplyRegex(result.ToString(), parameters.pattern.ToString()),
+                "LettersOnly" => _stringManipulator.SplitLetterNumber(result.ToString()).letter,
+                "NumbersOnly" => _stringManipulator.SplitLetterNumber(result.ToString()).number,
                 _ => throw new NotImplementedException($"Method {methodName} is not implemented.")
             };
         }
