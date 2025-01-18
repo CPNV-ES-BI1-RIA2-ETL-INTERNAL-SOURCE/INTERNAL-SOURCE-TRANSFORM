@@ -36,7 +36,7 @@ public interface IStringManipulator
     /// </summary>
     /// <param name="input">The input string to split.</param>
     /// <returns>The letter and number parts of the input string.</returns>
-    (string letter, string number) SplitLetterNumber(string input);
+    dynamic SplitLetterNumber(string input);
     
     /// <summary>
     /// Parses a date from a localised string containing a date but can have other text as prefix or suffix.
@@ -62,5 +62,5 @@ public interface IStringManipulator
     /// Minute is not between 0 and 59 (included).
     /// </exception>
     /// <exception cref="OverflowException">String represents a number less than Int32.MinValue or greater than Int32.MaxValue.</exception>
-    (int hour, int minute) ParseHourMinute(string input, string separator);
+    TimeSpan ParseHourMinute(string input, string separator);
 }

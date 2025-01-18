@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
+using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
 
 namespace BusinessTransformer;
 
@@ -15,7 +15,8 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
 
     public dynamic Transform(dynamic input, dynamic mapping)
     {
-        var output = new JsonObject();
+        var output = new JObject();
+        var bag = new Dictionary<string, dynamic>();
 
         foreach (var map in mapping)
         {
@@ -27,21 +28,29 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
             var inputValue = input[fromIndex];
             if (inputValue == null) continue;
 
-            var transformedValue = ApplyMethods(inputValue, methods);
-            output[targetName] = transformedValue;
+            var transformedValue = ApplyMethods(inputValue, methods, bag);
+            if (!onlyBag) output[targetName] = JToken.FromObject(transformedValue);
+            bag[targetName] = transformedValue;
         }
 
         return output;
     }
 
-    private dynamic ApplyMethods(dynamic input, IEnumerable<dynamic> methods)
+    private dynamic ApplyMethods(dynamic input, IEnumerable<dynamic> methods, dynamic bag)
     {
         dynamic result = input;
 
         foreach (var method in methods)
         {
             var methodName = (string)method.name;
-            var parameters = method.parameters;
+            var parameters = method.parameters ?? new JObject();
+            var metaParameters = method.metaParameters ?? new List<JsonProperty>();
+            foreach (var metaParameter in metaParameters)
+            {
+                var metaParameterName = metaParameter.Name;
+                var metaParameterValue = metaParameter.Value.ToString();
+                parameters[metaParameterName] = bag[metaParameterValue];
+            }
 
             result = methodName switch
             {
@@ -51,8 +60,10 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
                 "Split" => _stringManipulator.Split(result.ToString(), parameters.separator.ToString()),
                 "ParseHourMinute" => _stringManipulator.ParseHourMinute(result.ToString(), parameters.separator.ToString()),
                 "Regex" => ApplyRegex(result.ToString(), parameters.pattern.ToString()),
-                "LettersOnly" => _stringManipulator.SplitLetterNumber(result.ToString()).letter,
-                "NumbersOnly" => _stringManipulator.SplitLetterNumber(result.ToString()).number,
+                "SplitLetterNumber" => _stringManipulator.SplitLetterNumber(result.ToString()),
+                "Take" => Take(result, parameters.property.ToString()),
+                "ProcessArray" => ProcessArray(result, parameters.fields, bag),
+                "CombineDateTime" => CombineDateTime(result, parameters.dateToAppend.ToObject<DateTime>()),
                 _ => throw new NotImplementedException($"Method {methodName} is not implemented.")
             };
         }
@@ -60,18 +71,28 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
         return result;
     }
 
-    private JsonArray ProcessArray(JsonArray inputArray, IEnumerable<dynamic> methods)
+    private dynamic Take(dynamic result, dynamic toString)
     {
-        var resultArray = new JsonArray();
+        return result[toString];
+    }
+
+    private dynamic CombineDateTime(TimeSpan time, DateTime date)
+    {
+        return date.Add(time);
+    }
+
+    private JArray ProcessArray(dynamic inputArray, dynamic fields, dynamic bag)
+    {
+        var resultArray = new JArray();
 
         foreach (var item in inputArray)
         {
-            var obj = new JsonObject();
-            foreach (var field in methods.First().parameters.fields)
+            var obj = new JObject();
+            foreach (var field in fields)
             {
-                var fieldValue = item[field.from]?.ToString();
-                var transformedValue = ApplyMethods(fieldValue, field.methods);
-                obj[field.name] = JsonValue.Create(transformedValue);
+                var fieldValue = item[field.from.ToString()];
+                var transformedValue = ApplyMethods(fieldValue, field.methods, bag);
+                obj[field.name.ToString()] = JToken.FromObject(transformedValue);
             }
             resultArray.Add(obj);
         }
@@ -82,6 +103,12 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
     private dynamic ApplyRegex(string input, string pattern)
     {
         var match = System.Text.RegularExpressions.Regex.Match(input, pattern);
-        return match.Groups;
+        Dictionary<string, string> result = new();
+        foreach (Group groupName in match.Groups)
+        {
+            if(groupName is Match) continue;
+            result[groupName.Name] = match.Groups[groupName.Name].Value;
+        }
+        return result;
     }
 }

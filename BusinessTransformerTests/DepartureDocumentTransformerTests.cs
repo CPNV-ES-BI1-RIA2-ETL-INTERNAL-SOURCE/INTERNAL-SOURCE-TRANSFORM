@@ -171,7 +171,8 @@ namespace BusinessTransformerTests
             List<DateTime> departureTimes = GetDateTimeWithIntervals(documentDate, hours, minutes);
             for(int i = 0; i < departureTimes.Count; i++)
             {
-                Assert.That(trainStation.Departures[i].DepartureTime, Is.EqualTo(departureTimes[i]));
+                DateTime departureTime = trainStation.Departures[i].DepartureTime;
+                Assert.That(departureTime, Is.EqualTo(departureTimes[i]));
             }
         }
         

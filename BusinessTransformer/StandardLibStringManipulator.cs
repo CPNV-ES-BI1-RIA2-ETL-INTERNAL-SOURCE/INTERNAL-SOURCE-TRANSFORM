@@ -40,11 +40,11 @@ public class StandardLibStringManipulator : IStringManipulator
         return output;
     }
 
-    public (string letter, string number) SplitLetterNumber(string input)
+    public dynamic SplitLetterNumber(string input)
     {
         string digit = new string(input.Where(char.IsDigit).ToArray());
         string letter = new string(input.Where(char.IsLetter).ToArray());
-        return (letter, digit);
+        return new Dictionary<string, string> { { "letter", letter }, { "number", digit } };
     }
 
     public DateTime ParseLocalisedDate(string input, string format, IEnumerable<CultureInfo> cultures)
@@ -63,7 +63,7 @@ public class StandardLibStringManipulator : IStringManipulator
         throw new FormatException($"Date string '{input}' is not in a recognized format. Input date detected : '{inputWithOnlyDate}'");
     }
 
-    public (int hour, int minute) ParseHourMinute(string input, string separator)
+    public TimeSpan ParseHourMinute(string input, string separator)
     {
         var parts = input.Split(separator);
         if (parts.Length != 2)
@@ -80,6 +80,6 @@ public class StandardLibStringManipulator : IStringManipulator
         {
             throw new FormatException("Minute must be between 0 and 59.");
         }
-        return (hour, minute);
+        return new TimeSpan(hour, minute, 0);
     }
 }

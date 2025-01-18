@@ -72,14 +72,9 @@
                   }
                 },
                 {
-                  "name": "ToDate",
-                  "parameters": {
-                    "year": "Date.Year",
-                    "month": "Date.Month",
-                    "day": "Date.Day",
-                    "hour": "Hour",
-                    "minute": "Minute",
-                    "second": 0
+                  "name": "CombineDateTime",
+                  "metaParameters": {
+                    "dateToAppend": "Date"
                   }
                 }
               ]
@@ -101,8 +96,14 @@
               "name": "Platform",
               "methods": [
                 {
-                  "name": "LettersOnly",
+                  "name": "SplitLetterNumber",
                   "parameters": {}
+                },
+                {
+                  "name": "Take",
+                  "parameters": {
+                    "property": "letter"
+                  }
                 }
               ]
             },
@@ -111,8 +112,14 @@
               "name": "Sector",
               "methods": [
                 {
-                  "name": "NumbersOnly",
+                  "name": "SplitLetterNumber",
                   "parameters": {}
+                },
+                {
+                  "name": "Take",
+                  "parameters": {
+                    "property": "number"
+                  }
                 }
               ]
             }
