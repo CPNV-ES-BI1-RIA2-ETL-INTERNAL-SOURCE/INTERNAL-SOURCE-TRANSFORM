@@ -159,7 +159,7 @@ namespace BusinessTransformerTests
         public void Transform_MultipleDepartureWithHourAndMinute_DepartureTimeIsCorrectlyFormatted()
         {
             // Given: A departure with DepartureHour parent and minute field
-            var documentDate = new DateTime(2024, 10, 12);
+            var documentDate = new DateTime(2024, 12, 10);
             var hours = new List<int> { 12, 13 };
             var minutes = new List<int> { 0, 15, 30, 45 };
 
