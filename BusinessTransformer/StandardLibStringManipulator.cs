@@ -40,7 +40,7 @@ public class StandardLibStringManipulator : IStringManipulator
         return output;
     }
 
-    public dynamic SplitLetterNumber(string input)
+    public Dictionary<string, string> SplitLetterNumber(string input)
     {
         string digit = new string(input.Where(char.IsDigit).ToArray());
         string letter = new string(input.Where(char.IsLetter).ToArray());

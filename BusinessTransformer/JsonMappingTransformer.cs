@@ -11,8 +11,6 @@ namespace BusinessTransformer;
 /// </summary>
 public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMappingTransformer
 {
-    private readonly IStringManipulator _stringManipulator = stringManipulator;
-
     public dynamic Transform(dynamic input, dynamic mapping)
     {
         var output = new JObject();
@@ -54,13 +52,13 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
 
             result = methodName switch
             {
-                "RemovePrefixes" => _stringManipulator.RemovePrefixes(result.ToString(), parameters.prefixes.ToObject<string[]>(), Convert.ToChar(parameters.separator)),
-                "ParseDate" => _stringManipulator.ParseLocalisedDate(result.ToString(), parameters.format.ToString(), 
+                "RemovePrefixes" => stringManipulator.RemovePrefixes(result.ToString(), parameters.prefixes.ToObject<string[]>(), Convert.ToChar(parameters.separator)),
+                "ParseLocalisedDate" => stringManipulator.ParseLocalisedDate(result.ToString(), parameters.format.ToString(), 
                     (parameters.cultures.ToObject<string[]>() as IEnumerable<string>).Select(c => new CultureInfo(c))),
-                "Split" => _stringManipulator.Split(result.ToString(), parameters.separator.ToString()),
-                "ParseHourMinute" => _stringManipulator.ParseHourMinute(result.ToString(), parameters.separator.ToString()),
+                "Split" => stringManipulator.Split(result.ToString(), parameters.separator.ToString()),
+                "ParseHourMinute" => stringManipulator.ParseHourMinute(result.ToString(), parameters.separator.ToString()),
                 "Regex" => ApplyRegex(result.ToString(), parameters.pattern.ToString()),
-                "SplitLetterNumber" => _stringManipulator.SplitLetterNumber(result.ToString()),
+                "SplitLetterNumber" => stringManipulator.SplitLetterNumber(result.ToString()),
                 "Take" => Take(result, parameters.property.ToString()),
                 "ProcessArray" => ProcessArray(result, parameters.fields, bag),
                 "CombineDateTime" => CombineDateTime(result, parameters.dateToAppend.ToObject<DateTime>()),
@@ -102,7 +100,7 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
 
     private dynamic ApplyRegex(string input, string pattern)
     {
-        var match = System.Text.RegularExpressions.Regex.Match(input, pattern);
+        var match = Regex.Match(input, pattern);
         Dictionary<string, string> result = new();
         foreach (Group groupName in match.Groups)
         {

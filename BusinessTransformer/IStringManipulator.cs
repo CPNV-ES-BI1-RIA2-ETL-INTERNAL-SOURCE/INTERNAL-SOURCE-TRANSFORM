@@ -36,7 +36,7 @@ public interface IStringManipulator
     /// </summary>
     /// <param name="input">The input string to split.</param>
     /// <returns>The letter and number parts of the input string.</returns>
-    dynamic SplitLetterNumber(string input);
+    Dictionary<string, string> SplitLetterNumber(string input);
     
     /// <summary>
     /// Parses a date from a localised string containing a date but can have other text as prefix or suffix.

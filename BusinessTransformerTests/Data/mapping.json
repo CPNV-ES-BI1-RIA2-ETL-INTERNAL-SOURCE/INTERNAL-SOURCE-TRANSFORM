@@ -23,7 +23,7 @@
     "name": "Date",
     "methods": [
       {
-        "name": "ParseDate",
+        "name": "ParseLocalisedDate",
         "parameters": {
           "cultures": [
             "fr-FR",
