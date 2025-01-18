@@ -60,7 +60,7 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
                 "Regex" => ApplyRegex(result.ToString(), parameters.pattern.ToString()),
                 "SplitLetterNumber" => stringManipulator.SplitLetterNumber(result.ToString()),
                 "Take" => Take(result, parameters.property.ToString()),
-                "ProcessArray" => ProcessArray(result, parameters.fields, bag),
+                "ProcessArray" => ProcessArray(result, parameters.fields, parameters.parentFields, bag),
                 "CombineDateTime" => CombineDateTime(result, parameters.dateToAppend.ToObject<DateTime>()),
                 "EmptyToNull" => EmptyToNull(result),
                 _ => throw new NotImplementedException($"Method {methodName} is not implemented.")
@@ -111,13 +111,24 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
         return date.Add(time);
     }
 
-    private JArray ProcessArray(dynamic inputArray, dynamic fields, dynamic bag)
+    private JArray ProcessArray(dynamic inputArray, dynamic fields, dynamic parentFields, dynamic bag)
     {
         var resultArray = new JArray();
+        
+        var objWithParentField = new JObject();
+        foreach (var parentField in parentFields)
+        {
+            var parentFromName = parentField.from.ToString();
+            var parentFieldName = parentField.name.ToString();
+            var parentFieldValue = bag[parentFromName];
+            var transformedValue = ApplyMethods(parentFieldValue, parentField.methods, bag);
+            objWithParentField[parentFieldName] = JToken.FromObject(transformedValue);
+        }
+        
 
         foreach (var item in inputArray)
         {
-            var obj = new JObject();
+            var obj = objWithParentField.DeepClone();
             foreach (var field in fields)
             {
                 var fieldValue = item[field.from.ToString()];

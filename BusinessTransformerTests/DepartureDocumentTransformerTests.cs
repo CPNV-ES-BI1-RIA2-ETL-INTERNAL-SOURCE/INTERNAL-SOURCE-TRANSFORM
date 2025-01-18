@@ -1,6 +1,7 @@
 using System.Text.Json.Nodes;
 using BusinessTransformer;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BusinessTransformerTests
 {
@@ -101,7 +102,7 @@ namespace BusinessTransformerTests
             var departure = trainStation.Departures[0];
             Assert.That((string)departure.DepartureStationName, Is.EqualTo("Yverdon-les-Bains"));
             Assert.That((string)departure.DestinationStationName, Is.EqualTo("City C"));
-            Assert.That((IEnumerable<string>)departure.ViaStationNames, Is.EquivalentTo(new List<string>{ "City A", "City B"}));
+            Assert.That((departure.ViaStationNames as JArray).Select(item => item.ToString()), Is.EquivalentTo(new List<string>{ "City A", "City B"}));
             Assert.That(((DateTime)departure.DepartureTime).Hour, Is.EqualTo(9));
             Assert.That(((DateTime)departure.DepartureTime).Minute, Is.EqualTo(2));
             Assert.That(((DateTime)departure.DepartureTime).Second, Is.EqualTo(0));

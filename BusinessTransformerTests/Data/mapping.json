@@ -127,6 +127,13 @@
                 }
               ]
             }
+          ],
+          "parentFields": [
+            {
+              "from": "Name",
+              "name": "DepartureStationName",
+              "methods": []
+            }
           ]
         }
       }
