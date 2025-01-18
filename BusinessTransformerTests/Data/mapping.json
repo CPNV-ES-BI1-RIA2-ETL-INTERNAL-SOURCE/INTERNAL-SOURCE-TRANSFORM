@@ -86,7 +86,7 @@
                 {
                   "name": "Regex",
                   "parameters": {
-                    "pattern": "(?<g>[A-Z]+)\\s*(?<l>\\d+)?"
+                    "pattern": "(?<G>[A-Z]+)\\s*(?<L>\\d+)?"
                   }
                 }
               ]
