@@ -29,11 +29,11 @@ namespace BusinessTransformerTests
             var departuresDocument = GetTestData("simple_without_departures.json");
 
             // When: The API is called to transform the parsed document
-            var trainStation = _transformer.Transform(departuresDocument, _mapping).AsObject();
+            var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: A valid TrainStation object is returned with correctly mapped fields and nested structures
             Assert.IsNotNull(trainStation);
-            Assert.That(trainStation.Name, Is.EqualTo("Yverdon-les-Bains"));
+            Assert.That((string)trainStation.Name, Is.EqualTo("Yverdon-les-Bains"));
             Assert.IsEmpty(trainStation.Departures);
         }
         
@@ -47,7 +47,7 @@ namespace BusinessTransformerTests
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: The station name should have all prefixes removed
-            Assert.That(trainStation.Name, Is.EqualTo("Lausanne"));
+            Assert.That((string)trainStation.Name, Is.EqualTo("Lausanne"));
         }
         
         [Test]
@@ -59,7 +59,7 @@ namespace BusinessTransformerTests
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: The station name should have the prefix "Gare de" removed but not based on space (cause station name be a composite name)
-            Assert.That(trainStation.Name, Is.EqualTo("Yverdon-Champ Pittet"));
+            Assert.That((string)trainStation.Name, Is.EqualTo("Yverdon-Champ Pittet"));
         }
         
         
@@ -73,7 +73,7 @@ namespace BusinessTransformerTests
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
             // Then: The station name should have the prefix "Stazione di" removed
-            Assert.That(trainStation.Name, Is.EqualTo("Locarno"));
+            Assert.That((string)trainStation.Name, Is.EqualTo("Locarno"));
         }
         
         [Test]
@@ -98,16 +98,17 @@ namespace BusinessTransformerTests
 
             // Then: The specific departure is correctly transformed
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
-            var departure = trainStation.Departures.First();
-            Assert.That(departure.DepartureStationName, Is.EqualTo("Yverdon-les-Bains"));
-            Assert.That(departure.DestinationStationName, Is.EqualTo("City C"));
-            Assert.That(departure.ViaStationNames, Is.EquivalentTo(new List<string>{ "City A", "City B"}));
-            Assert.That(departure.DepartureTime.Hour, Is.EqualTo(9));
-            Assert.That(departure.DepartureTime.Minute, Is.EqualTo(2));
-            Assert.That(departure.DepartureTime.Second, Is.EqualTo(0));
-            Assert.That(departure.Train, Is.EqualTo(new { G = "IC", L = "5" }));
-            Assert.That(departure.Platform, Is.EqualTo("13"));
-            Assert.That(departure.Sector, Is.EqualTo("A"));
+            var departure = trainStation.Departures[0];
+            Assert.That((string)departure.DepartureStationName, Is.EqualTo("Yverdon-les-Bains"));
+            Assert.That((string)departure.DestinationStationName, Is.EqualTo("City C"));
+            Assert.That((IEnumerable<string>)departure.ViaStationNames, Is.EquivalentTo(new List<string>{ "City A", "City B"}));
+            Assert.That(((DateTime)departure.DepartureTime).Hour, Is.EqualTo(9));
+            Assert.That(((DateTime)departure.DepartureTime).Minute, Is.EqualTo(2));
+            Assert.That(((DateTime)departure.DepartureTime).Second, Is.EqualTo(0));
+            Assert.That((string)departure.Train.G, Is.EqualTo("IC"));
+            Assert.That((string)departure.Train.L, Is.EqualTo("5"));
+            Assert.That((string)departure.Platform, Is.EqualTo("13"));
+            Assert.That((string)departure.Sector, Is.EqualTo("A"));
         }
         
         [Test]
@@ -121,7 +122,7 @@ namespace BusinessTransformerTests
 
             // Then: The specific departure is correctly transformed
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
-            Assert.That(trainStation.Departures.First().ViaStationNames, Is.Empty);
+            Assert.That(trainStation.Departures[0].ViaStationNames, Is.Empty);
         }
         
         [Test]
@@ -200,9 +201,9 @@ namespace BusinessTransformerTests
 
             // Then: Default train values should be used
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
-            var departure = trainStation.Departures.First();
-            Assert.That(departure.Train.G, Is.EqualTo("TGV"));
-            Assert.That(departure.Train.L, Is.Null);
+            var departure = trainStation.Departures[0];
+            Assert.That((string)departure.Train.G, Is.EqualTo("TGV"));
+            Assert.That((string)departure.Train.L, Is.Null);
         }
         
         [Test]
@@ -216,9 +217,9 @@ namespace BusinessTransformerTests
 
             // Then: Train values are correct
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
-            var departure = trainStation.Departures.First();
-            Assert.That(departure.Train.G, Is.EqualTo("IC"));
-            Assert.That(departure.Train.L, Is.EqualTo("5"));
+            var departure = trainStation.Departures[0];
+            Assert.That((string)departure.Train.G, Is.EqualTo("IC"));
+            Assert.That((string)departure.Train.L, Is.EqualTo("5"));
         }
         
         [Test]
@@ -232,8 +233,8 @@ namespace BusinessTransformerTests
 
             // Then: A valid TrainStation object is returned with correct date
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
-            var departure = trainStation.Departures.First();
-            Assert.That(departure.DepartureTime, Is.EqualTo(new DateTime(2024, 12, 10, 9, 2, 0)));
+            var departure = trainStation.Departures[0];
+            Assert.That((DateTime)departure.DepartureTime, Is.EqualTo(new DateTime(2024, 12, 10, 9, 2, 0)));
         }
         
         [Test]
@@ -247,8 +248,8 @@ namespace BusinessTransformerTests
 
             // Then: A valid TrainStation object is returned with correct date
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
-            var departure = trainStation.Departures.First();
-            Assert.That(departure.DepartureTime, Is.EqualTo(new DateTime(2024, 2, 25, 13, 0, 0)));
+            var departure = trainStation.Departures[0];
+            Assert.That((DateTime)departure.DepartureTime, Is.EqualTo(new DateTime(2024, 2, 25, 13, 0, 0)));
         }
         
         [Test]
@@ -262,8 +263,8 @@ namespace BusinessTransformerTests
 
             // Then: A valid TrainStation object is returned with correct date
             Assert.That(trainStation.Departures.Count, Is.EqualTo(1));
-            var departure = trainStation.Departures.First();
-            Assert.That(departure.DepartureTime, Is.EqualTo(new DateTime(2024, 12, 12, 13, 0, 0)));
+            var departure = trainStation.Departures[0];
+            Assert.That((DateTime)departure.DepartureTime, Is.EqualTo(new DateTime(2024, 12, 12, 13, 0, 0)));
         }
         
         // Helper method to validate departure times for a specific date
