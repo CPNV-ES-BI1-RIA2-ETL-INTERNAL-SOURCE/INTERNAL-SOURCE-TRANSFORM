@@ -16,4 +16,10 @@
       <ProjectReference Include="..\DocumentParser\DocumentParser.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="config.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

@@ -2,6 +2,8 @@
 using BusinessTransformer;
 using DocumentParser;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace RestAPI.Controllers;
 
@@ -20,10 +22,10 @@ public class DocumentsController(
             List<dynamic> parsedDocument = parser.Parse(request);
             
             //TODO : Mapping should be taken from request body
-            JsonArray mapping = JsonNode.Parse(System.IO.File.ReadAllText("config.json")).AsArray();
-            JsonArray transformedDocument = transformer.Transform(parsedDocument, mapping);
+            dynamic mapping = JsonConvert.DeserializeObject(System.IO.File.ReadAllText("config.json"));
+            dynamic transformedDocument = transformer.Transform(parsedDocument, mapping);
 
-            return Ok(transformedDocument);
+            return Ok(transformedDocument.ToString());
         }
         catch (FormatException ex)
         {
