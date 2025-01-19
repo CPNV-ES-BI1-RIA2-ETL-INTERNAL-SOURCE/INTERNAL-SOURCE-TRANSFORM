@@ -23,8 +23,8 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
             var onlyBag = map.ContainsKey("onlyBag") && (bool)map.onlyBag;
             var methods = map.methods as IEnumerable<dynamic>;
 
+            if(input.Count <= fromIndex) throw new InvalidInputFormatException("From index out of range");
             var inputValue = input[fromIndex];
-            if (inputValue == null) continue;
 
             var transformedValue = ApplyMethods(inputValue, methods, bag);
             if (!onlyBag) output[targetName] = JToken.FromObject(transformedValue);

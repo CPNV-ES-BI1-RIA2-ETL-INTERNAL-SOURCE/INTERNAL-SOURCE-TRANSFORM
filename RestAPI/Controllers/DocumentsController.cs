@@ -32,7 +32,7 @@ public class DocumentsController(
             // Return a 400 Bad Request if there is a format exception
             return BadRequest(new { error = $"Invalid document format: {ex.Message}" });
         }
-        catch (Exception)
+        catch (Exception e)
         {
             // Catch any other unexpected errors
             return StatusCode(500, new { error = "An unexpected error occurred." });
