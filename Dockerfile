@@ -7,18 +7,15 @@ ENV NUGET_PACKAGES=/source/.nuget/packages
 
 # Copy solution and restore dependencies
 COPY InternalSourceTransform.sln ./
-COPY RestAPI/RestAPI.csproj RestAPI/
-COPY BusinessTransformer/BusinessTransformer.csproj BusinessTransformer/
-COPY DocumentParser/DocumentParser.csproj DocumentParser/
-COPY CommonInterfaces/CommonInterfaces.csproj CommonInterfaces/
-COPY RestAPITests/RestAPITests.csproj RestAPITests/
-COPY BusinessTransformerTests/BusinessTransformerTests.csproj BusinessTransformerTests/
-COPY DocumentParserTests/DocumentParserTests.csproj DocumentParserTests/
+COPY RestAPI/ RestAPI/
+COPY BusinessTransformer/ BusinessTransformer/
+COPY DocumentParser/ DocumentParser/
+COPY CommonInterfaces/ CommonInterfaces/
+COPY RestAPITests/ RestAPITests/
+COPY BusinessTransformerTests/ BusinessTransformerTests/
+COPY DocumentParserTests/ DocumentParserTests/
 
 RUN dotnet restore RestAPI/RestAPI.csproj --packages $NUGET_PACKAGES
-
-# Copy the rest of the source code
-COPY . ./
 
 # Build and publish the app
 WORKDIR /source/RestAPI
