@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace BusinessTransformerTests
 {
-    public class DepartureDocumentTransformerTests
+    public class MappingTransformerTests
     {
         private IMappingTransformer _transformer;
         private dynamic _mapping;
@@ -13,6 +13,7 @@ namespace BusinessTransformerTests
         [SetUp]
         public void Setup()
         {
+            // TODO: Move this initialization to a JsonMappingTransformerTests if multiple implementations are added
             _transformer = new JsonMappingTransformer(new StandardLibStringManipulator());
             _mapping = GetTestData("mapping.json");
         }
