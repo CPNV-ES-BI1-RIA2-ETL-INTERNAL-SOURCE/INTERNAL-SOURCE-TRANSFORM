@@ -1,5 +1,5 @@
 ﻿# Stage 1: Build
-FROM mcr.microsoft.com/dotnet/sdk:8.0@sha256:35792ea4ad1db051981f62b313f1be3b46b1f45cadbaa3c288cd0d3056eefb83 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 WORKDIR /source
 
 # Configure a custom global package folder for NuGet
@@ -25,7 +25,7 @@ WORKDIR /source/RestAPI
 RUN dotnet publish -c Release -o /app/out --packages $NUGET_PACKAGES
 
 # Stage 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0@sha256:6c4df091e4e531bb93bdbfe7e7f0998e7ced344f54426b7e874116a3dc3233ff
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS runtime
 WORKDIR /app
 
 # Copy the published app from the build stage
