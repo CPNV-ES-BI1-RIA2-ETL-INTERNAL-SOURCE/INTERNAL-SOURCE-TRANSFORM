@@ -15,21 +15,21 @@ COPY RestAPITests/ RestAPITests/
 COPY BusinessTransformerTests/ BusinessTransformerTests/
 COPY DocumentParserTests/ DocumentParserTests/
 
-RUN dotnet restore RestAPI/RestAPI.csproj --packages $NUGET_PACKAGES
+RUN dotnet restore --packages $NUGET_PACKAGES
 
-# Build and publish the app
+# Build the app
+RUN dotnet build -c Release --no-restore
+
+# Publish the app
 WORKDIR /source/RestAPI
-RUN dotnet publish -c Release -o /app/out --packages $NUGET_PACKAGES
+RUN dotnet publish -c Release -o /app/out --no-build
 
-# Stage 2: Runtime
+# Test the app
+WORKDIR /source
+RUN dotnet test -c Release --no-build --logger:trx
+
+# Stage 3: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS runtime
 WORKDIR /app
-
-# Copy the published app from the build stage
-COPY --from=build /app/out .
-
-# Expose the port your app runs on (default is 5067)
-EXPOSE 8080
-
-# Run the application
+COPY --from=build /app/out ./
 ENTRYPOINT ["dotnet", "RestAPI.dll"]
