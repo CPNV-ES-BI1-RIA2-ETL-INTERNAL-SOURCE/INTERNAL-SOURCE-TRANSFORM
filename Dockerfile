@@ -1,5 +1,5 @@
 ﻿# Stage 1: Build
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS restore
 WORKDIR /source
 
 # Configure a custom global package folder for NuGet
@@ -18,18 +18,15 @@ COPY DocumentParserTests/ DocumentParserTests/
 # Restore dependencies
 RUN dotnet restore --packages $NUGET_PACKAGES
 
-# Build the app
-RUN dotnet build -c Release --no-restore
-
-# Stage 2: Publish
-FROM build AS publish
-WORKDIR /source/RestAPI
-RUN dotnet publish -c Release -o /app/out --no-build
-
-# Stage 3: Test
-FROM build AS test
+# Stage 2: Test
+FROM restore AS test
 WORKDIR /source
 RUN dotnet test -c Release --logger:trx
+
+# Stage 3: Publish
+FROM restore AS publish
+WORKDIR /source/RestAPI
+RUN dotnet publish -c Release -o /app/out 
 
 # Stage 4: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS runtime
