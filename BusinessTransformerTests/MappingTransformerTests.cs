@@ -21,7 +21,7 @@ namespace BusinessTransformerTests
         private static dynamic GetTestData(string fileName)
         {
             var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "Data", fileName);
-            return JsonConvert.DeserializeObject(File.ReadAllText(path));
+            return JsonConvert.DeserializeObject(File.ReadAllText(path))!;
         }
 
         [Test]
