@@ -5,7 +5,7 @@ WORKDIR /source
 # Configure a custom global package folder for NuGet
 ENV NUGET_PACKAGES=/source/.nuget/packages
 
-# Copy solution
+# Copy solution and project files
 COPY InternalSourceTransform.sln ./
 COPY RestAPI/ RestAPI/
 COPY BusinessTransformer/ BusinessTransformer/
@@ -18,16 +18,21 @@ COPY DocumentParserTests/ DocumentParserTests/
 # Restore dependencies
 RUN dotnet restore --packages $NUGET_PACKAGES
 
-# Publish the app
-WORKDIR /source/RestAPI
-RUN dotnet publish -c Release -o /app/out
+# Build the app
+RUN dotnet build -c Release --no-restore
 
-# Test the app
+# Stage 2: Publish
+FROM build AS publish
+WORKDIR /source/RestAPI
+RUN dotnet publish -c Release -o /app/out --no-build
+
+# Stage 3: Test
+FROM build AS test
 WORKDIR /source
 RUN dotnet test -c Release --logger:trx
 
-# Stage 2: Runtime
+# Stage 4: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS runtime
 WORKDIR /app
-COPY --from=build /app/out ./
+COPY --from=publish /app/out .
 ENTRYPOINT ["dotnet", "RestAPI.dll"]
