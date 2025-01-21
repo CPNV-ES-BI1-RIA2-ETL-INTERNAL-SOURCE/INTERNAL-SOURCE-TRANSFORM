@@ -27,24 +27,33 @@ dotnet restore
 dotnet build
 ```
 
+_With Docker_
+```shell
+docker build --target build -t build .
+```
+
 #### Run the api locally
 ```shell
 cd RestAPI
 dotnet run
 ```
+
 You can go to [http://localhost:5067/swagger/](http://localhost:5067/swagger/index.html) to see API endpoints.
+
+_With Docker (prod only so the /swagger isn't served)_
+```shell
+docker build --target runtime -t runtime .
+docker run -d -p 8080:8080 --name runtime runtime
+```
 
 #### Test projects:
 ```shell
-cd BusinessTransformerTests
-```
-OR
-```shell
-cd DocumentParserTests
-```
-And then
-```shell
 dotnet test
+```
+
+_With Docker_
+```shell
+docker build --target test -t test .
 ```
 
 ## Collaborate
