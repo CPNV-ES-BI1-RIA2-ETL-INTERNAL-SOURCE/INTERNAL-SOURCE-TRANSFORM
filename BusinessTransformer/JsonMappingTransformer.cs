@@ -1,6 +1,6 @@
 using System.Globalization;
-using System.Text.Json;
 using System.Text.RegularExpressions;
+using BusinessTransformer.Mapping;
 using Newtonsoft.Json.Linq;
 
 namespace BusinessTransformer;
@@ -10,46 +10,34 @@ namespace BusinessTransformer;
 /// </summary>
 public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMappingTransformer
 {
-    public dynamic Transform(dynamic input, dynamic mapping)
+    public dynamic Transform(dynamic input, IEnumerable<FieldMapping<int>> mapping)
     {
         var output = new JObject();
         var bag = new Dictionary<string, dynamic>();
 
-        foreach (var map in mapping)
+        foreach (var fieldMapping in mapping)
         {
-            var fromIndex = (int)map.from;
-            var targetName = (string)map.name;
-            var onlyBag = map.ContainsKey("onlyBag") && (bool)map.onlyBag;
-            var methods = map.methods as IEnumerable<dynamic>;
+            var fromIndex = (int)fieldMapping.From;
 
             if(input.Count <= fromIndex) throw new InvalidInputFormatException("From index out of range");
             var inputValue = input[fromIndex];
 
-            var transformedValue = ApplyMethods(inputValue, methods, bag);
-            if (!onlyBag) output[targetName] = JToken.FromObject(transformedValue);
-            bag[targetName] = transformedValue;
+            var transformedValue = ApplyMethods(inputValue, fieldMapping.Methods, bag);
+            if (!fieldMapping.OnlyBag) output[fieldMapping.Name] = JToken.FromObject(transformedValue);
+            bag[fieldMapping.Name] = transformedValue;
         }
 
         return output;
     }
 
-    private dynamic ApplyMethods(dynamic input, IEnumerable<dynamic> methods, dynamic bag)
+    private dynamic ApplyMethods(dynamic input, IEnumerable<Method> methods, Dictionary<string, dynamic> bag)
     {
         dynamic result = input;
 
         foreach (var method in methods)
         {
-            var methodName = (string)method.name;
-            var parameters = method.parameters ?? new JObject();
-            var metaParameters = method.metaParameters ?? new List<JsonProperty>();
-            foreach (var metaParameter in metaParameters)
-            {
-                var metaParameterName = metaParameter.Name;
-                var metaParameterValue = metaParameter.Value.ToString();
-                parameters[metaParameterName] = bag[metaParameterValue];
-            }
-
-            result = methodName switch
+            var parameters = method.ComputedParameters(bag);
+            result = method.Name switch
             {
                 "RemovePrefixes" => stringManipulator.RemovePrefixes(result.ToString(), parameters.prefixes.ToObject<string[]>(), Convert.ToChar(parameters.separator)),
                 "ParseLocalisedDate" => stringManipulator.ParseLocalisedDate(result.ToString(), parameters.format.ToString(), 
@@ -59,10 +47,10 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
                 "Regex" => ApplyRegex(result.ToString(), parameters.pattern.ToString()),
                 "SplitLetterNumber" => stringManipulator.SplitLetterNumber(result.ToString()),
                 "Take" => Take(result, parameters.property.ToString()),
-                "ProcessArray" => ProcessArray(result, parameters.fields, parameters.parentFields, bag),
+                "ProcessArray" => ProcessArray(result, FieldMapping<string>.FromJArray(parameters.fields), FieldMapping<string>.FromJArray(parameters.parentFields), bag),
                 "CombineDateTime" => CombineDateTime(result, parameters.dateToAppend.ToObject<DateTime>()),
                 "EmptyToNull" => EmptyToNull(result),
-                _ => throw new NotImplementedException($"Method {methodName} is not implemented.")
+                _ => throw new NotImplementedException($"Method {method.Name} is not implemented.")
             };
         }
 
@@ -110,29 +98,26 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
         return date.Add(time);
     }
 
-    private JArray ProcessArray(dynamic inputArray, dynamic fields, dynamic parentFields, dynamic bag)
+    private JArray ProcessArray(dynamic inputArray, IEnumerable<FieldMapping<string>> fields, IEnumerable<FieldMapping<string>> parentFields, Dictionary<string, dynamic> bag)
     {
         var resultArray = new JArray();
         
         var objWithParentField = new JObject();
         foreach (var parentField in parentFields)
         {
-            var parentFromName = parentField.from.ToString();
-            var parentFieldName = parentField.name.ToString();
-            var parentFieldValue = bag[parentFromName];
-            var transformedValue = ApplyMethods(parentFieldValue, parentField.methods, bag);
-            objWithParentField[parentFieldName] = JToken.FromObject(transformedValue);
+            var parentFieldValue = bag[parentField.From];
+            var transformedValue = ApplyMethods(parentFieldValue, parentField.Methods, bag);
+            objWithParentField[parentField.Name] = JToken.FromObject(transformedValue);
         }
-        
 
         foreach (var item in inputArray)
         {
             var obj = objWithParentField.DeepClone();
             foreach (var field in fields)
             {
-                var fieldValue = item[field.from.ToString()];
-                var transformedValue = ApplyMethods(fieldValue, field.methods, bag);
-                obj[field.name.ToString()] = JToken.FromObject(transformedValue);
+                var fieldValue = item[field.From];
+                var transformedValue = ApplyMethods(fieldValue, field.Methods, bag);
+                obj[field.Name] = JToken.FromObject(transformedValue);
             }
             resultArray.Add(obj);
         }

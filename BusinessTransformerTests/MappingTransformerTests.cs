@@ -1,5 +1,6 @@
 using System.Text.Json.Nodes;
 using BusinessTransformer;
+using BusinessTransformer.Mapping;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -15,7 +16,7 @@ namespace BusinessTransformerTests
         {
             // TODO: Move this initialization to a JsonMappingTransformerTests if multiple implementations are added
             _transformer = new JsonMappingTransformer(new StandardLibStringManipulator());
-            _mapping = GetTestData("Mapping.json");
+            _mapping = FieldMapping<int>.FromJArray(GetTestData("Mapping.json"));
         }
         
         private static dynamic GetTestData(string fileName)
