@@ -26,49 +26,49 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="Data\english_prefix.json">
+      <None Update="Data\EnglishPrefix.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\french_prefix.json">
+      <None Update="Data\FrenchPrefix.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\invalid_date.json">
+      <None Update="Data\InvalidDate.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\italian_prefix.json">
+      <None Update="Data\ItalianPrefix.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\mapping.json">
+      <None Update="Data\Mapping.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\multiple.json">
+      <None Update="Data\Multiple.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\no-line_no-l.json">
+      <None Update="Data\NoLComponentInLine.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\prefixed_departure.json">
+      <None Update="Data\PrefixedDeparture.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\simple.json">
+      <None Update="Data\Simple.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\simple_invalid_departure.json">
+      <None Update="Data\SimpleInvalidDeparture.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\simple_invalid_departure_hour.json">
+      <None Update="Data\SimpleInvalidDepartureHour.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\simple_invalid_departure_minute.json">
+      <None Update="Data\SimpleInvalidDepartureMinute.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\simple_multiple_prefixes.json">
+      <None Update="Data\SimpleMultiplePrefixes.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\simple_without_departures.json">
+      <None Update="Data\SimpleWithoutDepartures.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\simple_without_vias.json">
+      <None Update="Data\SimpleWithoutVias.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>

@@ -15,7 +15,7 @@ namespace BusinessTransformerTests
         {
             // TODO: Move this initialization to a JsonMappingTransformerTests if multiple implementations are added
             _transformer = new JsonMappingTransformer(new StandardLibStringManipulator());
-            _mapping = GetTestData("mapping.json");
+            _mapping = GetTestData("Mapping.json");
         }
         
         private static dynamic GetTestData(string fileName)
@@ -28,7 +28,7 @@ namespace BusinessTransformerTests
         public void Transform_SimpleTrainStationWithoutDepartures_InformationIsCorrectlyMapped()
         {
             // Given: A valid DeparturesDocument from the Document Parser
-            var departuresDocument = GetTestData("simple_without_departures.json");
+            var departuresDocument = GetTestData("SimpleWithoutDepartures.json");
 
             // When: The API is called to transform the parsed document
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
@@ -43,7 +43,7 @@ namespace BusinessTransformerTests
         public void Transform_TrainStationNameWithMultiplePrefixes_PrefixesAreRemoved()
         {
             // Given: A DeparturesDocument with a station name containing multiple prefixes
-            var departuresDocument = GetTestData("simple_multiple_prefixes.json");
+            var departuresDocument = GetTestData("SimpleMultiplePrefixes.json");
 
             // When: Transformation is performed
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
@@ -56,7 +56,7 @@ namespace BusinessTransformerTests
         public void Transform_StationNameWithFrenchPrefix_PrefixIsRemoved()
         {
             // Given: A DeparturesDocument with a station name containing the French prefix "Gare de"
-            var departuresDocument = GetTestData("french_prefix.json");
+            var departuresDocument = GetTestData("FrenchPrefix.json");
             // When: Transformation is performed
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
 
@@ -69,7 +69,7 @@ namespace BusinessTransformerTests
         public void Transform_StationNameWithItalianPrefix_PrefixIsRemoved()
         {
             // Given: A DeparturesDocument with a station name containing the Italian prefix "Stazione di"
-            var departuresDocument = GetTestData("italian_prefix.json");
+            var departuresDocument = GetTestData("ItalianPrefix.json");
 
             // When: Transformation is performed
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
@@ -82,7 +82,7 @@ namespace BusinessTransformerTests
         public void Transform_InvalidDate_ThrowInvalidArgumentException()
         {
             // Given: A DeparturesDocument with invalid date format
-            var departuresDocument = GetTestData("invalid_date.json");
+            var departuresDocument = GetTestData("InvalidDate.json");
 
             // When: The API is called to transform the parsed document
             // Then: An exception is thrown
@@ -93,7 +93,7 @@ namespace BusinessTransformerTests
         public void Transform_TrainStationWithDeparture_DepartureInfoTransformed()
         {
             // Given: A DeparturesDocument for one week with departure
-            var departuresDocument = GetTestData("simple.json");
+            var departuresDocument = GetTestData("Simple.json");
 
             // When: The transformation is performed
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
@@ -117,7 +117,7 @@ namespace BusinessTransformerTests
         public void Transform_TrainStationEmptyViaDeparture_ViaListShouldBeEmpty()
         {
             // Given: A DeparturesDocument for one week with departure tagged with bike sign
-            var departuresDocument = GetTestData("simple_without_vias.json");
+            var departuresDocument = GetTestData("SimpleWithoutVias.json");
 
             // When: The transformation is performed
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
@@ -131,7 +131,7 @@ namespace BusinessTransformerTests
         public void Transform_TrainStationWithInvalidDepartureHourNumber_ShouldTrowFormatException()
         {
             // Given: A DeparturesDocument with an invalid departure hour
-            var departuresDocument = GetTestData("simple_invalid_departure_hour.json");
+            var departuresDocument = GetTestData("SimpleInvalidDepartureHour.json");
 
             // When + Then: An exception is thrown
             Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument, _mapping));
@@ -141,7 +141,7 @@ namespace BusinessTransformerTests
         public void Transform_TrainStationWithInvalidDepartureMinuteNumber_ShouldTrowFormatException()
         {
             // Given: A DeparturesDocument with an invalid departure hour
-            var departuresDocument = GetTestData("simple_invalid_departure_minute.json");
+            var departuresDocument = GetTestData("SimpleInvalidDepartureMinute.json");
 
             // When + Then: An exception is thrown
             Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument, _mapping));
@@ -151,7 +151,7 @@ namespace BusinessTransformerTests
         public void Transform_TrainStationWithInvalidDepartureHour_ShouldTrowFormatException()
         {
             // Given: A DeparturesDocument with an invalid departure hour
-            var departuresDocument = GetTestData("simple_invalid_departure.json");
+            var departuresDocument = GetTestData("SimpleInvalidDeparture.json");
 
             // When + Then: An exception is thrown
             Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument, _mapping));
@@ -165,7 +165,7 @@ namespace BusinessTransformerTests
             var hours = new List<int> { 12, 13 };
             var minutes = new List<int> { 0, 15, 30, 45 };
 
-            var departuresDocument = GetTestData("multiple.json");
+            var departuresDocument = GetTestData("Multiple.json");
 
             // When: The transformation is performed
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
@@ -183,7 +183,7 @@ namespace BusinessTransformerTests
         public void Transform_EmptyDepartureHours_NoDeparturesInTrainStation()
         {
             // Given: A DeparturesDocument with no departure hours
-            var departuresDocument = GetTestData("simple_without_departures.json");
+            var departuresDocument = GetTestData("SimpleWithoutDepartures.json");
 
             // When: Transformation is performed
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
@@ -196,7 +196,7 @@ namespace BusinessTransformerTests
         public void Transform_DepartureWithTrainFormatWithoutLine_LTrainValueIsNull()
         {
             // Given: A DeparturesDocument with a train format that does not contain a line (L part)
-            var departuresDocument = GetTestData("no-line_no-l.json");
+            var departuresDocument = GetTestData("NoLComponentInLine.json");
 
             // When: Transformation is performed
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
@@ -212,7 +212,7 @@ namespace BusinessTransformerTests
         public void Transform_DepartureWithSpacedTrainFormat_TrainValuesAreSet()
         {
             // Given: A DeparturesDocument with an unrecognized train format
-            var departuresDocument = GetTestData("simple.json");
+            var departuresDocument = GetTestData("Simple.json");
 
             // When: Transformation is performed
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
@@ -228,7 +228,7 @@ namespace BusinessTransformerTests
         public void Transform_SimpleTrainStationWithPrefixedDate_InformationIsCorrectlyMapped()
         {
             // Given: A valid DeparturesDocument from the Document Parser
-            var departuresDocument = GetTestData("simple.json");
+            var departuresDocument = GetTestData("Simple.json");
             
             // When: The API is called to transform the parsed document
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
@@ -243,7 +243,7 @@ namespace BusinessTransformerTests
         public void Transform_SimpleTrainStationWithEnglishPrefixedDate_InformationIsCorrectlyMapped()
         {
             // Given: A valid DeparturesDocument from the Document Parser
-            var departuresDocument = GetTestData("english_prefix.json");
+            var departuresDocument = GetTestData("EnglishPrefix.json");
 
             // When: The API is called to transform the parsed document
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
@@ -258,7 +258,7 @@ namespace BusinessTransformerTests
         public void Transform_SimpleTrainStationWithRandomTextPrefixedDate_InformationIsCorrectlyMapped()
         {
             // Given: A valid DeparturesDocument from the Document Parser
-            var departuresDocument = GetTestData("prefixed_departure.json");
+            var departuresDocument = GetTestData("PrefixedDeparture.json");
 
             // When: The API is called to transform the parsed document
             var trainStation = _transformer.Transform(departuresDocument, _mapping);
