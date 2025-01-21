@@ -11,22 +11,12 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-latest 
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-      - name: Restore dependencies
-        run: dotnet restore
-      - name: Build
-        run: dotnet build --no-restore --configuration Release
-      - name: Test BusinessTransformer
-        run: dotnet test ./BusinessTransformerTests/BusinessTransformerTests.csproj --no-build --configuration Release
-      - name: Test DocumentParser
-        run: dotnet test ./DocumentParserTests/DocumentParserTests.csproj --no-build --configuration Release
-      - name: Test Api
-        run: dotnet test ./RestAPITests/RestAPITests.csproj --no-build --configuration Release
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Build and test Docker image
+      run: |
+        docker build --target test -f Dockerfile -t internalSourceTransform:test .
+        docker run --rm internalSourceTransform:test
