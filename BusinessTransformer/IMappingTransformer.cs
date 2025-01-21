@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Nodes;
-
-namespace BusinessTransformer;
+﻿namespace BusinessTransformer;
 
 /// <summary>
 /// A generic interface that represents a document transformer.
