@@ -20,3 +20,15 @@ jobs:
       run: |
         docker build --target test -f Dockerfile -t internal-source-transform:test .
         docker run --rm internal-source-transform:test
+        
+    - name: Build Docker image
+      run: docker build --target runtime -t internal-source-transform:latest .
+
+    - name: Save Docker image to tar file
+      run: docker save -o internal-source-transform.tar internal-source-transform:latest
+
+    - name: Upload Docker image tar file
+      uses: actions/upload-artifact@v3
+      with:
+        name: internal-source-transform-tar
+        path: internal-source-transform.tar
