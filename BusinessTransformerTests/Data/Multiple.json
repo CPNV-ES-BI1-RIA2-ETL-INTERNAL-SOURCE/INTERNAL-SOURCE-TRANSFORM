@@ -1,0 +1,62 @@
+﻿[
+  "Gare de Yverdon-les-Bains",
+  "Départ pour le 10 décembre 2024",
+  [
+    {
+      "Heure de départ": "12 00",
+      "Ligne": "IC 5",
+      "Destination": "City C",
+      "Vias": "City A, City B",
+      "Voie": "13A"
+    },
+    {
+      "Heure de départ": "12 15",
+      "Ligne": "IC 5",
+      "Destination": "City C",
+      "Vias": "City A, City B",
+      "Voie": "13A"
+    },
+    {
+      "Heure de départ": "12 30",
+      "Ligne": "IC 5",
+      "Destination": "City C",
+      "Vias": "City A, City B",
+      "Voie": "13A"
+    },
+    {
+      "Heure de départ": "12 45",
+      "Ligne": "IC 5",
+      "Destination": "City C",
+      "Vias": "City A, City B",
+      "Voie": "13A"
+    },
+    {
+      "Heure de départ": "13 00",
+      "Ligne": "IC 5",
+      "Destination": "City C",
+      "Vias": "City A, City B",
+      "Voie": "13A"
+    },
+    {
+      "Heure de départ": "13 15",
+      "Ligne": "IC 5",
+      "Destination": "City C",
+      "Vias": "City A, City B",
+      "Voie": "13A"
+    },
+    {
+      "Heure de départ": "13 30",
+      "Ligne": "IC 5",
+      "Destination": "City C",
+      "Vias": "City A, City B",
+      "Voie": "13A"
+    },
+    {
+      "Heure de départ": "13 45",
+      "Ligne": "IC 5",
+      "Destination": "City C",
+      "Vias": "City A, City B",
+      "Voie": "13A"
+    }
+  ]
+]

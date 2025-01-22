@@ -11,10 +11,7 @@ For this project, we have two parts:
     - Tables MUST have at least 3 white spaces between columns.  
     - If there is one, the table MUST be the last entry of the input.  
     - An input MUST NOT have more than one table.  
-    - A closure MUST be signified by a line feed. (⚠️ Deprecated but left as dead code)  
-
-- The **Document Reviver** part, which provides a function to instantiate a JSON object as business objects compatible with the Business Transformer.  
-  - An interface using generics is provided to allow the implementation of the Revive function.  
+    - A closure MUST be signified by a line feed. (⚠️ Deprecated but left as dead code)
 
 ## Tests  
 - Significant time has been invested in testing this project. Tests are written in BDD style and should validate (and be the source of truth about) the project's requirements and acceptance criteria.  

@@ -23,4 +23,13 @@
       <ProjectReference Include="..\RestAPI\RestAPI.csproj" />
         <InternalsVisibleTo Include="RestAPI" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <None Update="Data\SimpleInput.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\SimpleOutput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 </Project>
