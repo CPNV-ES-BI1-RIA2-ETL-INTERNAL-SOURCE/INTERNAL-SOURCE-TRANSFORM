@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace RestAPI.Controllers;
 
 [ApiController]
-[Route("v1/documents")]
+[Route("api/v1/documents")]
 public class DocumentsController(
     IDocumentParser parser,
     IMappingTransformer transformer)
