@@ -29,7 +29,7 @@ public class DocumentParserTests
     {
         // Given 
         var input = GetTestRawData("SingleStringInput.txt").Split("\r\n").ToList();
-        var expectedOutput = JsonConvert.SerializeObject(GetTestData("SingleStringOutput.json"), Formatting.None).Replace("é", "\\u00E9").Replace("è", "\\u00E8");
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("SingleStringOutput.json"), Formatting.None);
         
         // When
         var parsedDocument = _documentParser.Parse(input);
@@ -44,7 +44,7 @@ public class DocumentParserTests
     {
         // Given 
         var input = GetTestRawData("HeadersWithoutValuesInput.txt").Split("\r\n").ToList();
-        var expectedOutput = JsonConvert.SerializeObject(GetTestData("HeadersWithoutValuesOutput.json"), Formatting.None).Replace("é", "\\u00E9").Replace("è", "\\u00E8");
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("HeadersWithoutValuesOutput.json"), Formatting.None);
         
         // When
         var parsedDocument = _documentParser.Parse(input);
@@ -58,7 +58,7 @@ public class DocumentParserTests
     {
         // Given 
         var input = GetTestRawData("HeadersWithValuesInput.txt").Split("\r\n").ToList();
-        var expectedOutput = JsonConvert.SerializeObject(GetTestData("HeadersWithValuesOutput.json"), Formatting.None).Replace("é", "\\u00E9").Replace("è", "\\u00E8");
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("HeadersWithValuesOutput.json"), Formatting.None);
 
         // When
         var parsedDocument = _documentParser.Parse(input);
@@ -72,7 +72,7 @@ public class DocumentParserTests
     {
         // Given
         var input = GetTestRawData("CompleteDocumentInput.txt").Split("\r\n").ToList();
-        var expectedOutput = JsonConvert.SerializeObject(GetTestData("CompleteDocumentOutput.json"), Formatting.None).Replace("é", "\\u00E9").Replace("è", "\\u00E8");
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("CompleteDocumentOutput.json"), Formatting.None);
         
         // When
         var parsedDocument = _documentParser.Parse(input);
@@ -86,7 +86,7 @@ public class DocumentParserTests
     {
         // Given 
         var input = GetTestRawData("CompleteDocumentWithManyMissingValuesInput.txt").Split("\r\n").ToList();
-        var expectedOutput = JsonConvert.SerializeObject(GetTestData("CompleteDocumentWithManyMissingValuesOutput.json"), Formatting.None).Replace("é", "\\u00E9").Replace("è", "\\u00E8");
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("CompleteDocumentWithManyMissingValuesOutput.json"), Formatting.None);
         
         // When
         var parsedDocument = _documentParser.Parse(input);
@@ -100,7 +100,7 @@ public class DocumentParserTests
     {
         // Given 
         var input = GetTestRawData("CompleteDocumentWithHeadersReminderInput.txt").Split("\r\n").ToList();
-        var expectedOutput = JsonConvert.SerializeObject(GetTestData("CompleteDocumentWithHeadersReminderOutput.json"), Formatting.None).Replace("é", "\\u00E9").Replace("è", "\\u00E8");
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("CompleteDocumentWithHeadersReminderOutput.json"), Formatting.None);
         
         // When
         var parsedDocument = _documentParser.Parse(input);
@@ -114,7 +114,7 @@ public class DocumentParserTests
     {
         // Given 
         var input = GetTestRawData("CompleteDocumentWithTableFirstInput.txt").Split("\r\n").ToList();
-        var expectedOutput = JsonConvert.SerializeObject(GetTestData("CompleteDocumentWithTableFirstOutput.json"), Formatting.None).Replace("é", "\\u00E9").Replace("è", "\\u00E8");
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("CompleteDocumentWithTableFirstOutput.json"), Formatting.None);
         
         // When
         var parsedDocument = _documentParser.Parse(input);
