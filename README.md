@@ -73,7 +73,6 @@ You don't want to clone the repo or install the depedencies? No worry, we automa
 ├───.idea                      // Project metadata for Rider configuration
 ├── .gitignore                 // Git ignore rules
 ├───Doc                        // Project documentation in markdown
-├───CommonInterfaces           // Some interfaces and structures every part of the project should use (no logic inside)
 ├───BusinessTransformer        // Core logic for business transformation and computation
 ├───BusinessTransformerTests   // NUnit3 tests for BusinessTransformer
 ├───DocumentParser             // Handles raw format conversion from PDF-extracted text
@@ -85,7 +84,7 @@ You don't want to clone the repo or install the depedencies? No worry, we automa
 ```
 
 ### General Architecture
-The project is divided into four parts: CommonInterfaces, BusinessTransformer, DocumentParser, and RestAPI.
+The project is divided into three parts: BusinessTransformer, DocumentParser, and RestAPI.
 Here is the dependency graph (exported image of astah uml) of the project:
 
 ![Dependency graph](Doc/UMLExports/PackageDependencies.png)
