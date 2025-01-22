@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace DocumentParser;
+﻿namespace DocumentParser;
 public class DocumentParser: IDocumentParser {
 
     /// <summary>

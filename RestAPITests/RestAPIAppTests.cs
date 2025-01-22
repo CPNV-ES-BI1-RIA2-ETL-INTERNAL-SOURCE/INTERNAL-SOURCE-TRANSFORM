@@ -2,7 +2,6 @@
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
-using RestAPI.Controllers;
 
 namespace RestAPITests;
 

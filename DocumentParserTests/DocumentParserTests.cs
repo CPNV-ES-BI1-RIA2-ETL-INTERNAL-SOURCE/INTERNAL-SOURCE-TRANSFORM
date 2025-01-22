@@ -1,6 +1,5 @@
 using System.Text.Json;
-using _documentParser = DocumentParser.DocumentParser;
-using IDocumentParser = DocumentParser.IDocumentParser;
+using DocumentParser;
 
 namespace DocumentParserTests;
 
@@ -11,7 +10,7 @@ public class DocumentParserTests
     [SetUp]
     public void Setup()
     {
-        _documentParser = new _documentParser();
+        _documentParser = new DocumentParser.DocumentParser();
     }
     
     [Test]
