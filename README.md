@@ -18,7 +18,7 @@ This is the **transformation** part of a SBB CFF FFS app. There are four distinc
 * .NET SDK 8.0+ [Download](https://dotnet.microsoft.com/download)
 * Git version 2.39+ [Download](https://git-scm.com/)
 * Git LFS 3.5+ [Download](https://git-lfs.github.com/)
-* Astah UML 8.4+ [Download](https://astah.net/products/astah-uml/)
+* Astah UML 10+ [Download](https://astah.net/products/astah-uml/)
 
 ### Getting started
 #### Build the project:
