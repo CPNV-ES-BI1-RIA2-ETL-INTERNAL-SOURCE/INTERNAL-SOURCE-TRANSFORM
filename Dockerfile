@@ -10,7 +10,6 @@ COPY InternalSourceTransform.sln ./
 COPY RestAPI/ RestAPI/
 COPY BusinessTransformer/ BusinessTransformer/
 COPY DocumentParser/ DocumentParser/
-COPY CommonInterfaces/ CommonInterfaces/
 COPY RestAPITests/ RestAPITests/
 COPY BusinessTransformerTests/ BusinessTransformerTests/
 COPY DocumentParserTests/ DocumentParserTests/
