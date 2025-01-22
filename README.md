@@ -27,25 +27,44 @@ dotnet restore
 dotnet build
 ```
 
+_With Docker_
+```shell
+docker build --target build -t build .
+```
+
 #### Run the api locally
 ```shell
 cd RestAPI
 dotnet run
 ```
+
 You can go to [http://localhost:5067/swagger/](http://localhost:5067/swagger/index.html) to see API endpoints.
+
+_With Docker (prod only so the /swagger isn't served)_
+```shell
+docker build --target runtime -t runtime .
+docker run -d -p 8080:8080 --name runtime runtime
+```
 
 #### Test projects:
 ```shell
-cd BusinessTransformerTests
-```
-OR
-```shell
-cd DocumentParserTests
-```
-And then
-```shell
 dotnet test
 ```
+
+_With Docker_
+```shell
+docker build --target test -t test .
+```
+
+## Download latest docker image (built for production)
+You don't want to clone the repo or install the depedencies? No worry, we automatically generate the docker images for you. Follow these few setps to run the app on you machine:
+1. Go to the [action](https://github.com/CPNV-ES-BI1-RIA2-ETL-INTERNAL-SOURCE/INTERNAL-SOURCE-TRANSFORM/actions) tab of the repo.
+2. Click on the latest one and scroll to the 'Artifacts' section.
+3. Download the internal-source-transform-tar.
+4. Unzip the previously downloaded artifact.
+5. Load the .tar image in your docker with `docker load -i <path/to/the/image.tar>`
+6. Then run the image `docker run -d -p 8080:8080 --name internal-source-transform internal-source-transform` 
+
 
 ## Collaborate
 
