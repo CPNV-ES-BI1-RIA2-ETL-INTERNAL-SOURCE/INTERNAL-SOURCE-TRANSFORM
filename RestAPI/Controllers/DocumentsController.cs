@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Nodes;
 using BusinessTransformer;
+using BusinessTransformer.Mapping;
 using DocumentParser;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -23,7 +24,7 @@ public class DocumentsController(
             
             //TODO : Mapping should be taken from request body
             dynamic mapping = JsonConvert.DeserializeObject(System.IO.File.ReadAllText("config.json"));
-            dynamic transformedDocument = transformer.Transform(parsedDocument, mapping);
+            dynamic transformedDocument = transformer.Transform(parsedDocument, FieldMapping<int>.FromJArray(mapping));
 
             return Ok(transformedDocument.ToString());
         }
