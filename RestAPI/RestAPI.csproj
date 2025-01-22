@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="config.json">
+      <None Include="Mapping.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
