@@ -108,4 +108,18 @@ public class DocumentParserTests
         // Then
         Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput));
     }
+    
+    [Test]
+    public void Parse_CompleteDocumentWithTableFirst()
+    {
+        // Given 
+        var input = GetTestRawData("CompleteDocumentWithTableFirstInput.txt").Split("\r\n").ToList();
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("CompleteDocumentWithTableFirstOutput.json"), Formatting.None).Replace("é", "\\u00E9").Replace("è", "\\u00E8");
+        
+        // When
+        var parsedDocument = _documentParser.Parse(input);
+
+        // Then
+        Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput));
+    }
 }

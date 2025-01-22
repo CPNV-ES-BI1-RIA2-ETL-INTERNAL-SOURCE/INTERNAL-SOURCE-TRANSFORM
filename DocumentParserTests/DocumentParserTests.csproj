@@ -62,6 +62,12 @@
       <None Update="Data\CompleteDocumentWithManyMissingValuesOutput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Data\CompleteDocumentWithTableFirstInput.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\CompleteDocumentWithTableFirstOutput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
