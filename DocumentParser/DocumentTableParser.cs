@@ -4,7 +4,7 @@ public class DocumentTableParser
     private const string _tableColumnSeparator = "   ";
     private List<string> _tableHeaders = new List<string>();
     private List<int> _tableColumnStarts = new List<int>();
-    public List<Dictionary<string, string>> TableRows { get; private set; } = new List<Dictionary<string, string>>();
+    public List<Dictionary<string, string>> TableRows { get; } = new List<Dictionary<string, string>>();
     
     /// <summary>
     /// Check if the line is a table header, row or closure and process it accordingly
