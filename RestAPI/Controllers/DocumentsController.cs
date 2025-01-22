@@ -14,7 +14,7 @@ public class DocumentsController(
     : ControllerBase
 {
     [HttpPost("transform")]
-    [ProducesResponseType(typeof(TrainStation), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(object), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(object), StatusCodes.Status500InternalServerError)]
     public IActionResult TransformDocument([FromBody] List<string> request)
