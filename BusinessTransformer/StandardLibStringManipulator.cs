@@ -82,4 +82,16 @@ public class StandardLibStringManipulator : IStringManipulator
         }
         return new TimeSpan(hour, minute, 0);
     }
+
+    public Dictionary<string, string> ApplyRegex(string input, string pattern)
+    {
+        var match = Regex.Match(input, pattern);
+        Dictionary<string, string> result = new();
+        foreach (Group groupName in match.Groups)
+        {
+            if(groupName is Match) continue;
+            result[groupName.Name] = match.Groups[groupName.Name].Value;
+        }
+        return result;
+    }
 }

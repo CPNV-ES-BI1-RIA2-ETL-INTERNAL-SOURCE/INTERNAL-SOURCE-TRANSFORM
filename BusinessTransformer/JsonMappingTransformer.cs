@@ -17,7 +17,7 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
 
         foreach (var fieldMapping in mapping)
         {
-            var fromIndex = (int)fieldMapping.From;
+            var fromIndex = fieldMapping.From;
 
             if(input.Count <= fromIndex) throw new InvalidInputFormatException("From index out of range");
             var inputValue = input[fromIndex];
@@ -44,7 +44,7 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
                     (parameters.cultures.ToObject<string[]>() as IEnumerable<string>).Select(c => new CultureInfo(c))),
                 "Split" => stringManipulator.Split(result.ToString(), parameters.separator.ToString()),
                 "ParseHourMinute" => stringManipulator.ParseHourMinute(result.ToString(), parameters.separator.ToString()),
-                "Regex" => ApplyRegex(result.ToString(), parameters.pattern.ToString()),
+                "Regex" => stringManipulator.ApplyRegex(result.ToString(), parameters.pattern.ToString()),
                 "SplitLetterNumber" => stringManipulator.SplitLetterNumber(result.ToString()),
                 "Take" => Take(result, parameters.property.ToString()),
                 "ProcessArray" => ProcessArray(result, FieldMapping<string>.FromJArray(parameters.fields), FieldMapping<string>.FromJArray(parameters.parentFields), bag),
@@ -123,17 +123,5 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
         }
 
         return resultArray;
-    }
-
-    private dynamic ApplyRegex(string input, string pattern)
-    {
-        var match = Regex.Match(input, pattern);
-        Dictionary<string, string> result = new();
-        foreach (Group groupName in match.Groups)
-        {
-            if(groupName is Match) continue;
-            result[groupName.Name] = match.Groups[groupName.Name].Value;
-        }
-        return result;
     }
 }

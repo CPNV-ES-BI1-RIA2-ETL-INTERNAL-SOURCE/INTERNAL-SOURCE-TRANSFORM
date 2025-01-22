@@ -63,4 +63,12 @@ public interface IStringManipulator
     /// </exception>
     /// <exception cref="OverflowException">String represents a number less than Int32.MinValue or greater than Int32.MaxValue.</exception>
     TimeSpan ParseHourMinute(string input, string separator);
+
+    /// <summary>
+    /// Applies a regex pattern to the input string and returns the matches by group name.
+    /// </summary>
+    /// <param name="input">The input string to apply the regex pattern to.</param>
+    /// <param name="pattern">The REGEX pattern to apply to the input string.</param>
+    /// <returns>A dictionary of matches by group name.</returns>
+    Dictionary<string, string> ApplyRegex(string input, string pattern);
 }
