@@ -1,11 +1,25 @@
-using System.Text.Json;
+using System.Net;
+using System.Net.Http.Json;
 using DocumentParser;
+using Newtonsoft.Json;
+using NUnit.Framework;
 
 namespace DocumentParserTests;
 
 public class DocumentParserTests
 {  
     private IDocumentParser _documentParser;
+    
+    private static string GetTestRawData(string fileName)
+    {
+        var path = Path.Combine(AppContext.BaseDirectory, "Data", fileName);
+        return File.ReadAllText(path);
+    }
+    
+    private static dynamic GetTestData(string fileName)
+    {
+        return JsonConvert.DeserializeObject(GetTestRawData(fileName))!;
+    }
 
     [SetUp]
     public void Setup()
@@ -17,104 +31,84 @@ public class DocumentParserTests
     public void Parse_SingleString()
     {
         // Given 
-        IEnumerable<string> rawDocument = new List<string> {
-            "Gare de Yverdon-les-Bains"
-        };
-
+        var input = GetTestRawData("SingleStringInput.txt").Split("\r\n").ToList();
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("SingleStringOutput.json"), Formatting.None).Replace("é", "\\u00E9").Replace("è", "\\u00E8");
+        
         // When
-        var parsedDocument = _documentParser.Parse(rawDocument);
-
+        var parsedDocument = _documentParser.Parse(input);
+        
+        
         // Then
-        Assert.That(JsonSerializer.Serialize(parsedDocument), Is.EqualTo("[\"Gare de Yverdon-les-Bains\"]"));
+        Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput.ToString()));
     }
     
     [Test]
     public void Parse_HeadersWithoutValues()
     {
         // Given 
-        IEnumerable<string> rawDocument = new List<string> {
-            "Heure de départ        Ligne    Destination         Vias                                              Voie"
-        };
-
+        var input = GetTestRawData("HeadersWithoutValuesInput.txt").Split("\r\n").ToList();
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("HeadersWithoutValuesOutput.json"), Formatting.None).Replace("é", "\\u00E9").Replace("è", "\\u00E8");
+        
         // When
-        var parsedDocument = _documentParser.Parse(rawDocument);
-
+        var parsedDocument = _documentParser.Parse(input);
+        
         // Then
-        Assert.That(JsonSerializer.Serialize(parsedDocument), Is.EqualTo("[]"));
+        Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput));
     }
     
     [Test]
     public void Parse_HeadersWithValues()
     {
         // Given 
-        IEnumerable<string> rawDocument = new List<string> {
-            "Heure de départ        Ligne    Destination         Vias                                              Voie", 
-            "8 00                   IC 5     Lausanne                                                              2", 
-            "16 45                  IC 5     Genève Aéroport     Morges                                            2"
-        };
+        var input = GetTestRawData("HeadersWithValuesInput.txt").Split("\r\n").ToList();
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("HeadersWithValuesOutput.json"), Formatting.None).Replace("é", "\\u00E9").Replace("è", "\\u00E8");
 
         // When
-        var parsedDocument = _documentParser.Parse(rawDocument);
+        var parsedDocument = _documentParser.Parse(input);
 
         // Then
-        Assert.That(JsonSerializer.Serialize(parsedDocument), Is.EqualTo("[[{\"Heure de d\\u00E9part\":\"8 00\",\"Ligne\":\"IC 5\",\"Destination\":\"Lausanne\",\"Vias\":\"\",\"Voie\":\"2\"},{\"Heure de d\\u00E9part\":\"16 45\",\"Ligne\":\"IC 5\",\"Destination\":\"Gen\\u00E8ve A\\u00E9roport\",\"Vias\":\"Morges\",\"Voie\":\"2\"}]]"));
+        Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput));
     }
     
     [Test]
     public void Parse_CompleteDocument()
     {
-        // Given 
-        IEnumerable<string> rawDocument = new List<string> {
-            "Gare de Yverdon-les-Bains", 
-            "Départ pour le 9 décembre 2024",
-            "Heure de départ        Ligne    Destination         Vias                                              Voie", 
-            "8 00                   IC 5     Lausanne                                                              2", 
-            "16 45                  IC 5     Genève Aéroport     Morges                                            2"
-        };
-
+        // Given
+        var input = GetTestRawData("CompleteDocumentInput.txt").Split("\r\n").ToList();
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("CompleteDocumentOutput.json"), Formatting.None).Replace("é", "\\u00E9").Replace("è", "\\u00E8");
+        
         // When
-        var parsedDocument = _documentParser.Parse(rawDocument);
+        var parsedDocument = _documentParser.Parse(input);
 
         // Then
-        Assert.That(JsonSerializer.Serialize(parsedDocument), Is.EqualTo("[\"Gare de Yverdon-les-Bains\",\"D\\u00E9part pour le 9 d\\u00E9cembre 2024\",[{\"Heure de d\\u00E9part\":\"8 00\",\"Ligne\":\"IC 5\",\"Destination\":\"Lausanne\",\"Vias\":\"\",\"Voie\":\"2\"},{\"Heure de d\\u00E9part\":\"16 45\",\"Ligne\":\"IC 5\",\"Destination\":\"Gen\\u00E8ve A\\u00E9roport\",\"Vias\":\"Morges\",\"Voie\":\"2\"}]]"));
+        Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput));
     }
     
     [Test]
     public void Parse_CompleteDocumentWithManyMissingValues()
     {
         // Given 
-        IEnumerable<string> rawDocument = new List<string> {
-            "Gare de Yverdon-les-Bains", 
-            "Départ pour le 9 décembre 2024",
-            "Heure de départ        Ligne    Destination         Vias                                              Voie", 
-            "8 00                            Lausanne                                                               ", 
-            "                       IC 5     Genève Aéroport     Morges                                            2"
-        };
-
+        var input = GetTestRawData("CompleteDocumentWithManyMissingValuesInput.txt").Split("\r\n").ToList();
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("CompleteDocumentWithManyMissingValuesOutput.json"), Formatting.None).Replace("é", "\\u00E9").Replace("è", "\\u00E8");
+        
         // When
-        var parsedDocument = _documentParser.Parse(rawDocument);
+        var parsedDocument = _documentParser.Parse(input);
 
         // Then
-        Assert.That(JsonSerializer.Serialize(parsedDocument), Is.EqualTo("[\"Gare de Yverdon-les-Bains\",\"D\\u00E9part pour le 9 d\\u00E9cembre 2024\",[{\"Heure de d\\u00E9part\":\"8 00\",\"Ligne\":\"\",\"Destination\":\"Lausanne\",\"Vias\":\"\",\"Voie\":\"\"},{\"Heure de d\\u00E9part\":\"\",\"Ligne\":\"IC 5\",\"Destination\":\"Gen\\u00E8ve A\\u00E9roport\",\"Vias\":\"Morges\",\"Voie\":\"2\"}]]"));
+        Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput));
     }
     
     [Test]
     public void Parse_CompleteDocumentWithHeadersReminder()
     {
         // Given 
-        IEnumerable<string> rawDocument = new List<string> {
-            "Gare de Yverdon-les-Bains", 
-            "Départ pour le 9 décembre 2024",
-            "Heure de départ        Ligne    Destination         Vias                                              Voie", 
-            "8 00                   IC 5     Lausanne                                                              2", 
-            "Heure de départ        Ligne    Destination         Vias                                              Voie", 
-            "16 45                  IC 5     Genève Aéroport     Morges                                            2"
-        };
-
+        var input = GetTestRawData("CompleteDocumentWithHeadersReminderInput.txt").Split("\r\n").ToList();
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("CompleteDocumentWithHeadersReminderOutput.json"), Formatting.None).Replace("é", "\\u00E9").Replace("è", "\\u00E8");
+        
         // When
-        var parsedDocument = _documentParser.Parse(rawDocument);
+        var parsedDocument = _documentParser.Parse(input);
 
         // Then
-        Assert.That(JsonSerializer.Serialize(parsedDocument), Is.EqualTo("[\"Gare de Yverdon-les-Bains\",\"D\\u00E9part pour le 9 d\\u00E9cembre 2024\",[{\"Heure de d\\u00E9part\":\"8 00\",\"Ligne\":\"IC 5\",\"Destination\":\"Lausanne\",\"Vias\":\"\",\"Voie\":\"2\"},{\"Heure de d\\u00E9part\":\"16 45\",\"Ligne\":\"IC 5\",\"Destination\":\"Gen\\u00E8ve A\\u00E9roport\",\"Vias\":\"Morges\",\"Voie\":\"2\"}]]"));
+        Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput));
     }
 }
