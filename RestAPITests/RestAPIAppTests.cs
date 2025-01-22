@@ -33,7 +33,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         var expectedOutput = GetTestData("SimpleOutput.json");
 
         // Act
-        var response = await client.PostAsJsonAsync("/v1/documents/transform", input);
+        var response = await client.PostAsJsonAsync("/api/v1/documents/transform", input);
 
         // Assert (also that it's in JSON format)
         response.EnsureSuccessStatusCode();
@@ -50,7 +50,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         var request = new List<string> {"Invalid document"};
 
         // Act
-        var response = await client.PostAsJsonAsync("/v1/documents/transform", request);
+        var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
