@@ -1,8 +1,5 @@
-using System.Net;
-using System.Net.Http.Json;
 using DocumentParser;
 using Newtonsoft.Json;
-using NUnit.Framework;
 
 namespace DocumentParserTests;
 
