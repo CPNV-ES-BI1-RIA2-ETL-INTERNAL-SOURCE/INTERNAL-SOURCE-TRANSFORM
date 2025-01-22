@@ -7,13 +7,16 @@ using Newtonsoft.Json;
 namespace RestAPI.Controllers;
 
 [ApiController]
-[Route("v1/documents")]
+[Route("api/v1/documents")]
 public class DocumentsController(
     IDocumentParser parser,
     IMappingTransformer transformer)
     : ControllerBase
 {
     [HttpPost("transform")]
+    [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(object), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(object), StatusCodes.Status500InternalServerError)]
     public IActionResult TransformDocument([FromBody] List<string> request)
     {
         try

@@ -1,7 +1,9 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
+using RestAPI;
 
 namespace RestAPITests;
 
@@ -31,7 +33,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         var expectedOutput = GetTestData("SimpleOutput.json");
 
         // Act
-        var response = await client.PostAsJsonAsync("/v1/documents/transform", input);
+        var response = await client.PostAsJsonAsync("/api/v1/documents/transform", input);
 
         // Assert (also that it's in JSON format)
         response.EnsureSuccessStatusCode();
@@ -48,9 +50,33 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         var request = new List<string> {"Invalid document"};
 
         // Act
-        var response = await client.PostAsJsonAsync("/v1/documents/transform", request);
+        var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+    
+    
+    [Fact]
+    public async Task Get_OpenApiEndpoint_ShouldReturnValidOpenApiDocument()
+    {
+        // Arrange
+        var client = factory.CreateClient();
+
+        // Act
+        var response = await client.GetAsync("/swagger/v1/swagger.json");
+
+        // Assert
+        response.EnsureSuccessStatusCode(); // Ensure the endpoint returns 200 OK
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+        var openApiDocument = await response.Content.ReadAsStringAsync();
+        Assert.False(string.IsNullOrWhiteSpace(openApiDocument), "OpenAPI document should not be empty");
+
+        // Parse the JSON to ensure it is well-formed
+        var document = JsonDocument.Parse(openApiDocument);
+        Assert.NotNull(document);
+        Assert.True(document.RootElement.TryGetProperty("info", out var info));
+        Assert.Equal("Document Transformation API", info.GetProperty("title").GetString());
     }
 }
