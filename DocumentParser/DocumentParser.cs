@@ -1,20 +1,14 @@
-﻿using System.Text.Json;
-
-namespace DocumentParser;
+﻿namespace DocumentParser;
 public class DocumentParser: IDocumentParser {
-    public string Parse(IEnumerable<string> lines) {
-        var result = ProcessLines(lines);
-        return JsonSerializer.Serialize(result);
-    }
 
     /// <summary>
     /// Parse the lines of the document
     /// </summary>
     /// <param name="lines"></param>
     /// <returns>The generated json</returns>
-    private List<object> ProcessLines(IEnumerable<string> lines) {
+    public List<dynamic> Parse(IEnumerable<string> lines) {
         var tableParser = new DocumentTableParser();
-        var objectsResult = new List<object>();
+        var objectsResult = new List<dynamic>();
         
         foreach (var line in lines) {
             // Parse values inside of table

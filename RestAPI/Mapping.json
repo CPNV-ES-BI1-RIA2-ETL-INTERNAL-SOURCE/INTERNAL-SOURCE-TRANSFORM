@@ -1,0 +1,142 @@
+[
+  {
+    "from": 0,
+    "name": "Name",
+    "methods": [
+      {
+        "name": "RemovePrefixes",
+        "parameters": {
+          "prefixes": [
+            "Bahnhof",
+            "Station",
+            "Gare de",
+            "Stazione di"
+          ],
+          "separator": "/"
+        }
+      }
+    ]
+  },
+  {
+    "from": 1,
+    "onlyBag": true,
+    "name": "Date",
+    "methods": [
+      {
+        "name": "ParseLocalisedDate",
+        "parameters": {
+          "cultures": [
+            "fr-FR",
+            "de-DE",
+            "en-US",
+            "it-IT"
+          ],
+          "format": "d MMMM yyyy"
+        }
+      }
+    ]
+  },
+  {
+    "from": 2,
+    "name": "Departures",
+    "methods": [
+      {
+        "name": "ProcessArray",
+        "parameters": {
+          "fields": [
+            {
+              "from": "Destination",
+              "name": "DestinationStationName",
+              "methods": []
+            },
+            {
+              "from": "Vias",
+              "name": "ViaStationNames",
+              "methods": [
+                {
+                  "name": "Split",
+                  "parameters": {
+                    "separator": ", "
+                  }
+                }
+              ]
+            },
+            {
+              "from": "Heure de d\u00E9part",
+              "name": "DepartureTime",
+              "methods": [
+                {
+                  "name": "ParseHourMinute",
+                  "parameters": {
+                    "separator": " "
+                  }
+                },
+                {
+                  "name": "CombineDateTime",
+                  "metaParameters": {
+                    "dateToAppend": "Date"
+                  }
+                }
+              ]
+            },
+            {
+              "from": "Ligne",
+              "name": "Train",
+              "methods": [
+                {
+                  "name": "Regex",
+                  "parameters": {
+                    "pattern": "(?<G>[A-Z]+)\\s*(?<L>\\d+)?"
+                  }
+                },
+                {
+                  "name": "EmptyToNull",
+                  "parameters": {}
+                }
+              ]
+            },
+            {
+              "from": "Voie",
+              "name": "Platform",
+              "methods": [
+                {
+                  "name": "SplitLetterNumber",
+                  "parameters": {}
+                },
+                {
+                  "name": "Take",
+                  "parameters": {
+                    "property": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "from": "Voie",
+              "name": "Sector",
+              "methods": [
+                {
+                  "name": "SplitLetterNumber",
+                  "parameters": {}
+                },
+                {
+                  "name": "Take",
+                  "parameters": {
+                    "property": "letter"
+                  }
+                }
+              ]
+            }
+          ],
+          "parentFields": [
+            {
+              "from": "Name",
+              "name": "DepartureStationName",
+              "methods": []
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

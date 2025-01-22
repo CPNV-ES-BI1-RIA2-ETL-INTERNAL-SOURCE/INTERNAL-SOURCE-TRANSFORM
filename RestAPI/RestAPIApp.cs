@@ -1,6 +1,4 @@
 ﻿using BusinessTransformer;
-using BusinessTransformer.Records;
-using CommonInterfaces.Records.DocumentsRelated;
 using DocumentParser;
 using Microsoft.OpenApi.Models;
 
@@ -41,8 +39,7 @@ public class RestAPIApp
         // Register your dependencies (if needed)
         builder.Services.AddScoped<IStringManipulator, StandardLibStringManipulator>();
         builder.Services.AddScoped<IDocumentParser, DocumentParser.DocumentParser>();
-        builder.Services.AddScoped<IDocumentReviver<DeparturesDocument>, DeparturesDocumentReviver>();
-        builder.Services.AddScoped<IDocumentTransformer<DeparturesDocument, TrainStation>, DepartureDocumentTransformer>();
+        builder.Services.AddScoped<IMappingTransformer, JsonMappingTransformer>();
         builder.Services.AddScoped<StandardLibStringManipulator>();
 
         var app = builder.Build();

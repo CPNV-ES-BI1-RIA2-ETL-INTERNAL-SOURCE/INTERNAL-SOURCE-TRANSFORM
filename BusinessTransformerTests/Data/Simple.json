@@ -1,0 +1,13 @@
+﻿[
+  "Gare de Yverdon-les-Bains",
+  "Départ pour le 10 décembre 2024",
+  [
+    {
+      "Heure de départ": "9 02",
+      "Ligne": "IC5",
+      "Destination": "City C",
+      "Vias": "City A, City B",
+      "Voie": "13A"
+    }
+  ]
+]

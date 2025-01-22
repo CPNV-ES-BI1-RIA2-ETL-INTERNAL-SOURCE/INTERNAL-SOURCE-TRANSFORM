@@ -6,9 +6,9 @@ namespace DocumentParser;
 public interface IDocumentParser
 {
     /// <summary>
-    /// Parse the input (single string) to returns a formated json.
+    /// Parse the input (single string) to returns a list of dynamic values (strings or dictionaries in case of tables)
     /// </summary>
     /// <param name="lines">The input document (as list of string, representing a document line) with specific patterns (Ex. tables rows are sepparated by min 3 spaces)</param>
-    /// <returns>A formated json array (Ex. [value1, value2])</returns>
-    string Parse(IEnumerable<string> lines);
+    /// <returns>A list of dynamic values</returns>
+    List<dynamic> Parse(IEnumerable<string> lines);
 }
