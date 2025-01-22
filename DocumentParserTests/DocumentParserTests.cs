@@ -36,7 +36,7 @@ public class DocumentParserTests
         
         
         // Then
-        Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput.ToString()));
+        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput.ToString()));
     }
     
     [Test]
@@ -50,7 +50,7 @@ public class DocumentParserTests
         var parsedDocument = _documentParser.Parse(input);
         
         // Then
-        Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput));
+        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
     }
     
     [Test]
@@ -64,7 +64,7 @@ public class DocumentParserTests
         var parsedDocument = _documentParser.Parse(input);
 
         // Then
-        Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput));
+        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
     }
     
     [Test]
@@ -78,7 +78,7 @@ public class DocumentParserTests
         var parsedDocument = _documentParser.Parse(input);
 
         // Then
-        Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput));
+        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
     }
     
     [Test]
@@ -92,7 +92,7 @@ public class DocumentParserTests
         var parsedDocument = _documentParser.Parse(input);
 
         // Then
-        Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput));
+        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
     }
     
     [Test]
@@ -106,7 +106,7 @@ public class DocumentParserTests
         var parsedDocument = _documentParser.Parse(input);
 
         // Then
-        Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput));
+        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
     }
     
     [Test]
@@ -120,6 +120,6 @@ public class DocumentParserTests
         var parsedDocument = _documentParser.Parse(input);
 
         // Then
-        Assert.That(System.Text.Json.JsonSerializer.Serialize(parsedDocument), Is.EqualTo(expectedOutput));
+        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
     }
 }
