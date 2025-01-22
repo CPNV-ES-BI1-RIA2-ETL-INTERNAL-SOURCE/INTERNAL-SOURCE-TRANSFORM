@@ -114,7 +114,7 @@ Classes and code structure follow the [Microsoft C# Coding Conventions](https://
   * The name of a feature branch should be `feature/feature_branch` in snake case.
 
 ## License
-Distributed under the MIT License. See LICENSE.txt for more information.
+Distributed under the MIT License. See [LICENSE.txt](LICENSE.txt) for more information.
 
 ## Contact
 * If needed you can create an issue on GitHub we will try to respond as quickly as possible.
