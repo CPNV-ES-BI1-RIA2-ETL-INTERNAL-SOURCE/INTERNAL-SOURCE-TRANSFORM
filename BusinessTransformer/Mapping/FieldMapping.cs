@@ -16,7 +16,7 @@ public record FieldMapping<T>(T From, string Name, bool OnlyBag, IEnumerable<Met
     /// <returns>The mapping schema created.</returns>
     public static FieldMapping<TFrom> FromJObject<TFrom>(dynamic obj)
     {
-        return new FieldMapping<TFrom>((TFrom)obj.from, obj.name, obj.ContainsKey("onlyBag") && (obj.onlyBag.ToObject<bool>()), Method.FromJArray(obj.methods));
+        return new FieldMapping<TFrom>(obj.from.ToObject<TFrom>(), obj.name.ToString(), obj.ContainsKey("onlyBag") && (obj.onlyBag.ToObject<bool>()), Method.FromJArray(obj.methods));
     }
     
     /// <summary>
