@@ -22,7 +22,15 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
             var inputValue = input[fromIndex];
 
             var transformedValue = ApplyMethods(inputValue, fieldMapping.Methods, bag);
-            if (!fieldMapping.OnlyBag) output[fieldMapping.Name] = JToken.FromObject(transformedValue);
+            if (!fieldMapping.OnlyBag)
+            {
+                if (transformedValue == null)
+                {
+                    output[fieldMapping.Name] = null;
+                    continue;
+                }
+                output[fieldMapping.Name] = JToken.FromObject(transformedValue);
+            }
             bag[fieldMapping.Name] = transformedValue;
         }
 
@@ -58,7 +66,8 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
 
     private dynamic EmptyToNull(dynamic result)
     {
-        if(!stringManipulator.DoesStringContainsContent(result.ToString())) return null;
+        if(!stringManipulator.DoesStringContainsContent(result.ToString())) 
+            return null;
         
         //Remove key + value if value is empty on dictionary
         if(result is IDictionary<string, string> enumerable)
@@ -72,12 +81,12 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
         }
         
         // Remove entry if value is empty in array
-        if (result is IEnumerable<string> enumerableArray)
+        if (result is JArray enumerableArray)
         {
             List<string?> list = new List<string?>();
             foreach (var item in enumerableArray)
             {
-                list.Add(stringManipulator.DoesStringContainsContent(item) ? item : null);
+                list.Add(stringManipulator.DoesStringContainsContent(item.ToString()) ? item.ToString() : null);
             }
             return list;
         }

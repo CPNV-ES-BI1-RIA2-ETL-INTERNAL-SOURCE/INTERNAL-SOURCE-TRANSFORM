@@ -61,7 +61,7 @@ public class StandardLibStringManipulator : IStringManipulator
                 return parsedDate;
             }
         }
-        throw new FormatException($"Date string '{input}' is not in a recognized format. Input date detected : '{inputWithOnlyDate}'");
+        throw new BusinessTransformerFormatException($"Date string '{input}' is not in a recognized format. Input date detected : '{inputWithOnlyDate}'");
     }
 
     public TimeSpan ParseHourMinute(string input, string separator)
@@ -69,17 +69,17 @@ public class StandardLibStringManipulator : IStringManipulator
         var parts = input.Split(separator);
         if (parts.Length != 2)
         {
-            throw new FormatException("Input does not contain exactly two parts separated by the separator.");
+            throw new BusinessTransformerFormatException("Input does not contain exactly two parts separated by the separator.");
         }
         int hour = int.Parse(parts[0]);
         int minute = int.Parse(parts[1]);
         if (hour < 0 || hour > 23)
         {
-            throw new FormatException("Hour must be between 0 and 23.");
+            throw new BusinessTransformerFormatException("Hour must be between 0 and 23.");
         }
         if (minute < 0 || minute > 59)
         {
-            throw new FormatException("Minute must be between 0 and 59.");
+            throw new BusinessTransformerFormatException("Minute must be between 0 and 59.");
         }
         return new TimeSpan(hour, minute, 0);
     }

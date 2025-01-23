@@ -1,0 +1,13 @@
+﻿[
+  "Gare de Lausanne",
+  "Départ pour le 10 décembre 2024",
+  [
+    {
+      "Heure de départ": "9 61",
+      "Ligne": "TGV",
+      "Destination": "City Z",
+      "Vias": "",
+      "Voie": "5C"
+    }
+  ]
+]
