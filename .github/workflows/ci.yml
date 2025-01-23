@@ -18,7 +18,7 @@ jobs:
       
     - name: Build and test Docker image
       run: |
-        docker build --target test -f Dockerfile -t internal-source-transform:test .
+        docker build --target test -f Dockerfile -t internal-source-transform:test . --no-cache
         docker run --rm internal-source-transform:test
         
     - name: Build Docker image

@@ -68,6 +68,12 @@
       <None Update="Data\CompleteDocumentWithTableFirstOutput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Data\CompleteDocumentWithHeadersReminderTrimmedDifferently.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\CompleteDocumentWithHeadersReminderTrimmedDifferently.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
