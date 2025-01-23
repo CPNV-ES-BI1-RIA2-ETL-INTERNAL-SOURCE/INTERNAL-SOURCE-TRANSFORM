@@ -14,11 +14,16 @@ This is the **transformation** part of a SBB CFF FFS app. There are four distinc
 ## Getting Started
 
 ### Prerequisites
-* IDE: JetBrains Rider 2024.2+ [Download](https://www.jetbrains.com/rider/download/)
-* .NET SDK 8.0+ [Download](https://dotnet.microsoft.com/download)
+#### Source control
 * Git version 2.39+ [Download](https://git-scm.com/)
 * Git LFS 3.5+ [Download](https://git-lfs.github.com/)
-* Astah UML 8.4+ [Download](https://astah.net/products/astah-uml/)
+#### Development
+* .NET SDK 8.0+ [Download](https://dotnet.microsoft.com/download)
+* IDE: JetBrains Rider 2024.2+ [Download](https://www.jetbrains.com/rider/download/)
+#### Documentation
+* Astah UML 10+ [Download](https://astah.net/products/astah-uml/)
+#### Containerization
+* Docker 26+ [Download](https://www.docker.com/products/docker-desktop)
 
 ### Getting started
 #### Build the project:
@@ -73,7 +78,6 @@ You don't want to clone the repo or install the depedencies? No worry, we automa
 ├───.idea                      // Project metadata for Rider configuration
 ├── .gitignore                 // Git ignore rules
 ├───Doc                        // Project documentation in markdown
-├───CommonInterfaces           // Some interfaces and structures every part of the project should use (no logic inside)
 ├───BusinessTransformer        // Core logic for business transformation and computation
 ├───BusinessTransformerTests   // NUnit3 tests for BusinessTransformer
 ├───DocumentParser             // Handles raw format conversion from PDF-extracted text
@@ -85,7 +89,7 @@ You don't want to clone the repo or install the depedencies? No worry, we automa
 ```
 
 ### General Architecture
-The project is divided into four parts: CommonInterfaces, BusinessTransformer, DocumentParser, and RestAPI.
+The project is divided into three parts: BusinessTransformer, DocumentParser, and RestAPI.
 Here is the dependency graph (exported image of astah uml) of the project:
 
 ![Dependency graph](Doc/UMLExports/PackageDependencies.png)
@@ -101,7 +105,7 @@ For the RestAPI, we have end-to-end tests that test the API endpoints.
 
 It is impossible to have a circular dependency between the projects (this generally implies a bad design).
 
-For more information, see the [UML diagrams](Doc/UML.asta), the main [Technologies documentation](Doc/Technologies.md) used in the project and the [Definition Of Done](Doc/DefinitionOfDone.md).
+For more information, see the [UML diagrams](Doc/UML.asta), the main [Technologies documentation](../../wiki/Technologies.md) used in the project and the [Definition Of Done](../../wiki/DefinitionOfDone.md).
 
 ### Class syntax
 Classes and code structure follow the [Microsoft C# Coding Conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions).
@@ -114,7 +118,7 @@ Classes and code structure follow the [Microsoft C# Coding Conventions](https://
   * The name of a feature branch should be `feature/feature_branch` in snake case.
 
 ## License
-Distributed under the MIT License. See LICENSE.txt for more information.
+Distributed under the MIT License. See [LICENSE.txt](LICENSE.txt) for more information.
 
 ## Contact
 * If needed you can create an issue on GitHub we will try to respond as quickly as possible.
