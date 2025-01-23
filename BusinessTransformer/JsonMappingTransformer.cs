@@ -63,25 +63,23 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
         //Remove key + value if value is empty on dictionary
         if(result is IDictionary<string, string> enumerable)
         {
-            var resultDict = new Dictionary<string, string>();
-            foreach (var (key, value) in enumerable)
+            foreach (var (key, value) in (IDictionary<string, string>)result)
             {
-                if (stringManipulator.DoesStringContainsContent(value))
-                    resultDict[key] = value;
+                if (!stringManipulator.DoesStringContainsContent(value))
+                    result[key] = null;
             }
-            return resultDict;
+            return result;
         }
         
         // Remove entry if value is empty in array
         if (result is IEnumerable<string> enumerableArray)
         {
-            var resultArray = new List<string>();
+            List<string?> list = new List<string?>();
             foreach (var item in enumerableArray)
             {
-                if (stringManipulator.DoesStringContainsContent(item))
-                    resultArray.Add(item);
+                list.Add(stringManipulator.DoesStringContainsContent(item) ? item : null);
             }
-            return resultArray;
+            return list;
         }
         
         return result;
