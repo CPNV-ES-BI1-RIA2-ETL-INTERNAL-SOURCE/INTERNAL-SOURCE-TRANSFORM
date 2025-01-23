@@ -146,7 +146,7 @@ namespace BusinessTransformerTests
             var departuresDocument = GetTestData("TrainStationWithInvalidDepartureHourInput.json");
 
             // When + Then: An exception is thrown
-            Assert.Throws<BusinessTransformerFormatException>(() => _transformer.Transform(departuresDocument, _mapping));
+            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument, _mapping));
         }
         
         [Test]
