@@ -72,12 +72,12 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
         }
         
         // Remove entry if value is empty in array
-        if (result is IEnumerable<string> enumerableArray)
+        if (result is JArray enumerableArray)
         {
             List<string?> list = new List<string?>();
             foreach (var item in enumerableArray)
             {
-                list.Add(stringManipulator.DoesStringContainsContent(item) ? item : null);
+                list.Add(stringManipulator.DoesStringContainsContent(item.ToString()) ? item.ToString() : null);
             }
             return list;
         }
