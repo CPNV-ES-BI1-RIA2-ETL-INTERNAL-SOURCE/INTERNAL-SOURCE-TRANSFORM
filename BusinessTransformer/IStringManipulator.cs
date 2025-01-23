@@ -45,7 +45,7 @@ public interface IStringManipulator
     /// <param name="format">The format of the date to parse. (Ex. 'd MMMM yyyy' for '9 décembre 2024')</param>
     /// <param name="cultures">The list of cultures to use for parsing the date.</param>
     /// <returns>The date parsed from the input string.</returns>
-    /// <exception cref="BusinessTransformerFormatException">Date does not contain a valid string representation of a date and time.</exception>
+    /// <exception cref="FormatException">Date does not contain a valid string representation of a date and time.</exception>
     
     DateTime ParseLocalisedDate(string input, string format, IEnumerable<CultureInfo> cultures);
     
@@ -55,7 +55,7 @@ public interface IStringManipulator
     /// <param name="input">The 'hour minute' string to parse. (Ex. '9 30' or '9:30')</param>
     /// <param name="separator">Separator between hours and minutes. (Ex. ' ' or ':')</param>
     /// <returns>A tuple of hour and minute.</returns>
-    /// <exception cref="BusinessTransformerFormatException">
+    /// <exception cref="FormatException">
     /// parts length is not 2.
     /// int.Parse failed.
     /// Hour is not between 0 and 23 (included).
