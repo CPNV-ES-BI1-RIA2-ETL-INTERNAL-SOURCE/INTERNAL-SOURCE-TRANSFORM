@@ -65,7 +65,6 @@ namespace BusinessTransformerTests
             Assert.AreEqual(expectedOutput, trainStation);
         }
         
-        
         [Test]
         public void Transform_StationNameWithItalianPrefix_PrefixIsRemoved()
         {
@@ -112,7 +111,6 @@ namespace BusinessTransformerTests
             // Then: An exception is thrown
             Assert.Throws<BusinessTransformerFormatException>(() => _transformer.Transform(departuresDocument, _mapping));
         }
-
         
         [Test]
         public void Transform_TrainStationWithDeparture_DepartureInfoTransformed()
@@ -131,7 +129,7 @@ namespace BusinessTransformerTests
         [Test]
         public void Transform_TrainStationEmptyViaDeparture_ViaListShouldBeEmpty()
         {
-            // Given: A DeparturesDocument for one week with departure tagged with bike sign
+            // Given: A DeparturesDocument for one week with departure
             var departuresDocument = GetTestData("TrainStationEmptyViaDepartureInput.json");
             var expectedOutput = GetTestData("TrainStationEmptyViaDepartureOutput.json");
 
@@ -155,7 +153,7 @@ namespace BusinessTransformerTests
         [Test]
         public void Transform_TrainStationWithInvalidDepartureMinuteNumber_ShouldTrowFormatException()
         {
-            // Given: A DeparturesDocument with an invalid departure hour
+            // Given: A DeparturesDocument with an invalid departure minute
             var departuresDocument = GetTestData("TrainStationWithInvalidDepartureMinuteNumberInput.json");
 
             // When + Then: An exception is thrown
@@ -268,6 +266,21 @@ namespace BusinessTransformerTests
 
             // Then: A valid TrainStation object is returned with correct date
             Assert.AreEqual(expectedOutput, trainStation);
+        }
+        
+        [Test]
+        public void Transform_EmptyToNullInArray_InformationIsCorrectlyMapped()
+        {
+            // Given: A array containing empty strings
+            _mapping = FieldMapping<int>.FromJArray(GetTestData("EmptyToNullInArrayMapping.json"));
+            var departuresDocument = GetTestData("EmptyToNullInArrayInput.json");
+            var expectedOutput = GetTestData("EmptyToNullInArrayOutput.json");
+
+            // When: The API is called to transform the parsed document
+            var output = _transformer.Transform(departuresDocument, _mapping);
+
+            // Then: A array containing null values instead of empty strings should be returned
+            Assert.AreEqual(expectedOutput, output);
         }
     }
 }
