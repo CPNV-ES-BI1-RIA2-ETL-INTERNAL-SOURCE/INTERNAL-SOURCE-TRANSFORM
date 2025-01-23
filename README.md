@@ -14,11 +14,16 @@ This is the **transformation** part of a SBB CFF FFS app. There are four distinc
 ## Getting Started
 
 ### Prerequisites
-* IDE: JetBrains Rider 2024.2+ [Download](https://www.jetbrains.com/rider/download/)
-* .NET SDK 8.0+ [Download](https://dotnet.microsoft.com/download)
+#### Source control
 * Git version 2.39+ [Download](https://git-scm.com/)
 * Git LFS 3.5+ [Download](https://git-lfs.github.com/)
+#### Development
+* .NET SDK 8.0+ [Download](https://dotnet.microsoft.com/download)
+* IDE: JetBrains Rider 2024.2+ [Download](https://www.jetbrains.com/rider/download/)
+#### Documentation
 * Astah UML 10+ [Download](https://astah.net/products/astah-uml/)
+#### Containerization
+* Docker 26+ [Download](https://www.docker.com/products/docker-desktop)
 
 ### Getting started
 #### Build the project:
