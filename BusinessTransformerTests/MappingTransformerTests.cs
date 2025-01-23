@@ -251,19 +251,5 @@ namespace BusinessTransformerTests
             // Then: A valid TrainStation object is returned with correct date
             Assert.AreEqual(expectedOutput, trainStation);
         }
-        
-        // Helper method to validate departure times for a specific date
-        private List<DateTime> GetDateTimeWithIntervals(DateTime date, List<int> hours, List<int> minutes)
-        {
-            List<DateTime> departureTimes = new List<DateTime>();
-            foreach (var hour in hours)
-            {
-                foreach (var minute in minutes)
-                {
-                    departureTimes.Add(new DateTime(date.Year, date.Month, date.Day, hour, minute, 0));
-                }
-            }
-            return departureTimes;
-        }
     }
 }
