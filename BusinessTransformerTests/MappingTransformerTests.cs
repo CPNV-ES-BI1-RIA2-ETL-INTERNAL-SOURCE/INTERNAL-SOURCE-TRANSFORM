@@ -282,5 +282,20 @@ namespace BusinessTransformerTests
             // Then: A array containing null values instead of empty strings should be returned
             Assert.AreEqual(expectedOutput, output);
         }
+        
+        [Test]
+        public void Transform_EmptyToNullInValue_InformationIsCorrectlyMapped()
+        {
+            // Given: A field containing empty string
+            _mapping = FieldMapping<int>.FromJArray(GetTestData("EmptyToNullInValueMapping.json"));
+            var departuresDocument = GetTestData("EmptyToNullInValueInput.json");
+            var expectedOutput = GetTestData("EmptyToNullInValueOutput.json");
+
+            // When: The API is called to transform the parsed document
+            var output = _transformer.Transform(departuresDocument, _mapping);
+
+            // Then: A field containing null value instead of empty string should be returned
+            Assert.AreEqual(expectedOutput, output);
+        }
     }
 }
