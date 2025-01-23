@@ -1,7 +1,7 @@
 ﻿namespace DocumentParser;
 public class DocumentTableParser
 {
-    private const string _tableColumnSeparator = "   ";
+    private const string TableColumnSeparator = "   ";
     private List<string> _tableHeaders = new List<string>();
     private List<int> _tableColumnStarts = new List<int>();
     public List<Dictionary<string, string>> TableRows { get; } = new List<Dictionary<string, string>>();
@@ -16,7 +16,7 @@ public class DocumentTableParser
         if (!_tableHeaders.Any()) {
             DefineHeaders(line);
         // Parse table rows
-        } else if (_tableHeaders.Any() && !string.IsNullOrWhiteSpace(line) && line.Contains(_tableColumnSeparator)) {
+        } else if (_tableHeaders.Any() && !string.IsNullOrWhiteSpace(line) && line.Contains(TableColumnSeparator)) {
             ProcessRow(line);
         // End of the table
         } else if (_tableHeaders.Any()){
@@ -31,8 +31,8 @@ public class DocumentTableParser
     /// <returns>The list of table headers</returns>
     public List<string> ProcessTableHeaders(string line)
     {
-        return line.Contains(_tableColumnSeparator) ? 
-            line.Split(_tableColumnSeparator, StringSplitOptions.RemoveEmptyEntries).Select(header => header.Trim()).ToList():
+        return line.Contains(TableColumnSeparator) ? 
+            line.Split(TableColumnSeparator, StringSplitOptions.RemoveEmptyEntries).Select(header => header.Trim()).ToList():
             new List<string>();
     }
     
@@ -74,7 +74,7 @@ public class DocumentTableParser
     /// <summary>
     /// Parse the data of a row
     /// </summary>
-    /// <param name="dataLine"></param>
+    /// <param name="line"></param>
     /// <returns>Data of the row as a Dictionary</returns>
     private Dictionary<string, string> ParseDataRow(string line)
     {

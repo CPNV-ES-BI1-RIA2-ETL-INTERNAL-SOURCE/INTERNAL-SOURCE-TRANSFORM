@@ -63,7 +63,7 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
         //Remove key + value if value is empty on dictionary
         if(result is IDictionary<string, string> enumerable)
         {
-            foreach (var (key, value) in (IDictionary<string, string>)result)
+            foreach (var (key, value) in enumerable)
             {
                 if (!stringManipulator.DoesStringContainsContent(value))
                     result[key] = null;

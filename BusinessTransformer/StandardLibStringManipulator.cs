@@ -8,6 +8,8 @@ namespace BusinessTransformer;
 /// </summary>
 public class StandardLibStringManipulator : IStringManipulator
 {
+    private const string DatePattern = @"\b(\d{1,2}[./]\d{1,2}[./]?\d{2,4}|\d{1,2}\s\w+\s\d{2,4})\b";
+    
     public IEnumerable<string> Split(string input, string separator)
     {
         if (!DoesStringContainsContent(input))
@@ -49,8 +51,7 @@ public class StandardLibStringManipulator : IStringManipulator
 
     public DateTime ParseLocalisedDate(string input, string format, IEnumerable<CultureInfo> cultures)
     {
-        string datePattern = @"\b(\d{1,2}[./]\d{1,2}[./]?\d{2,4}|\d{1,2}\s\w+\s\d{2,4})\b";
-        Match match = Regex.Match(input, datePattern);
+        Match match = Regex.Match(input, DatePattern);
         string inputWithOnlyDate = match.Value;
 
         foreach (var culture in cultures)
