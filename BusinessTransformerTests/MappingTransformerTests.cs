@@ -88,7 +88,7 @@ namespace BusinessTransformerTests
 
             // When: The API is called to transform the parsed document
             // Then: An exception is thrown
-            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument, _mapping));
+            Assert.Throws<BusinessTransformerFormatException>(() => _transformer.Transform(departuresDocument, _mapping));
         }
         
         [Test]
@@ -126,7 +126,7 @@ namespace BusinessTransformerTests
             var departuresDocument = GetTestData("TrainStationWithInvalidDepartureHourNumberInput.json");
 
             // When + Then: An exception is thrown
-            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument, _mapping));
+            Assert.Throws<BusinessTransformerFormatException>(() => _transformer.Transform(departuresDocument, _mapping));
         }
         
         [Test]
@@ -136,7 +136,7 @@ namespace BusinessTransformerTests
             var departuresDocument = GetTestData("TrainStationWithInvalidDepartureMinuteNumberInput.json");
 
             // When + Then: An exception is thrown
-            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument, _mapping));
+            Assert.Throws<BusinessTransformerFormatException>(() => _transformer.Transform(departuresDocument, _mapping));
         }
         
         [Test]
@@ -146,7 +146,7 @@ namespace BusinessTransformerTests
             var departuresDocument = GetTestData("TrainStationWithInvalidDepartureHourInput.json");
 
             // When + Then: An exception is thrown
-            Assert.Throws<FormatException>(() => _transformer.Transform(departuresDocument, _mapping));
+            Assert.Throws<BusinessTransformerFormatException>(() => _transformer.Transform(departuresDocument, _mapping));
         }
         
         [Test]
