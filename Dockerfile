@@ -34,4 +34,10 @@ RUN dotnet publish -c Release -o /app/out --no-build
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS runtime
 WORKDIR /app
 COPY --from=publish /app/out .
+
+# Disable the invariant mode (set in base image)
+RUN apk add --no-cache icu-libs icu-data-full
+
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+ 
 ENTRYPOINT ["dotnet", "RestAPI.dll"]
