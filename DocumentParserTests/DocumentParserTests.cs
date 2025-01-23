@@ -108,7 +108,21 @@ public class DocumentParserTests
         // Then
         Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
     }
-    
+
+    [Test]
+    public void Parse_CompleteDocumentWithHeadersReminderTrimmedDifferently()
+    {
+        // Given 
+        var input = GetTestRawData("CompleteDocumentWithHeadersReminderTrimmedDifferently.txt").Split("\r\n").ToList();
+        var expectedOutput = JsonConvert.SerializeObject(GetTestData("CompleteDocumentWithHeadersReminderTrimmedDifferently.json"), Formatting.None);
+        
+        // When
+        var parsedDocument = _documentParser.Parse(input);
+        
+        // Then
+        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
+    }
+
     [Test]
     public void Parse_CompleteDocumentWithTableFirst()
     {

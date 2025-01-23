@@ -1,0 +1,1791 @@
+﻿[
+  "Gare de Yverdon-les-Bains",
+  "État au 23 janvier 2025",
+  [
+    {
+      "Heure de départ": "0 01",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "0 04",
+      "Ligne": "S30",
+      "Destination": "Payerne",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "0 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "0 20",
+      "Ligne": "R",
+      "Destination": "Lausanne",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "0 36",
+      "Ligne": "IC 5",
+      "Destination": "Biel/Bienne",
+      "Vias": "Neuchâtel, Biel/Bienne",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "0 47",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "4 35",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Yverdon William Barbey, La Brinaz, Valeyres-sous-Montagny, Essert-sous-Champvent, Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "4 44",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "5 01",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Yverdon William Barbey, La Brinaz, Valeyres-sous-Montagny, Essert-sous-Champvent, Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "5 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3D"
+    },
+    {
+      "Heure de départ": "5 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "5 15",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "5 17",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "5 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "5 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "5 42",
+      "Ligne": "IR 57",
+      "Destination": "Genève-Aéroport",
+      "Vias": "Morges, Gland, Nyon, Genève, Genève-Aéroport",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "5 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "5 51",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "5 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "6 01",
+      "Ligne": "IC 5",
+      "Destination": "Rorschach",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen, Rorschach",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "6 03",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "6 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3D"
+    },
+    {
+      "Heure de départ": "6 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "6 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "6 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "6 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "6 31",
+      "Ligne": "IC 5",
+      "Destination": "St. Gallen",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "6 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "6 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "6 42",
+      "Ligne": "IR 57",
+      "Destination": "Genève-Aéroport",
+      "Vias": "Morges, Gland, Nyon, Genève, Genève-Aéroport",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "6 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "6 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "6 59",
+      "Ligne": "IC",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "7 01",
+      "Ligne": "IC 5",
+      "Destination": "Rorschach",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen, Rorschach",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "7 03",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "7 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "7 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "7 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "7 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "7 20",
+      "Ligne": "IR 57",
+      "Destination": "Neuchâtel",
+      "Vias": "Neuchâtel",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "7 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "7 31",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "7 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "7 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "7 42",
+      "Ligne": "IR 57",
+      "Destination": "Genève-Aéroport",
+      "Vias": "Morges, Gland, Nyon, Genève, Genève-Aéroport",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "7 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "7 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "7 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "8 01",
+      "Ligne": "IC 5",
+      "Destination": "Rorschach",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen, Rorschach",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "8 03",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "8 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "8 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "8 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "8 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "8 20",
+      "Ligne": "IR 57",
+      "Destination": "Neuchâtel",
+      "Vias": "Neuchâtel",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "8 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "8 31",
+      "Ligne": "IC 5",
+      "Destination": "St. Gallen",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "8 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "8 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "8 42",
+      "Ligne": "IR 57",
+      "Destination": "Genève-Aéroport",
+      "Vias": "Morges, Gland, Nyon, Genève, Genève-Aéroport",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "8 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "8 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "8 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "9 01",
+      "Ligne": "IC 5",
+      "Destination": "Rorschach",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen, Rorschach",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "9 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "9 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "9 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "9 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "9 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "9 31",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "9 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "9 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "9 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "9 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "9 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "10 01",
+      "Ligne": "IC 5",
+      "Destination": "Rorschach",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen, Rorschach",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "10 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "10 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "10 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "10 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "10 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "10 31",
+      "Ligne": "IC 5",
+      "Destination": "St. Gallen",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "10 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "10 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "10 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "10 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "10 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "11 01",
+      "Ligne": "IC 5",
+      "Destination": "Rorschach",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen, Rorschach",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "11 03",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "11 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "11 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "11 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "11 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "11 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "11 31",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "11 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "14"
+    },
+    {
+      "Heure de départ": "11 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "11 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "11 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "11 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "12 01",
+      "Ligne": "IC 5",
+      "Destination": "Rorschach",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen, Rorschach",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "12 03",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "12 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "12 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "12 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "12 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "12 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "12 31",
+      "Ligne": "IC 5",
+      "Destination": "St. Gallen",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "12 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "12 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "12 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "12 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "12 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "13 01",
+      "Ligne": "IC 5",
+      "Destination": "Rorschach",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen, Rorschach",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "13 03",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "13 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "13 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "13 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "13 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "13 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "13 31",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "13 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "13 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "13 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "13 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "13 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "14 01",
+      "Ligne": "IC 5",
+      "Destination": "Rorschach",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen, Rorschach",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "14 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "14 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "14 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "14 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "14 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "14 31",
+      "Ligne": "IC 5",
+      "Destination": "St. Gallen",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "14 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "14 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "14 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "14 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "15 01",
+      "Ligne": "IC 5",
+      "Destination": "Rorschach",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen, Rorschach",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "15 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "15 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "15 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "15 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "15 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "15 31",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "15 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "15 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "15 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "15 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "15 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "16 01",
+      "Ligne": "IC 5",
+      "Destination": "Rorschach",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen, Rorschach",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "16 03",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "16 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "16 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "16 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "16 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "16 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "16 31",
+      "Ligne": "IC 5",
+      "Destination": "St. Gallen",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "16 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "16 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "16 42",
+      "Ligne": "IR 57",
+      "Destination": "Genève-Aéroport",
+      "Vias": "Morges, Gland, Nyon, Genève, Genève-Aéroport",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "16 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "16 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "16 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "17 01",
+      "Ligne": "IC 5",
+      "Destination": "Rorschach",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen, Rorschach",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "17 03",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "17 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "17 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "17 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "17 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "17 20",
+      "Ligne": "IR 57",
+      "Destination": "Neuchâtel",
+      "Vias": "Neuchâtel",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "17 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "17 31",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "17 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "17 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "17 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "17 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "17 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "18 01",
+      "Ligne": "IC 5",
+      "Destination": "St. Gallen",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB, Zürich Flughafen, Winterthur, St. Gallen",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "18 03",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "18 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "18 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "18 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "18 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "18 20",
+      "Ligne": "IR 57",
+      "Destination": "Neuchâtel",
+      "Vias": "Neuchâtel",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "18 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "18 31",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "18 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "18 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "18 42",
+      "Ligne": "IR 57",
+      "Destination": "Genève-Aéroport",
+      "Vias": "Morges, Gland, Nyon, Genève, Genève-Aéroport",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "18 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "18 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "18 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "19 01",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "19 03",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "19 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "19 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "19 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "19 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "19 20",
+      "Ligne": "IR 57",
+      "Destination": "Neuchâtel",
+      "Vias": "Neuchâtel",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "19 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "19 31",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "19 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "19 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "19 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "19 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "19 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "20 01",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "20 03",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "20 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "20 05",
+      "Ligne": "R",
+      "Destination": "Biel/Bienne",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel, St-Blaise CFF, Cornaux NE, Cressier NE, Le Landeron, La Neuveville, Twann, Tüscherz, Biel/Bienne",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "20 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "20 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "20 23",
+      "Ligne": "IR 57",
+      "Destination": "Neuchâtel",
+      "Vias": "Neuchâtel",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "20 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "20 31",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Aarau, Brugg AG, Baden, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "20 33",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "20 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "20 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "20 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "20 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "21 01",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Solothurn, Bahn-2000-Strecke, Olten, Aarau, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "21 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "21 09",
+      "Ligne": "R",
+      "Destination": "Neuchâtel",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "21 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "21 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "21 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "21 31",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Aarau, Brugg AG, Baden, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "21 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "21 35",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Yverdon William Barbey, La Brinaz, Valeyres-sous-Montagny, Essert-sous-Champvent, Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "21 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "21 47",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "21 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "22 01",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Aarau, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "22 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "22 09",
+      "Ligne": "R",
+      "Destination": "Neuchâtel",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "22 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "22 17",
+      "Ligne": "R",
+      "Destination": "Cully",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne, Pully, Lutry, Villette VD, Cully",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "22 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "22 31",
+      "Ligne": "IC 5",
+      "Destination": "Olten",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "22 34",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "22 35",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Yverdon William Barbey, La Brinaz, Valeyres-sous-Montagny, Essert-sous-Champvent, Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "22 45",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "22 47",
+      "Ligne": "R",
+      "Destination": "Lausanne",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "22 59",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "23 01",
+      "Ligne": "IC 5",
+      "Destination": "Zürich HB",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Süd, Solothurn, Oensingen, Olten, Aarau, Lenzburg, Zürich HB",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "23 04",
+      "Ligne": "S30",
+      "Destination": "Fribourg/Freiburg",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne, Corcelles-Sud, Cousset, Léchelles, Grolley, Belfaux CFF, Givisiez, Fribourg/Freiburg",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "23 09",
+      "Ligne": "R",
+      "Destination": "Neuchâtel",
+      "Vias": "Concise, Gorgier-St-Aubin, Bevaix, Boudry, Colombier NE, Auvernier, Neuchâtel-Serrières, Neuchâtel",
+      "Voie": "3AB"
+    },
+    {
+      "Heure de départ": "23 15",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "23 17",
+      "Ligne": "R",
+      "Destination": "Lausanne",
+      "Vias": "Essert-Pittet, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "23 29",
+      "Ligne": "IC 5",
+      "Destination": "Lausanne",
+      "Vias": "Renens VD, Lausanne",
+      "Voie": "2"
+    },
+    {
+      "Heure de départ": "23 31",
+      "Ligne": "IC",
+      "Destination": "Delémont",
+      "Vias": "Neuchâtel, Biel/Bienne, Grenchen Nord, Moutier, Delémont",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "23 34",
+      "Ligne": "S30",
+      "Destination": "Payerne",
+      "Vias": "Yvonand, Cheyres, Estavayer-le-Lac, Cugy FR, Payerne",
+      "Voie": "3"
+    },
+    {
+      "Heure de départ": "23 35",
+      "Ligne": "R",
+      "Destination": "Ste-Croix",
+      "Vias": "Yverdon William Barbey, La Brinaz, Valeyres-sous-Montagny, Essert-sous-Champvent, Vuiteboeuf, Baulmes, Six-Fontaines, Ste-Croix",
+      "Voie": "13"
+    },
+    {
+      "Heure de départ": "23 46",
+      "Ligne": "R",
+      "Destination": "Grandson",
+      "Vias": "Grandson",
+      "Voie": "1"
+    },
+    {
+      "Heure de départ": "23 47",
+      "Ligne": "R",
+      "Destination": "Lausanne",
+      "Vias": "Ependes VD, Chavornay, Bavois, Eclépens, Cossonay-Penthalaz, Vufflens-la-Ville, Bussigny, Renens VD, Prilly-Malley, Lausanne",
+      "Voie": "2"
+    }
+  ]
+]
