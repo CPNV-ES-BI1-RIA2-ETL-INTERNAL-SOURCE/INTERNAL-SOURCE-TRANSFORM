@@ -1,0 +1,17 @@
+{
+  "Name": "Yverdon-les-Bains",
+  "Departures": [
+    {
+      "DepartureStationName": "Yverdon-les-Bains",
+      "DestinationStationName": "City C",
+      "ViaStationNames": [],
+      "DepartureTime": "2024-12-10T09:02:00",
+      "Train": {
+        "G": "IC",
+        "L": "5"
+      },
+      "Platform": "13",
+      "Sector": "A"
+    }
+  ]
+}

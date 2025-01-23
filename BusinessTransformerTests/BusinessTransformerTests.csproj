@@ -71,46 +71,94 @@
       <None Update="Data\SimpleWithoutVias.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\EnglishPrefixInput.json">
+      <None Update="Data\SimpleTrainStationWithEnglishPrefixedDateInput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\SimpleWithoutViasInput.json">
+      <None Update="Data\TrainStationEmptyViaDepartureInput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\SimpleInvalidDepartureHourInput.json">
+      <None Update="Data\TrainStationWithInvalidDepartureHourNumberInput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\PrefixedDepartureInput.json">
+      <None Update="Data\SimpleTrainStationWithRandomTextPrefixedDateInput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\SimpleInvalidDepartureMinuteInput.json">
+      <None Update="Data\TrainStationWithInvalidDepartureMinuteNumberInput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\ItalianPrefixInput.json">
+      <None Update="Data\StationNameWithItalianPrefixInput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\MultipleInput.json">
+      <None Update="Data\MultipleDepartureWithHourAndMinuteInput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\SimpleMultiplePrefixesInput.json">
+      <None Update="Data\TrainStationNameWithMultiplePrefixesInput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\SimpleInvalidDepartureInput.json">
+      <None Update="Data\TrainStationWithInvalidDepartureHourInput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\NoLComponentInLineInput.json">
+      <None Update="Data\DepartureWithTrainFormatWithoutLineInput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\SimpleInput.json">
+      <None Update="Data\TrainStationWithDepartureInput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Update="Data\InvalidDateInput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\FrenchPrefixInput.json">
+      <None Update="Data\StationNameWithFrenchPrefixInput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\SimpleWithoutDeparturesInput.json">
+      <None Update="Data\SimpleTrainStationWithoutDeparturesInput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\SimpleTrainStationWithPrefixedDateInput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\DepartureWithSpacedTrainFormatInput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\EmptyDepartureHoursInput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\TrainStationWithDepartureOutput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\TrainStationNameWithMultiplePrefixesOutput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\TrainStationEmptyViaDepartureOutput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\StationNameWithItalianPrefixOutput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\StationNameWithFrenchPrefixOutput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\SimpleTrainStationWithoutDeparturesOutput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\SimpleTrainStationWithRandomTextPrefixedDateOutput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\SimpleTrainStationWithPrefixedDateOutput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\SimpleTrainStationWithEnglishPrefixedDateOutput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\MultipleDepartureWithHourAndMinuteOutput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\EmptyDepartureHoursOutput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\DepartureWithTrainFormatWithoutLineOutput.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\DepartureWithSpacedTrainFormatOutput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
