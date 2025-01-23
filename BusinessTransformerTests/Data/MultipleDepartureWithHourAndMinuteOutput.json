@@ -1,0 +1,125 @@
+{
+  "Name": "Yverdon-les-Bains",
+  "Departures": [
+    {
+      "DepartureStationName": "Yverdon-les-Bains",
+      "DestinationStationName": "City C",
+      "ViaStationNames": [
+        "City A",
+        "City B"
+      ],
+      "DepartureTime": "2024-12-10T12:00:00",
+      "Train": {
+        "G": "IC",
+        "L": "5"
+      },
+      "Platform": "13",
+      "Sector": "A"
+    },
+    {
+      "DepartureStationName": "Yverdon-les-Bains",
+      "DestinationStationName": "City C",
+      "ViaStationNames": [
+        "City A",
+        "City B"
+      ],
+      "DepartureTime": "2024-12-10T12:15:00",
+      "Train": {
+        "G": "IC",
+        "L": "5"
+      },
+      "Platform": "13",
+      "Sector": "A"
+    },
+    {
+      "DepartureStationName": "Yverdon-les-Bains",
+      "DestinationStationName": "City C",
+      "ViaStationNames": [
+        "City A",
+        "City B"
+      ],
+      "DepartureTime": "2024-12-10T12:30:00",
+      "Train": {
+        "G": "IC",
+        "L": "5"
+      },
+      "Platform": "13",
+      "Sector": "A"
+    },
+    {
+      "DepartureStationName": "Yverdon-les-Bains",
+      "DestinationStationName": "City C",
+      "ViaStationNames": [
+        "City A",
+        "City B"
+      ],
+      "DepartureTime": "2024-12-10T12:45:00",
+      "Train": {
+        "G": "IC",
+        "L": "5"
+      },
+      "Platform": "13",
+      "Sector": "A"
+    },
+    {
+      "DepartureStationName": "Yverdon-les-Bains",
+      "DestinationStationName": "City C",
+      "ViaStationNames": [
+        "City A",
+        "City B"
+      ],
+      "DepartureTime": "2024-12-10T13:00:00",
+      "Train": {
+        "G": "IC",
+        "L": "5"
+      },
+      "Platform": "13",
+      "Sector": "A"
+    },
+    {
+      "DepartureStationName": "Yverdon-les-Bains",
+      "DestinationStationName": "City C",
+      "ViaStationNames": [
+        "City A",
+        "City B"
+      ],
+      "DepartureTime": "2024-12-10T13:15:00",
+      "Train": {
+        "G": "IC",
+        "L": "5"
+      },
+      "Platform": "13",
+      "Sector": "A"
+    },
+    {
+      "DepartureStationName": "Yverdon-les-Bains",
+      "DestinationStationName": "City C",
+      "ViaStationNames": [
+        "City A",
+        "City B"
+      ],
+      "DepartureTime": "2024-12-10T13:30:00",
+      "Train": {
+        "G": "IC",
+        "L": "5"
+      },
+      "Platform": "13",
+      "Sector": "A"
+    },
+    {
+      "DepartureStationName": "Yverdon-les-Bains",
+      "DestinationStationName": "City C",
+      "ViaStationNames": [
+        "City A",
+        "City B"
+      ],
+      "DepartureTime": "2024-12-10T13:45:00",
+      "Train": {
+        "G": "IC",
+        "L": "5"
+      },
+      "Platform": "13",
+      "Sector": "A"
+    }
+  ]
+}
