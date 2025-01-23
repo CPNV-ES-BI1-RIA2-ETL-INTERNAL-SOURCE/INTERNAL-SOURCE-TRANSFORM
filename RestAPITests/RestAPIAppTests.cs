@@ -65,6 +65,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
 
         // Act
         var response = await client.GetAsync("/swagger/v1/swagger.json");
+        var expectedOutput = GetTestRawData("OpenApiEndpointOutput.json");
 
         // Assert
         response.EnsureSuccessStatusCode(); // Ensure the endpoint returns 200 OK
@@ -77,6 +78,6 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         var document = JsonDocument.Parse(openApiDocument);
         Assert.NotNull(document);
         Assert.True(document.RootElement.TryGetProperty("info", out var info));
-        Assert.Equal("Document Transformation API", info.GetProperty("title").GetString());
+        Assert.Equal(expectedOutput, info.GetProperty("title").GetString());
     }
 }
