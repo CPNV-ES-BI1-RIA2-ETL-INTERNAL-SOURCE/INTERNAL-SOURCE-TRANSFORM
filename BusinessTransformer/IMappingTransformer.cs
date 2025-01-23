@@ -14,5 +14,6 @@ public interface IMappingTransformer
     /// <param name="mapping">The mapping schema to use for the transformation (contain rename, processing, etc.).</param>
     /// <returns>The output object transformed.</returns>
     /// <throws cref="InvalidInputFormatException">Thrown when the input format is invalid based on mapping / schema provided.</throws>
+    /// <throws cref="BusinessTransformerFormatException">Thrown when the format of input is invalid. (Like FormatException)</throws>
     dynamic Transform(dynamic input, IEnumerable<FieldMapping<int>> mapping);
 }
