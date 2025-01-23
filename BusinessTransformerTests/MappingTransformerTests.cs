@@ -91,6 +91,19 @@ namespace BusinessTransformerTests
             Assert.Throws<BusinessTransformerFormatException>(() => _transformer.Transform(departuresDocument, _mapping));
         }
         
+        
+        [Test]
+        public void Transform_InvalidMinute_ThrowInvalidArgumentException()
+        {
+            // Given: A DeparturesDocument with invalid date format
+            var departuresDocument = GetTestData("InvalidMinute.json");
+
+            // When: The API is called to transform the parsed document
+            // Then: An exception is thrown
+            Assert.Throws<BusinessTransformerFormatException>(() => _transformer.Transform(departuresDocument, _mapping));
+        }
+
+        
         [Test]
         public void Transform_TrainStationWithDeparture_DepartureInfoTransformed()
         {

@@ -161,6 +161,9 @@
       <None Update="Data\DepartureWithSpacedTrainFormatOutput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Data\InvalidMinute.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
