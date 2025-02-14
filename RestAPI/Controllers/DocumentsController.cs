@@ -34,6 +34,7 @@ public class DocumentsController(
             // Return a 400 Bad Request if there is a format exception
             return BadRequest(new { error = $"Invalid document format: {ex.Message}" });
         }
+        //TODO Never do this... What's more, all the useful information is lost. Log... log...
         catch (Exception e)
         {
             // Catch any other unexpected errors
