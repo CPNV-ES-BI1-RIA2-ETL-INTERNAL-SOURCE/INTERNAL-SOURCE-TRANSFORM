@@ -18,13 +18,12 @@ public class DocumentParserTests
         return JsonConvert.DeserializeObject(GetTestRawData(fileName))!;
     }
 
-    [SetUp]
-    public void Setup()
+    public DocumentParserTests()
     {
         _documentParser = new DocumentParser.DocumentParser();
     }
     
-    [Test]
+    [Fact]
     public void Parse_SingleString()
     {
         // Given 
@@ -34,12 +33,11 @@ public class DocumentParserTests
         // When
         var parsedDocument = _documentParser.Parse(input);
         
-        
         // Then
-        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput.ToString()));
+        Assert.Equal(expectedOutput.ToString(), JsonConvert.SerializeObject(parsedDocument));
     }
     
-    [Test]
+    [Fact]
     public void Parse_HeadersWithoutValues()
     {
         // Given 
@@ -50,10 +48,10 @@ public class DocumentParserTests
         var parsedDocument = _documentParser.Parse(input);
         
         // Then
-        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
+        Assert.Equal(expectedOutput, JsonConvert.SerializeObject(parsedDocument));
     }
     
-    [Test]
+    [Fact]
     public void Parse_HeadersWithValues()
     {
         // Given 
@@ -64,10 +62,10 @@ public class DocumentParserTests
         var parsedDocument = _documentParser.Parse(input);
 
         // Then
-        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
+        Assert.Equal(expectedOutput, JsonConvert.SerializeObject(parsedDocument));
     }
     
-    [Test]
+    [Fact]
     public void Parse_CompleteDocument()
     {
         // Given
@@ -78,10 +76,10 @@ public class DocumentParserTests
         var parsedDocument = _documentParser.Parse(input);
 
         // Then
-        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
+        Assert.Equal(expectedOutput, JsonConvert.SerializeObject(parsedDocument));
     }
     
-    [Test]
+    [Fact]
     public void Parse_CompleteDocumentWithManyMissingValues()
     {
         // Given 
@@ -92,10 +90,10 @@ public class DocumentParserTests
         var parsedDocument = _documentParser.Parse(input);
 
         // Then
-        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
+        Assert.Equal(expectedOutput, JsonConvert.SerializeObject(parsedDocument));
     }
     
-    [Test]
+    [Fact]
     public void Parse_CompleteDocumentWithHeadersReminder()
     {
         // Given 
@@ -106,10 +104,10 @@ public class DocumentParserTests
         var parsedDocument = _documentParser.Parse(input);
 
         // Then
-        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
+        Assert.Equal(expectedOutput, JsonConvert.SerializeObject(parsedDocument));
     }
 
-    [Test]
+    [Fact]
     public void Parse_CompleteDocumentWithHeadersReminderTrimmedDifferently()
     {
         // Given 
@@ -120,10 +118,10 @@ public class DocumentParserTests
         var parsedDocument = _documentParser.Parse(input);
         
         // Then
-        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
+        Assert.Equal(expectedOutput, JsonConvert.SerializeObject(parsedDocument));
     }
 
-    [Test]
+    [Fact]
     public void Parse_CompleteDocumentWithTableFirst()
     {
         // Given 
@@ -134,6 +132,6 @@ public class DocumentParserTests
         var parsedDocument = _documentParser.Parse(input);
 
         // Then
-        Assert.That(JsonConvert.SerializeObject(parsedDocument), Is.EqualTo(expectedOutput));
+        Assert.Equal(expectedOutput, JsonConvert.SerializeObject(parsedDocument));
     }
 }
