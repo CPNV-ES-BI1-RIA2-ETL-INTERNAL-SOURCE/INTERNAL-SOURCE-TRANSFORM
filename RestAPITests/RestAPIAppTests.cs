@@ -4,15 +4,19 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using RestAPI;
+using RestAPITests.Utils;
+using Xunit.Abstractions;
 
 namespace RestAPITests;
 
 /// <summary>
 /// End-to-end tests for the REST API.
 /// </summary>
-public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
+public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory, ITestOutputHelper output)
     : IClassFixture<WebApplicationFactory<RestAPIApp>>
 {
+    private readonly WebApplicationFactory<RestAPIApp> _factory = factory.WithTestLogging(output);
+
     private static string GetTestRawData(string fileName)
     {
         var path = Path.Combine(AppContext.BaseDirectory, "Data", fileName);
@@ -28,7 +32,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     public async Task Post_DocumentTransform_ShouldReturnTransformedDocument_WhenInputIsValid()
     {
         // Arrange
-        var client = factory.CreateClient();
+        var client = _factory.CreateClient();
         var input = GetTestRawData("SimpleInput.txt").Split("\n").ToList();
         var expectedOutput = GetTestData("SimpleOutput.json");
 
@@ -46,7 +50,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     public async Task Post_DocumentTransform_ShouldReturnTransformedDocument_WhenInputIsInvalid()
     {
         // Arrange
-        var client = factory.CreateClient();
+        var client = _factory.CreateClient();
         var request = new List<string> {"Invalid document"};
 
         // Act
@@ -61,7 +65,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     public async Task Get_OpenApiEndpoint_ShouldReturnValidOpenApiDocument()
     {
         // Arrange
-        var client = factory.CreateClient();
+        var client = _factory.CreateClient();
 
         // Act
         var response = await client.GetAsync("/swagger/v1/swagger.json");
@@ -80,4 +84,11 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         Assert.True(document.RootElement.TryGetProperty("info", out var info));
         Assert.Equal(expectedOutput, info.GetProperty("title").GetString());
     }
+    
+    /**
+        // Assert that a log entry for the transformation was made
+        var logProvider = new InMemoryLoggerProvider(_output);
+        var logEntries = logProvider.GetLogEntries();
+        Assert.Contains(logEntries, log => log.Contains("Document transformed"));
+     */
 }
