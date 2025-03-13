@@ -26,14 +26,17 @@ jobs:
     needs: test
     if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
     steps:
-     - name: Build Docker image
-       run: docker build --target runtime -t internal-source-transform:latest .
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-     - name: Save Docker image to tar file
-       run: docker save -o internal-source-transform.tar internal-source-transform:latest
+    - name: Build Docker image
+      run: docker build --target runtime -t internal-source-transform:latest .
 
-     - name: Upload Docker image tar file
-       uses: actions/upload-artifact@v4
-       with:
-         name: internal-source-transform-tar
-         path: internal-source-transform.tar
+    - name: Save Docker image to tar file
+      run: docker save -o internal-source-transform.tar internal-source-transform:latest
+
+    - name: Upload Docker image tar file
+      uses: actions/upload-artifact@v4
+      with:
+        name: internal-source-transform-tar
+        path: internal-source-transform.tar
