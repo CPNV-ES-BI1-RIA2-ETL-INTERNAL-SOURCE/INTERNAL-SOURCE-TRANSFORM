@@ -24,7 +24,7 @@ jobs:
   test-and-deploy-production:
     runs-on: ubuntu-latest
     needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
