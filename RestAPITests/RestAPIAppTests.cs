@@ -1,7 +1,10 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using BusinessTransformer;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RestAPI;
 using RestAPITests.Utils;
@@ -12,10 +15,20 @@ namespace RestAPITests;
 /// <summary>
 /// End-to-end tests for the REST API.
 /// </summary>
-public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory, ITestOutputHelper output)
-    : IClassFixture<WebApplicationFactory<RestAPIApp>>
+public class RestAPIAppTests : IClassFixture<WebApplicationFactory<RestAPIApp>>
 {
-    private readonly WebApplicationFactory<RestAPIApp> _factory = factory.WithTestLogging(output);
+    private readonly WebApplicationFactory<RestAPIApp> _factory;
+    private readonly InMemoryLoggerProvider? _loggerProvider;
+    private readonly List<LogEntry> _logEntries;
+
+    public RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory, ITestOutputHelper output)
+    {
+        _factory = factory.WithTestLogging(output);
+        _loggerProvider = _factory.Services.GetRequiredService<ILoggerProvider>() as InMemoryLoggerProvider;
+        Assert.NotNull(_loggerProvider);
+        _logEntries = _loggerProvider.LogEntries;
+        Assert.NotNull(_logEntries);
+    }
 
     private static string GetTestRawData(string fileName)
     {
@@ -43,6 +56,8 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory, ITestOut
         response.EnsureSuccessStatusCode();
         var transformedDocument = await response.Content.ReadAsStringAsync();
         Assert.Equal(expectedOutput.ToString(), transformedDocument);
+        Assert.Contains(_logEntries, log => log is { LogLevel: LogLevel.Information, CategoryName: "RestAPI.Controllers.DocumentsController", Exception: null });
+        Assert.DoesNotContain(_logEntries, log => log.LogLevel is LogLevel.Error or LogLevel.Critical);
     }
     
     
@@ -58,6 +73,8 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory, ITestOut
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Contains(_logEntries, log => log is { LogLevel: LogLevel.Warning, Exception: InvalidInputFormatException });
+        Assert.DoesNotContain(_logEntries, log => log.LogLevel is LogLevel.Error or LogLevel.Critical);
     }
     
     
@@ -84,11 +101,4 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory, ITestOut
         Assert.True(document.RootElement.TryGetProperty("info", out var info));
         Assert.Equal(expectedOutput, info.GetProperty("title").GetString());
     }
-    
-    /**
-        // Assert that a log entry for the transformation was made
-        var logProvider = new InMemoryLoggerProvider(_output);
-        var logEntries = logProvider.GetLogEntries();
-        Assert.Contains(logEntries, log => log.Contains("Document transformed"));
-     */
 }
