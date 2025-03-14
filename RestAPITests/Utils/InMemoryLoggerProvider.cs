@@ -3,25 +3,23 @@ using Xunit.Abstractions;
 
 namespace RestAPITests.Utils;
 
-public class InMemoryLoggerProvider : ILoggerProvider
+/// <summary>
+/// A provider for in-memory logging in tests.
+/// </summary>
+public class InMemoryLoggerProvider(ITestOutputHelper output) : ILoggerProvider
 {
-    private readonly ITestOutputHelper _output;
-    private readonly List<string> _logEntries = new List<string>();
-
-    public InMemoryLoggerProvider(ITestOutputHelper output)
-    {
-        _output = output;
-    }
+    /// <summary>
+    /// The log entries captured by the logger in LogEntry format.
+    /// </summary>
+    public List<LogEntry> LogEntries { get; private set; } = new List<LogEntry>();
 
     public ILogger CreateLogger(string categoryName)
     {
-        return new InMemoryLogger(categoryName, _logEntries, _output);
+        return new InMemoryLogger(categoryName, LogEntries, output);
     }
 
     public void Dispose()
     {
         // No-op for now
     }
-
-    public List<string> GetLogEntries() => _logEntries;
 }
