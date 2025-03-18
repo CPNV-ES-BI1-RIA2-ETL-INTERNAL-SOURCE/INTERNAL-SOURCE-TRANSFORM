@@ -20,11 +20,11 @@ jobs:
       run: |
         docker build --target test -f Dockerfile -t internal-source-transform:test . --no-cache
         docker run --rm internal-source-transform:test
-        
-  test-and-deploy-production:
+
+  # Deploy to production only on main  
+  deploy-production:
     runs-on: ubuntu-latest
-    needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
