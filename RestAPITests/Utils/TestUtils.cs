@@ -23,7 +23,7 @@ public static class TestUtils
     public static TransformRequest CreateRequestFromFiles(string documentFile, string mappingFile)
     {
         var document = GetTestRawData(documentFile).Split("\n").ToList();
-        var mapping = GetTestRawData(mappingFile);
-        return new TransformRequest { Document = document, MappingInJson = mapping };
+        var mapping = GetTestData(mappingFile);
+        return new TransformRequest { Document = document, Mapping = mapping };
     }
 }

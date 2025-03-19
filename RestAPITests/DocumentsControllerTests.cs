@@ -22,7 +22,7 @@ public class DocumentsControllerTests
     private readonly Mock<ILogger<DocumentsController>> _mockLogger = new();
     
     private static readonly List<string> invalidDocument = new() { "Invalid document" };
-    private static readonly TransformRequest invalidDocumentRequest = new() { Document = invalidDocument, MappingInJson = TestUtils.GetTestRawData("Mapping.json") };
+    private static readonly TransformRequest invalidDocumentRequest = new() { Document = invalidDocument, Mapping = TestUtils.GetTestData("Mapping.json") };
 
 
     [Fact]

@@ -16,7 +16,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
 {
     private const string LogDirectory = "logs";
     private static readonly List<string> invalidDocument = new() { "Invalid document" };
-    private static readonly TransformRequest invalidDocumentRequest = new() { Document = invalidDocument, MappingInJson = TestUtils.GetTestRawData("Mapping.json") };
+    private static readonly TransformRequest invalidDocumentRequest = new() { Document = invalidDocument, Mapping = TestUtils.GetTestData("Mapping.json") };
 
     [Fact]
     public async Task Post_DocumentTransform_ShouldReturnTransformedDocument_WhenInputIsValid()
