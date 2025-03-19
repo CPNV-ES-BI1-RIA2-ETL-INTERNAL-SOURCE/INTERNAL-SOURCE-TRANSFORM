@@ -13,6 +13,9 @@ namespace RestAPITests;
 public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     : IClassFixture<WebApplicationFactory<RestAPIApp>>
 {
+    private const string LogDirectory = "logs";
+    private static readonly List<string> invalidRequest = new() { "Invalid document" };
+
     [Fact]
     public async Task Post_DocumentTransform_ShouldReturnTransformedDocument_WhenInputIsValid()
     {
@@ -36,7 +39,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     {
         // Arrange
         var client = factory.CreateClient();
-        var request = new List<string> {"Invalid document"};
+        var request = invalidRequest;
 
         // Act
         var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
@@ -68,5 +71,24 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         Assert.NotNull(document);
         Assert.True(document.RootElement.TryGetProperty("info", out var info));
         Assert.Equal(expectedOutput, info.GetProperty("title").GetString());
+    }
+    
+    [Fact]
+    public async Task Post_DocumentTransform_ShouldCreateLogFile()
+    {
+        // Arrange
+        var client = factory.CreateClient();
+        var request = invalidRequest;
+
+        // Act
+        var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
+
+        // Assert (if the request is invalid, a log file should be created with a warning)
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
+        // Ensure a log file was created
+        Assert.True(Directory.Exists(LogDirectory), "No log folder found");
+        var logFiles = Directory.GetFiles(LogDirectory, "*.log");
+        Assert.True(logFiles.Any(), "No log file found");
     }
 }
