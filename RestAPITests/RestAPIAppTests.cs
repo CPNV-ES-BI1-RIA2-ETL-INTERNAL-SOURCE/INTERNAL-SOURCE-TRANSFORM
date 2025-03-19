@@ -46,8 +46,8 @@ public class RestAPIAppTests : IClassFixture<WebApplicationFactory<RestAPIApp>>
     {
         // Arrange
         var client = _factory.CreateClient();
-        var input = GetTestRawData("SimpleInput.txt").Split("\n").ToList();
-        var expectedOutput = GetTestData("SimpleOutput.json");
+        var input = TestUtils.GetTestRawData("SimpleInput.txt").Split("\n").ToList();
+        var expectedOutput = TestUtils.GetTestData("SimpleOutput.json");
 
         // Act
         var response = await client.PostAsJsonAsync("/api/v1/documents/transform", input);
@@ -86,7 +86,7 @@ public class RestAPIAppTests : IClassFixture<WebApplicationFactory<RestAPIApp>>
 
         // Act
         var response = await client.GetAsync("/swagger/v1/swagger.json");
-        var expectedOutput = GetTestRawData("OpenApiEndpointOutput.json");
+        var expectedOutput = TestUtils.GetTestRawData("OpenApiEndpointOutput.json");
 
         // Assert
         response.EnsureSuccessStatusCode(); // Ensure the endpoint returns 200 OK
