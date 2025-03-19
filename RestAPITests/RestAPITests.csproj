@@ -35,5 +35,8 @@
       <None Update="Data\OpenApiEndpointOutput.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Include="Data\Mapping.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 </Project>

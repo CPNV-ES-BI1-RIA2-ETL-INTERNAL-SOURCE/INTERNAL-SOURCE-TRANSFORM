@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using RestAPI;
+using RestAPI.DTOs;
 using RestAPITests.Utils;
 
 namespace RestAPITests;
@@ -14,18 +15,19 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     : IClassFixture<WebApplicationFactory<RestAPIApp>>
 {
     private const string LogDirectory = "logs";
-    private static readonly List<string> invalidRequest = new() { "Invalid document" };
+    private static readonly List<string> invalidDocument = new() { "Invalid document" };
+    private static readonly TransformRequest invalidDocumentRequest = new() { Document = invalidDocument, MappingInJson = TestUtils.GetTestRawData("Mapping.json") };
 
     [Fact]
     public async Task Post_DocumentTransform_ShouldReturnTransformedDocument_WhenInputIsValid()
     {
         // Arrange
         var client = factory.CreateClient();
-        var input = TestUtils.GetTestRawData("SimpleInput.txt").Split("\n").ToList();
+        var request = TestUtils.CreateRequestFromFiles("SimpleInput.txt", "Mapping.json");
         var expectedOutput = TestUtils.GetTestData("SimpleOutput.json");
 
         // Act
-        var response = await client.PostAsJsonAsync("/api/v1/documents/transform", input);
+        var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
 
         // Assert (also that it's in JSON format)
         response.EnsureSuccessStatusCode();
@@ -35,11 +37,11 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     
     
     [Fact]
-    public async Task Post_DocumentTransform_ShouldReturnTransformedDocument_WhenInputIsInvalid()
+    public async Task Post_DocumentTransform_ShouldReturnErrorDocument_WhenInputIsInvalid()
     {
         // Arrange
         var client = factory.CreateClient();
-        var request = invalidRequest;
+        var request = invalidDocumentRequest;
 
         // Act
         var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
@@ -78,7 +80,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     {
         // Arrange
         var client = factory.CreateClient();
-        var request = invalidRequest;
+        var request = invalidDocumentRequest;
 
         // Act
         var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
