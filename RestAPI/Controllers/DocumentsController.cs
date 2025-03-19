@@ -28,8 +28,7 @@ public class DocumentsController(
         {
             List<dynamic> parsedDocument = parser.Parse(request.Document);
             
-            //TODO : Mapping should be taken from request body
-            dynamic mapping = JsonConvert.DeserializeObject(request.MappingInJson)!;
+            dynamic mapping = request.Mapping;
             dynamic transformedDocument = transformer.Transform(parsedDocument, FieldMapping<int>.FromJArray(mapping));
 
             stopwatch.Stop();
