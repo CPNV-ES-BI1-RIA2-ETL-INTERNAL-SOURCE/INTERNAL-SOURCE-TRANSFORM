@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RestAPI.DTOs;
 
 namespace RestAPITests.Utils;
 
@@ -19,4 +20,10 @@ public static class TestUtils
         return JsonConvert.DeserializeObject(GetTestRawData(fileName))!;
     }
 
+    public static TransformRequest CreateRequestFromFiles(string documentFile, string mappingFile)
+    {
+        var document = GetTestRawData(documentFile).Split("\n").ToList();
+        var mapping = GetTestRawData(mappingFile);
+        return new TransformRequest { Document = document, MappingInJson = mapping };
+    }
 }
