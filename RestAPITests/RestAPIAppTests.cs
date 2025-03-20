@@ -2,8 +2,8 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Newtonsoft.Json;
 using RestAPI;
+using RestAPITests.Utils;
 
 namespace RestAPITests;
 
@@ -13,24 +13,16 @@ namespace RestAPITests;
 public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     : IClassFixture<WebApplicationFactory<RestAPIApp>>
 {
-    private static string GetTestRawData(string fileName)
-    {
-        var path = Path.Combine(AppContext.BaseDirectory, "Data", fileName);
-        return File.ReadAllText(path);
-    }
-    
-    private static dynamic GetTestData(string fileName)
-    {
-        return JsonConvert.DeserializeObject(GetTestRawData(fileName))!;
-    }
-    
+    private const string LogDirectory = "logs";
+    private static readonly List<string> invalidRequest = new() { "Invalid document" };
+
     [Fact]
     public async Task Post_DocumentTransform_ShouldReturnTransformedDocument_WhenInputIsValid()
     {
         // Arrange
         var client = factory.CreateClient();
-        var input = GetTestRawData("SimpleInput.txt").Split("\n").ToList();
-        var expectedOutput = GetTestData("SimpleOutput.json");
+        var input = TestUtils.GetTestRawData("SimpleInput.txt").Split("\n").ToList();
+        var expectedOutput = TestUtils.GetTestData("SimpleOutput.json");
 
         // Act
         var response = await client.PostAsJsonAsync("/api/v1/documents/transform", input);
@@ -47,7 +39,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     {
         // Arrange
         var client = factory.CreateClient();
-        var request = new List<string> {"Invalid document"};
+        var request = invalidRequest;
 
         // Act
         var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
@@ -65,7 +57,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
 
         // Act
         var response = await client.GetAsync("/swagger/v1/swagger.json");
-        var expectedOutput = GetTestRawData("OpenApiEndpointOutput.json");
+        var expectedOutput = TestUtils.GetTestRawData("OpenApiEndpointOutput.json");
 
         // Assert
         response.EnsureSuccessStatusCode(); // Ensure the endpoint returns 200 OK
@@ -79,5 +71,24 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         Assert.NotNull(document);
         Assert.True(document.RootElement.TryGetProperty("info", out var info));
         Assert.Equal(expectedOutput, info.GetProperty("title").GetString());
+    }
+    
+    [Fact]
+    public async Task Post_DocumentTransform_ShouldCreateLogFile()
+    {
+        // Arrange
+        var client = factory.CreateClient();
+        var request = invalidRequest;
+
+        // Act
+        var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
+
+        // Assert (if the request is invalid, a log file should be created with a warning)
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
+        // Ensure a log file was created
+        Assert.True(Directory.Exists(LogDirectory), "No log folder found");
+        var logFiles = Directory.GetFiles(LogDirectory, "*.log");
+        Assert.True(logFiles.Any(), "No log file found");
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BusinessTransformer;
 using DocumentParser;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace RestAPI;
 
@@ -23,39 +24,67 @@ public class RestAPIApp
             Url = new Uri("https://opensource.org/licenses/MIT")
         }
     };
-    
+
     public static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
+        // Read configuration from appsettings.json and environment variables
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables()
+            .Build();
 
-        // Add MVC and Swagger
-        builder.Services.AddControllers();
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen(options =>
+        // Configure Serilog from configuration
+        Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(configuration)
+            .CreateLogger();
+
+        try
         {
-            options.SwaggerDoc("v1", ApiInfo);
-        });
+            Log.Information("Starting web application");
 
-        // Register your dependencies (if needed)
-        builder.Services.AddScoped<IStringManipulator, StandardLibStringManipulator>();
-        builder.Services.AddScoped<IDocumentParser, DocumentParser.DocumentParser>();
-        builder.Services.AddScoped<IMappingTransformer, JsonMappingTransformer>();
-        builder.Services.AddScoped<StandardLibStringManipulator>();
+            var builder = WebApplication.CreateBuilder(args);
 
-        var app = builder.Build();
+            // Add MVC and Swagger
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", ApiInfo);
+            });
 
-        // Configure the HTTP request pipeline
-        app.UseSwagger();
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwaggerUI();
+            // Register your dependencies (if needed)
+            builder.Services.AddScoped<IStringManipulator, StandardLibStringManipulator>();
+            builder.Services.AddScoped<IDocumentParser, DocumentParser.DocumentParser>();
+            builder.Services.AddScoped<IMappingTransformer, JsonMappingTransformer>();
+            builder.Services.AddScoped<StandardLibStringManipulator>();
+
+            // Add Serilog logging
+            builder.Host.UseSerilog();
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline
+            app.UseSwagger();
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwaggerUI();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseAuthorization();
+
+            app.MapControllers(); // Use controllers for routing
+
+            app.Run();
         }
-
-        app.UseHttpsRedirection();
-        app.UseAuthorization();
-
-        app.MapControllers(); // Use controllers for routing
-
-        app.Run();
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "Application terminated unexpectedly");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
     }
 }

@@ -61,6 +61,15 @@ _With Docker_
 docker build --target test -t test .
 ```
 
+## How to use / configure for Docker Compose
+For a quick start, there is an example docker-compose file in the root of the project (docker-compose-example.yml).
+You can use it as inspiration when creating your own. It exposes changes to environment variables frequently used in production (such as changing the location of logging and creating volumes).
+
+You can run the example with the following command:
+```shell
+docker-compose -f docker-compose-example.yml up -d 
+```
+
 ## Download latest docker image (built for production)
 You don't want to clone the repo or install the depedencies? No worry, we automatically generate the docker images for you. Follow these few setps to run the app on you machine:
 1. Go to the [action](https://github.com/CPNV-ES-BI1-RIA2-ETL-INTERNAL-SOURCE/INTERNAL-SOURCE-TRANSFORM/actions) tab of the repo.
