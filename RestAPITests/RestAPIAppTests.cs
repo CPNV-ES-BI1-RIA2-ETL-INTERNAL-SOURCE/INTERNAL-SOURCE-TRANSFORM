@@ -21,11 +21,11 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     {
         // Arrange
         var client = factory.CreateClient();
-        var request = TestUtils.CreateRequestFromFiles("SimpleInput.txt", "Mapping.json");
+        var request = TestUtils.SerializeRequestFromFiles("SimpleInput.txt", "Mapping.json");
         var expectedOutput = TestUtils.GetTestData("SimpleOutput.json");
 
         // Act
-        var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
+        var response = await client.PostAsync("/api/v1/documents/transform", request);
 
         // Assert (also that it's in JSON format)
         response.EnsureSuccessStatusCode();
@@ -39,10 +39,10 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     {
         // Arrange
         var client = factory.CreateClient();
-        var request = TestUtils.CreateInvalidDocumentRequest("Mapping.json");
+        var request = TestUtils.SerializeInvalidDocumentRequest("Mapping.json");
 
         // Act
-        var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
+        var response = await client.PostAsync("/api/v1/documents/transform", request);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -78,10 +78,10 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     {
         // Arrange
         var client = factory.CreateClient();
-        var request = TestUtils.CreateInvalidDocumentRequest("Mapping.json");
+        var request = TestUtils.SerializeInvalidDocumentRequest("Mapping.json");
 
         // Act
-        var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
+        var response = await client.PostAsync("/api/v1/documents/transform", request);
 
         // Assert (if the request is invalid, a log file should be created with a warning)
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
