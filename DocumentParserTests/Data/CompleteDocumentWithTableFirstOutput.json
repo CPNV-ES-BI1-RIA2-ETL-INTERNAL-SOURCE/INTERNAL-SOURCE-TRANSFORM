@@ -1,0 +1,20 @@
+﻿[
+    [
+        {
+            "Heure de départ": "8 00",
+            "Ligne": "IC 5",
+            "Destination": "Lausanne",
+            "Vias": "",
+            "Voie": "2"
+        },
+        {
+            "Heure de départ": "16 45",
+            "Ligne": "IC 5",
+            "Destination": "Genève Aéroport",
+            "Vias": "Morges",
+            "Voie": "2"
+        }
+    ],
+    "Gare de Yverdon-les-Bains",
+    "Départ pour le 9 décembre 2024"
+]

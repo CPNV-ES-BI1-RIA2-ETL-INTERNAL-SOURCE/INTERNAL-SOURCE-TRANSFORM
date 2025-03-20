@@ -1,0 +1,17 @@
+{
+  "Name": "Lausanne",
+  "Departures": [
+    {
+      "DepartureStationName": "Lausanne",
+      "DestinationStationName": "City Z",
+      "ViaStationNames": [],
+      "DepartureTime": "2024-12-10T09:02:00",
+      "Train": {
+        "G": "TGV",
+        "L": null
+      },
+      "Platform": "5",
+      "Sector": "C"
+    }
+  ]
+}

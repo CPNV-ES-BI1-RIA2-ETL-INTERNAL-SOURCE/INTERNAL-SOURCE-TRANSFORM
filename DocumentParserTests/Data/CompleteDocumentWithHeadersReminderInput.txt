@@ -1,0 +1,6 @@
+﻿Gare de Yverdon-les-Bains
+Départ pour le 9 décembre 2024
+Heure de départ        Ligne    Destination         Vias                                              Voie
+8 00                   IC 5     Lausanne                                                              2
+Heure de départ        Ligne    Destination         Vias                                              Voie
+16 45                  IC 5     Genève Aéroport     Morges                                            2

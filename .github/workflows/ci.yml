@@ -1,0 +1,42 @@
+﻿# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches: [ "main", "develop", "release/**" ]
+  pull_request:
+    branches: [ "*" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest 
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Build and test Docker image
+      run: |
+        docker build --target test -f Dockerfile -t internal-source-transform:test . --no-cache
+        docker run --rm internal-source-transform:test
+
+  # Deploy to production only on main  
+  deploy-production:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build Docker image
+      run: docker build --target runtime -t internal-source-transform:latest .
+
+    - name: Save Docker image to tar file
+      run: docker save -o internal-source-transform.tar internal-source-transform:latest
+
+    - name: Upload Docker image tar file
+      uses: actions/upload-artifact@v4
+      with:
+        name: internal-source-transform-tar
+        path: internal-source-transform.tar

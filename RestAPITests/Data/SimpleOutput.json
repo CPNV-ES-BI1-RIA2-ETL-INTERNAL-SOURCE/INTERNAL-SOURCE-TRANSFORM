@@ -1,0 +1,65 @@
+﻿{
+  "Name": "Yverdon-les-Bains",
+  "Departures": [
+    {
+      "DepartureStationName": "Yverdon-les-Bains",
+      "DestinationStationName": "Lausanne",
+      "ViaStationNames": [],
+      "DepartureTime": "2024-12-09T08:00:00",
+      "Train": {
+        "G": "IC",
+        "L": "5"
+      },
+      "Platform": "2",
+      "Sector": ""
+    },
+    {
+      "DepartureStationName": "Yverdon-les-Bains",
+      "DestinationStationName": "Genève Aéroport",
+      "ViaStationNames": [
+        "Morges"
+      ],
+      "DepartureTime": "2024-12-09T16:45:00",
+      "Train": {
+        "G": "IC",
+        "L": "5"
+      },
+      "Platform": "2",
+      "Sector": ""
+    },
+    {
+      "DepartureStationName": "Yverdon-les-Bains",
+      "DestinationStationName": "Rorschar",
+      "ViaStationNames": [
+        "Neuchâtel",
+        "Biel/Bienne",
+        "Olten",
+        "St. Gallen"
+      ],
+      "DepartureTime": "2024-12-09T23:00:00",
+      "Train": {
+        "G": "IC",
+        "L": "5"
+      },
+      "Platform": "1",
+      "Sector": ""
+    },
+    {
+      "DepartureStationName": "Yverdon-les-Bains",
+      "DestinationStationName": "Fribourg/Freiburg",
+      "ViaStationNames": [
+        "Yverdon-Champ Pittet",
+        "Yvonand",
+        "Cheyres",
+        "Payerne"
+      ],
+      "DepartureTime": "2024-12-09T13:18:00",
+      "Train": {
+        "G": "S",
+        "L": "30"
+      },
+      "Platform": "3",
+      "Sector": "D"
+    }
+  ]
+}
