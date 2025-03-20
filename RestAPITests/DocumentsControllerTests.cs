@@ -20,10 +20,6 @@ public class DocumentsControllerTests
     private readonly Mock<IDocumentParser> _mockParser = new();
     private readonly Mock<IMappingTransformer> _mockTransformer = new();
     private readonly Mock<ILogger<DocumentsController>> _mockLogger = new();
-    
-    private static readonly List<string> invalidDocument = new() { "Invalid document" };
-    private static readonly TransformRequest invalidDocumentRequest = new() { Document = invalidDocument, Mapping = TestUtils.GetTestData("Mapping.json") };
-
 
     [Fact]
     public void TransformDocument_ShouldLogUnexpectedException()
@@ -39,7 +35,7 @@ public class DocumentsControllerTests
         _mockTransformer.Setup(t => t.Transform(It.IsAny<List<dynamic>>(), It.IsAny<IEnumerable<FieldMapping<int>>>()))
             .Throws(new Exception("Unexpected error"));
 
-        var request = invalidDocumentRequest;
+        var request = TestUtils.CreateInvalidDocumentRequest("Mapping.json");
 
         // When
         var result = controller.TransformDocument(request);
@@ -103,7 +99,7 @@ public class DocumentsControllerTests
         var transformer = new JsonMappingTransformer(new StandardLibStringManipulator());
         var controller = new DocumentsController(parser, transformer, _mockLogger.Object);
         
-        var request = invalidDocumentRequest;
+        var request = TestUtils.CreateInvalidDocumentRequest("Mapping.json");
 
         // When
         var result = controller.TransformDocument(request);

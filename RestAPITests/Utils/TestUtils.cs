@@ -26,4 +26,14 @@ public static class TestUtils
         var mapping = GetTestData(mappingFile);
         return new TransformRequest { Document = document, Mapping = mapping };
     }
+    
+    public static TransformRequest CreateInvalidDocumentRequest(string mappingFile)
+    {
+        return new TransformRequest { Document = new List<string>() { "Invalid document" }, Mapping = GetTestData(mappingFile) };
+    }
+    
+    public static TransformRequest CreateInvalidMappingRequest(string documentFile)
+    {
+        return new TransformRequest { Document = GetTestRawData(documentFile).Split("\n").ToList(), Mapping = new { } };
+    }
 }

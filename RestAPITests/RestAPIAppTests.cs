@@ -15,8 +15,6 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     : IClassFixture<WebApplicationFactory<RestAPIApp>>
 {
     private const string LogDirectory = "logs";
-    private static readonly List<string> invalidDocument = new() { "Invalid document" };
-    private static readonly TransformRequest invalidDocumentRequest = new() { Document = invalidDocument, Mapping = TestUtils.GetTestData("Mapping.json") };
 
     [Fact]
     public async Task Post_DocumentTransform_ShouldReturnTransformedDocument_WhenInputIsValid()
@@ -41,7 +39,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     {
         // Arrange
         var client = factory.CreateClient();
-        var request = invalidDocumentRequest;
+        var request = TestUtils.CreateInvalidDocumentRequest("Mapping.json");
 
         // Act
         var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
@@ -80,7 +78,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     {
         // Arrange
         var client = factory.CreateClient();
-        var request = invalidDocumentRequest;
+        var request = TestUtils.CreateInvalidDocumentRequest("Mapping.json");
 
         // Act
         var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
