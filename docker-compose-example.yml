@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  restapi:
+    image: your-restapi-image
+    container_name: internal-etl-transform
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - Serilog__WriteTo__1__Args__path=/var/logs/app.log
+    volumes:
+      - logs:/var/logs
+    ports:
+      - "5000:8080"
+
+volumes:
+  logs:
+    driver: local
