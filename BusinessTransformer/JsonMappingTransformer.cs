@@ -18,7 +18,7 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
         {
             var fromIndex = fieldMapping.From;
 
-            if(input.Count <= fromIndex) throw new InvalidInputFormatException("From index out of range");
+            if(input.Count <= fromIndex) throw new BusinessTransformerInvalidInputFormatException("From index out of range");
             var inputValue = input[fromIndex];
 
             var transformedValue = ApplyMethods(inputValue, fieldMapping.Methods, bag);
