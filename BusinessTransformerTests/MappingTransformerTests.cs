@@ -290,5 +290,56 @@ namespace BusinessTransformerTests
             // Then: A field containing null value instead of empty string should be returned
             Assert.Equal(expectedOutput, output);
         }
+        
+        [Fact]
+        public void Transform_InvalidMappingMethodName_ThrowsInvalidMappingException()
+        {
+            // Given: A field containing empty string
+            _mapping = FieldMapping<int>.FromJArray(TestUtilities.GetTestData("InvalidMappingMethodName.json"));
+            var departuresDocument = TestUtilities.GetTestData("TrainStationWithDepartureInput.json");
+            
+            // When: The API is called to transform the parsed document
+            var exception = Assert.Throws<BusinessTransformerMappingException>(() => _transformer.Transform(departuresDocument, _mapping));
+
+            // Then: The exception should contain an error message about invalid mappings and the missing fields
+            Assert.NotNull(exception);
+            var message = exception.Message.ToLower();
+            Assert.Contains("name", message);
+            Assert.Contains("methods", message);
+        }
+        
+        [Fact]
+        public void Transform_InvalidMappingMethodParameters_ThrowsInvalidMappingException()
+        {
+            // Given: A field containing empty string
+            _mapping = FieldMapping<int>.FromJArray(TestUtilities.GetTestData("InvalidMappingMethodParameters.json"));
+            var departuresDocument = TestUtilities.GetTestData("TrainStationWithDepartureInput.json");
+            
+            // When: The API is called to transform the parsed document
+            var exception = Assert.Throws<BusinessTransformerMappingException>(() => _transformer.Transform(departuresDocument, _mapping));
+
+            // Then: The exception should contain an error message about invalid mappings and the missing fields
+            Assert.NotNull(exception);
+            var message = exception.Message.ToLower();
+            Assert.Contains("parameters", message);
+            Assert.Contains("methods", message);
+        }
+        
+        [Fact]
+        public void Transform_InvalidMappingMethodParametersObject_ThrowsInvalidMappingException()
+        {
+            // Given: A field containing empty string
+            _mapping = FieldMapping<int>.FromJArray(TestUtilities.GetTestData("InvalidMappingMethodParametersObject.json"));
+            var departuresDocument = TestUtilities.GetTestData("TrainStationWithDepartureInput.json");
+            
+            // When: The API is called to transform the parsed document
+            var exception = Assert.Throws<BusinessTransformerMappingException>(() => _transformer.Transform(departuresDocument, _mapping));
+
+            // Then: The exception should contain an error message about invalid mappings and the missing fields
+            Assert.NotNull(exception);
+            var message = exception.Message.ToLower();
+            Assert.Contains("parameters", message);
+            Assert.Contains("methods", message);
+        }
     }
 }
