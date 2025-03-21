@@ -13,7 +13,7 @@ namespace BusinessTransformerTests
         {
             // TODO: Move this initialization to a JsonMappingTransformerTests if multiple implementations are added
             _transformer = new JsonMappingTransformer(new StandardLibStringManipulator());
-            _mapping = FieldMapping<int>.FromJArray(TestUtilities.GetTestData("Mapping.json"));
+            _mapping = FieldMapping<int>.FromJArray(TestUtilities.GetTestData("Mapping/Mapping.json"));
         }
 
         [Fact]

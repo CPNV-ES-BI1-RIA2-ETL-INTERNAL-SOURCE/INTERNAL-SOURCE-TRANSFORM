@@ -37,9 +37,6 @@
       <None Update="Data\ItalianPrefix.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\Mapping.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
       <None Update="Data\Multiple.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
@@ -194,6 +191,9 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Update="Data\Mapping\InvalidMappingTypes.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\Mapping\Mapping.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
