@@ -294,8 +294,8 @@ namespace BusinessTransformerTests
         [Fact]
         public void Transform_InvalidMappingMethodName_ThrowsInvalidMappingException()
         {
-            // Given: A field containing empty string
-            _mapping = FieldMapping<int>.FromJArray(TestUtilities.GetTestData("InvalidMappingMethodName.json"));
+            // Given: A mapping with invalid method name
+            _mapping = FieldMapping<int>.FromJArray(TestUtilities.GetTestData("Mapping/InvalidMappingMethodName.json"));
             var departuresDocument = TestUtilities.GetTestData("TrainStationWithDepartureInput.json");
             
             // When: The API is called to transform the parsed document
@@ -311,8 +311,8 @@ namespace BusinessTransformerTests
         [Fact]
         public void Transform_InvalidMappingMethodParameters_ThrowsInvalidMappingException()
         {
-            // Given: A field containing empty string
-            _mapping = FieldMapping<int>.FromJArray(TestUtilities.GetTestData("InvalidMappingMethodParameters.json"));
+            // Given: A mapping with invalid method parameter type
+            _mapping = FieldMapping<int>.FromJArray(TestUtilities.GetTestData("Mapping/InvalidMappingMethodParameters.json"));
             var departuresDocument = TestUtilities.GetTestData("TrainStationWithDepartureInput.json");
             
             // When: The API is called to transform the parsed document
@@ -328,8 +328,8 @@ namespace BusinessTransformerTests
         [Fact]
         public void Transform_InvalidMappingMethodParametersObject_ThrowsInvalidMappingException()
         {
-            // Given: A field containing empty string
-            _mapping = FieldMapping<int>.FromJArray(TestUtilities.GetTestData("InvalidMappingMethodParametersObject.json"));
+            // Given: A mapping with invalid method parameters object
+            _mapping = FieldMapping<int>.FromJArray(TestUtilities.GetTestData("Mapping/InvalidMappingMethodParametersObject.json"));
             var departuresDocument = TestUtilities.GetTestData("TrainStationWithDepartureInput.json");
             
             // When: The API is called to transform the parsed document
