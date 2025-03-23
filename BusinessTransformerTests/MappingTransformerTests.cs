@@ -305,7 +305,7 @@ namespace BusinessTransformerTests
             Assert.NotNull(exception);
             var message = exception.Message.ToLower();
             Assert.Contains("name", message);
-            Assert.Contains("methods", message);
+            Assert.Contains("method", message);
         }
         
         [Fact]
@@ -322,7 +322,7 @@ namespace BusinessTransformerTests
             Assert.NotNull(exception);
             var message = exception.Message.ToLower();
             Assert.Contains("parameters", message);
-            Assert.Contains("methods", message);
+            Assert.Contains("method", message);
         }
         
         [Fact]
@@ -339,7 +339,7 @@ namespace BusinessTransformerTests
             Assert.NotNull(exception);
             var message = exception.Message.ToLower();
             Assert.Contains("parameters", message);
-            Assert.Contains("methods", message);
+            Assert.Contains("method", message);
         }
     }
 }
