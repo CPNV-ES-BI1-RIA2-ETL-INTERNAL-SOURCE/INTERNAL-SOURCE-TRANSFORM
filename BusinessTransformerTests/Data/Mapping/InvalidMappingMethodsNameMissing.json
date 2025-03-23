@@ -1,0 +1,12 @@
+[
+  {
+    "from": 0,
+    "name": 1,
+    "methods": [
+        {
+            "nope": "nope",
+            "type": "nope"
+        }
+    ]
+  }
+]

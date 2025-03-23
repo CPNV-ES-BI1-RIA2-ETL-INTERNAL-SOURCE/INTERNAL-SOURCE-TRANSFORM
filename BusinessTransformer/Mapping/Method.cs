@@ -17,11 +17,14 @@ public record Method(string Name, dynamic Parameters, IEnumerable<MetaParameter>
     /// <returns>The method record created.</returns>
     internal static Method FromJObject(dynamic obj)
     {
-        return new Method(
-            (string)obj.name,
-            obj.parameters ?? new JObject(),
-            MetaParameter.FromJArray(obj.metaParameters ?? new JArray())
-            );
+        if(obj.name == null)
+        {
+            throw new BusinessTransformerMappingException("Method schema must have 'name' field.");
+        }
+        var name = obj.name.ToString();
+        var parameters = obj.parameters ?? new JObject();
+        var metaParameters = MetaParameter.FromJArray(obj.metaParameters ?? new JArray());
+        return new Method(name, parameters, metaParameters);
     }
     
     /// <summary>

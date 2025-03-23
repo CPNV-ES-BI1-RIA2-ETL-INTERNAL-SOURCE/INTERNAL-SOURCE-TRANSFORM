@@ -14,4 +14,9 @@ public class BusinessTransformerFormatException(string message)
 /// <summary>
 /// Thrown when the input format is invalid based on mapping / schema provided.
 /// </summary>
-public class InvalidInputFormatException(string message) : BusinessTransformerFormatException(message);
+public class BusinessTransformerInvalidInputFormatException(string message) : BusinessTransformerFormatException(message);
+
+/// <summary>
+/// Thrown when the *mapping* provided is invalid.
+/// </summary>
+public class BusinessTransformerMappingException(string message) : BusinessTransformerFormatException(message);

@@ -1,6 +1,7 @@
 ﻿using BusinessTransformer;
 using DocumentParser;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using Serilog;
 
 namespace RestAPI;
@@ -46,7 +47,11 @@ public class RestAPIApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Add MVC and Swagger
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
+                options.SerializerSettings.Formatting = Formatting.Indented;
+            });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
