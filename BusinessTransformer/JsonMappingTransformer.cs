@@ -57,7 +57,7 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
                 "ProcessArray" => ProcessArray(result, FieldMapping<string>.FromJArray(parameters.fields), FieldMapping<string>.FromJArray(parameters.parentFields), bag),
                 "CombineDateTime" => CombineDateTime(result, parameters.dateToAppend.ToObject<DateTime>()),
                 "EmptyToNull" => EmptyToNull(result),
-                _ => throw new NotImplementedException($"Method {method.Name} is not implemented.")
+                _ => throw new BusinessTransformerMappingException($"Method name '{method.Name}' is not implemented.")
             };
         }
 
