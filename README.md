@@ -77,6 +77,18 @@ dotnet test
 # Success! - Failed: 0, Passed: X, Skipped: 0, Total: X, Duration: X ms - RestAPITests.dll (net8.0)
 ```
 
+##### For a specific test project:
+```shell
+dotnet test DocumentParserTests
+# Success! - Failed: 0, Passed: X, Skipped: 0, Total: X, Duration: X ms - DocumentParserTests.dll (net8.0)
+```
+
+##### For a specific test:
+```shell
+dotnet test DocumentParserTests --filter FullyQualifiedName~DocumentParserTests.Parse_SingleString
+# Success! - Failed: 0, Passed: 1, Skipped: 0, Total: 1, Duration: X ms - DocumentParserTests.dll (net8.0)
+```
+
 _With Docker_
 ```shell
 docker build --target test -t test .
