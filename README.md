@@ -84,17 +84,17 @@ You don't want to clone the repo or install the depedencies? No worry, we automa
 
 ### Directory Structure
 ```shell
-├───.idea                      // Project metadata for Rider configuration
-├── .gitignore                 // Git ignore rules
+├───.idea                      
+├── .gitignore                 
 ├───Doc                        // Project documentation in markdown
 ├───BusinessTransformer        // Core logic for business transformation and computation
-├───BusinessTransformerTests   // NUnit3 tests for BusinessTransformer
+├───BusinessTransformerTests   
 ├───DocumentParser             // Handles raw format conversion from PDF-extracted text
-├───DocumentParserTests        // NUnit3 tests for DocumentParser
+├───DocumentParserTests        
 ├───RestAPI                    // RESTful API using ASP.NET Core, contains only controllers
-├───RestAPITests               // Contains ent to end tests of RESTful API using ASP.NET Core
-├── LICENSE.txt                // MIT License for the project
-├── README.md                  // Project overview and usage instructions
+├───RestAPITests               // Contains integration + *e2e* tests of RESTful API using ASP.NET Core
+├── LICENSE.txt                // MIT License
+├── README.md                  
 ```
 
 ### General Architecture
