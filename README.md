@@ -29,36 +29,63 @@ This is the **transformation** part of a SBB CFF FFS app. There are four distinc
 #### Build the project:
 ```shell
 dotnet restore
+# Expected: Restores all project dependencies with output showing restored packages
+
 dotnet build
+# Successful build ends with "Build succeeded." and below "0 Error(s)"
 ```
 
 _With Docker_
 ```shell
 docker build --target build -t build .
+# Expected: Builds Docker image with output showing each build step
+# Successful build contains "exporting to image" and "What's Next?" messages
+docker images
+# REPOSITORY   TAG     IMAGE ID       CREATED         SIZE
+# build        latest  XXXXXXXXXXXX   X seconds ago   XXXMB
 ```
 
 #### Run the api locally
 ```shell
 cd RestAPI
 dotnet run
+# [23:27:50 INF] Starting web application
+# [23:27:50 INF] Now listening on: http://localhost:5067
+# [23:27:50 INF] Application started. Press Ctrl+C to shut down.
 ```
 
 You can go to [http://localhost:5067/swagger/](http://localhost:5067/swagger/index.html) to see API endpoints.
 
-_With Docker (prod only so the /swagger isn't served)_
+_With Docker (prod only so the /swagger isn't served, also keep in mind that the logs are not stored in a volume)_
 ```shell
 docker build --target runtime -t runtime .
+# Expected: Builds Docker image with output showing each build step
+# Successful build contains "exporting to image" and "What's Next?" messages
 docker run -d -p 8080:8080 --name runtime runtime
+# Expected: Starts the container in detached mode with the name "runtime"
+# Successful run contains the container ID
+docker ps
+# CONTAINER ID   IMAGE     COMMAND                CREATED          STATUS          PORTS                    NAMES
+# XXXXXXXXXXXX   runtime   "dotnet RestAPI.dll"   X seconds ago    Up X seconds    0.0.0.0:8080->8080/tcp   runtime
 ```
 
 #### Test projects:
 ```shell
 dotnet test
+# Success! - Failed: 0, Passed: X, Skipped: 0, Total: X, Duration: X ms - DocumentParserTests.dll (net8.0)
+# Success! - Failed: 0, Passed: X, Skipped: 0, Total: X, Duration: X ms - BusinessTransformerTests.dll (net8.0)
+# Success! - Failed: 0, Passed: X, Skipped: 0, Total: X, Duration: X ms - RestAPITests.dll (net8.0)
 ```
 
 _With Docker_
 ```shell
 docker build --target test -t test .
+# Expected: Builds Docker image with output showing each build step
+# Successful build contains "exporting to image" and "What's Next?" messages
+
+docker images
+# REPOSITORY   TAG     IMAGE ID       CREATED         SIZE
+# test         latest  XXXXXXXXXXXX   X seconds ago   XXXMB
 ```
 
 ## How to use / configure for Docker Compose
@@ -68,6 +95,16 @@ You can use it as inspiration when creating your own. It exposes changes to envi
 You can run the example with the following command:
 ```shell
 docker-compose -f docker-compose-example.yml up -d 
+
+#[+] Running 1/1
+# ✔ Container internal-etl-transform  Started
+
+docker-compose -f docker-compose-example.yml ps    
+# NAME                     IMAGE                COMMAND                SERVICE   CREATED         STATUS         PORTS
+# internal-etl-transform   your-restapi-image   "dotnet RestAPI.dll"   restapi   X seconds ago   Up X seconds   0.0.0.0:5000->8080/tcp
+
+docker-compose -f docker-compose-example.yml logs
+# internal-etl-transform  | [XX:XX:XX INF] Starting web application
 ```
 
 ## Download latest docker image (built for production)
