@@ -120,7 +120,29 @@ For more information, see the [UML diagrams](Doc/UML.asta), the main [Technologi
 Classes and code structure follow the [Microsoft C# Coding Conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions).
 
 ### Workflow
-* [How to commit](https://www.conventionalcommits.org/en/v1.0.0/)
+#### Commits
+Follow the [Conventionnal Commits](https://www.conventionalcommits.org/en/v1.0.0/), inspired by [Angular Conventional Config](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional) and [Angular Contributing Guidelines](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines)
+Scheme: `<type>(<scope>): <description>`
+
+Types can be:
+- **feat:** A new feature for the user of the software (a *MINOR* change in [semantic versioning](https://semver.org/#summary))
+- **fix:** A bug fix for the user of the software (a *PATCH* change in [semantic versioning](https://semver.org/#summary))
+- **refactor:** A code change that neither fixes a bug nor adds a feature
+- **perf:** A code change that improves performance
+- **test:** Adding missing tests, correcting existing tests, adding test utils or refactoring tests
+- **style:** Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+- **docs:** Documentation only changes
+- **chore:** Changes to the build process, auxiliary tools and libraries such as documentation generation
+- **ci:** Changes to our CI configuration files and scripts
+
+To indicate a *MAJOR* change in [semantic versioning](https://semver.org/#summary), you can use the `BREAKING CHANGE` keyword in the commit body and draw attention to this change with a `!` after the type (e.g. `feat!: ...`).
+
+The list of supported scopes:
+- **business-transformer**
+- **document-parser**
+- **restapi**
+
+#### Branches
 * Pull requests are open to merge in the develop branch.
 * Feature branches are created from the develop branch and merged back into it. 
   * We use the [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
