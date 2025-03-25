@@ -63,19 +63,26 @@ docker images
 ```shell
 cd RestAPI
 dotnet run
-# [23:27:50 INF] Starting web application
-# [23:27:50 INF] Now listening on: http://localhost:5067
-# [23:27:50 INF] Application started. Press Ctrl+C to shut down.
+# [11:54:26 INF] Starting web application
+# [11:54:27 INF] Now listening on: http://localhost:5067
+# [11:54:27 INF] Application started. Press Ctrl+C to shut down.
+# [11:54:27 INF] Hosting environment: Development
 ```
 
 You can go to [http://localhost:5067/swagger/](http://localhost:5067/swagger/index.html) to see API endpoints.
 
 ##### Release Mode (Production)
-Note : in production versions, /swagger endpoint isn't served
 ```shell
 cd RestAPI
-dotnet run --configuration Release
+dotnet run --configuration Release --environment Production
+# [XX:XX:XX INF] Starting web application
+# [XX:XX:XX INF] Now listening on: http://localhost:5067
+# [XX:XX:XX INF] Application started. Press Ctrl+C to shut down.
+# [XX:XX:XX INF] Hosting environment: Production
 ```
+
+**Note : in production versions, /swagger endpoint isn't served**
+
 
 _With Docker_
 
