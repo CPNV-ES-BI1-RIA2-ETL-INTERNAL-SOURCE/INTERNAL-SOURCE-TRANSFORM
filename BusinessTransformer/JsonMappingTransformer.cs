@@ -66,7 +66,7 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
             catch (RuntimeBinderException e)
             {
                 // If parameters don't correspond to the method, throw a more specific exception
-                throw new BusinessTransformerMappingException($"Method '{method.Name}' failed because parameters were not in correct format: {e.Message}");
+                throw new BusinessTransformerMappingException($"Method '{method.Name}' failed because parameters were not in correct format: {e.Message}", e);
             }
         }
 

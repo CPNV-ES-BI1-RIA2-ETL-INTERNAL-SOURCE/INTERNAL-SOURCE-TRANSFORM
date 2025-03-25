@@ -1,6 +1,6 @@
 using BusinessTransformer;
 using BusinessTransformer.Mapping;
-using Newtonsoft.Json;
+using Microsoft.CSharp.RuntimeBinder;
 
 namespace BusinessTransformerTests
 {
@@ -340,6 +340,23 @@ namespace BusinessTransformerTests
             var message = exception.Message.ToLower();
             Assert.Contains("parameters", message);
             Assert.Contains("method", message);
+        }
+        
+        [Fact]
+        public void Transform_InvalidMappingMethodParametersObject_ThrowsInvalidMappingExceptionWithInnerException()
+        {
+            // Given: A mapping with invalid method parameters object
+            _mapping = FieldMapping<int>.FromJArray(TestUtilities.GetTestData("Mapping/InvalidMappingMethodParametersObject.json"));
+            var departuresDocument = TestUtilities.GetTestData("TrainStationWithDepartureInput.json");
+            
+            // When: The API is called to transform the parsed document
+            var exception = Assert.Throws<BusinessTransformerMappingException>(() => _transformer.Transform(departuresDocument, _mapping));
+
+            // Then: The exception should contain an inner error message
+            Assert.NotNull(exception);
+            var innerException = exception.InnerException;
+            Assert.NotNull(innerException);
+            Assert.IsType<RuntimeBinderException>(innerException);
         }
     }
 }
