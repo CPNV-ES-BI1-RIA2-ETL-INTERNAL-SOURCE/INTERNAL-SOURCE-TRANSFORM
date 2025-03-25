@@ -9,7 +9,7 @@ using RestAPI.DTOs;
 namespace RestAPI.Controllers;
 
 [ApiController]
-[Route("api/v1/documents")]
+[Route("api/v2/documents")]
 public class DocumentsController(
     IDocumentParser parser,
     IMappingTransformer transformer,
