@@ -1,9 +1,7 @@
 ﻿using System.Net;
-using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using RestAPI;
-using RestAPI.DTOs;
 using RestAPITests.Utils;
 
 namespace RestAPITests;
@@ -25,7 +23,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         var expectedOutput = TestUtils.GetTestData("SimpleOutput.json");
 
         // Act
-        var response = await client.PostAsync("/api/v1/documents/transform", request);
+        var response = await client.PostAsync("/api/v2/documents/transform", request);
 
         // Assert (also that it's in JSON format)
         response.EnsureSuccessStatusCode();
@@ -42,7 +40,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         var request = TestUtils.SerializeInvalidDocumentRequest("Mapping.json");
 
         // Act
-        var response = await client.PostAsync("/api/v1/documents/transform", request);
+        var response = await client.PostAsync("/api/v2/documents/transform", request);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -56,7 +54,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         var client = factory.CreateClient();
 
         // Act
-        var response = await client.GetAsync("/swagger/v1/swagger.json");
+        var response = await client.GetAsync("/swagger/v2/swagger.json");
         var expectedOutput = TestUtils.GetTestRawData("OpenApiEndpointOutput.json");
 
         // Assert
@@ -81,7 +79,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         var request = TestUtils.SerializeInvalidDocumentRequest("Mapping.json");
 
         // Act
-        var response = await client.PostAsync("/api/v1/documents/transform", request);
+        var response = await client.PostAsync("/api/v2/documents/transform", request);
 
         // Assert (if the request is invalid, a log file should be created with a warning)
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
