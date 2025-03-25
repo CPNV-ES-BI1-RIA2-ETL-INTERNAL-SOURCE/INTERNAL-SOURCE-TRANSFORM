@@ -165,7 +165,7 @@ You don't want to clone the repo or install the depedencies? No worry, we automa
 ```shell
 ├───.idea                      
 ├── .gitignore                 
-├───Doc                        // Project documentation in markdown
+├───Doc                        
 ├───BusinessTransformer        // Core logic for business transformation and computation
 ├───BusinessTransformerTests   
 ├───DocumentParser             // Handles raw format conversion from PDF-extracted text
