@@ -62,7 +62,7 @@ public record FieldMapping<T>(T From, string Name, bool OnlyBag, IEnumerable<Met
             if (e is FormatException || e is ArgumentException)
             {
                 //This means that one of the fields is not the proper type for the mapping schema (conversion failed).
-                throw new BusinessTransformerMappingException($"Invalid mapping field ({fieldName}). {e.Message}");
+                throw new BusinessTransformerMappingException($"Invalid mapping field ({fieldName}). {e.Message}", e);
             }
             //Pass through any other exceptions
             throw;
