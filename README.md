@@ -27,13 +27,26 @@ This is the **transformation** part of a SBB CFF FFS app. There are four distinc
 
 ### Getting started
 #### Build the project:
+##### Restore dependencies
 ```shell
 dotnet restore
 # Expected: Restores all project dependencies with output showing restored packages
+```
 
+##### Debug Mode (Development)
+```shell
 dotnet build
+# Expected: Builds with debug symbols and optimizations disabled
 # Successful build ends with "Build succeeded." and below "0 Error(s)"
 ```
+
+#### Release Mode (Production)
+```shell
+dotnet build --configuration Release
+# Expected: Builds with optimizations enabled and debug symbols excluded
+# Successful build ends with "Build succeeded." and below "0 Error(s)"
+```
+
 
 _With Docker_
 ```shell
@@ -46,6 +59,7 @@ docker images
 ```
 
 #### Run the api locally
+##### Debug Mode (Development)
 ```shell
 cd RestAPI
 dotnet run
@@ -56,7 +70,16 @@ dotnet run
 
 You can go to [http://localhost:5067/swagger/](http://localhost:5067/swagger/index.html) to see API endpoints.
 
-_With Docker (prod only so the /swagger isn't served, also keep in mind that the logs are not stored in a volume)_
+##### Release Mode (Production)
+Note : in production versions, /swagger endpoint isn't served
+```shell
+cd RestAPI
+dotnet run --configuration Release
+```
+
+_With Docker_
+
+*Note : Keep in mind that the logs are not stored in a volume*
 ```shell
 docker build --target runtime -t runtime .
 # Expected: Builds Docker image with output showing each build step
@@ -77,6 +100,17 @@ dotnet test
 # Success! - Failed: 0, Passed: X, Skipped: 0, Total: X, Duration: X ms - RestAPITests.dll (net8.0)
 ```
 
+_With Docker_
+```shell
+docker build --target test -t test .
+# Expected: Builds Docker image with output showing each build step
+# Successful build contains "exporting to image" and "What's Next?" messages
+
+docker images
+# REPOSITORY   TAG     IMAGE ID       CREATED         SIZE
+# test         latest  XXXXXXXXXXXX   X seconds ago   XXXMB
+```
+
 ##### For a specific test project:
 ```shell
 dotnet test DocumentParserTests
@@ -87,17 +121,6 @@ dotnet test DocumentParserTests
 ```shell
 dotnet test DocumentParserTests --filter FullyQualifiedName~DocumentParserTests.Parse_SingleString
 # Success! - Failed: 0, Passed: 1, Skipped: 0, Total: 1, Duration: X ms - DocumentParserTests.dll (net8.0)
-```
-
-_With Docker_
-```shell
-docker build --target test -t test .
-# Expected: Builds Docker image with output showing each build step
-# Successful build contains "exporting to image" and "What's Next?" messages
-
-docker images
-# REPOSITORY   TAG     IMAGE ID       CREATED         SIZE
-# test         latest  XXXXXXXXXXXX   X seconds ago   XXXMB
 ```
 
 ## How to use / configure for Docker Compose
@@ -127,7 +150,7 @@ You don't want to clone the repo or install the depedencies? No worry, we automa
 4. Unzip the previously downloaded artifact.
 5. Load the .tar image in your docker with `docker load -i <path/to/the/image.tar>`
 6. Then run the image `docker run -d -p 8080:8080 --name internal-source-transform internal-source-transform` 
-
+   - Note: To log in a volume, you can add `-v logs:/var/logs` and `-e Serilog__WriteTo__1__Args__path=/var/logs/app.log` when running the image. (You will need to `docker volume create logs` the first time)
 
 ## Collaborate
 
