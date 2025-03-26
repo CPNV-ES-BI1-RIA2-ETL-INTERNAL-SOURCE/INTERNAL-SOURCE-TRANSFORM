@@ -4,11 +4,12 @@ using BusinessTransformer.Mapping;
 using DocumentParser;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using RestAPI.DTOs;
 
 namespace RestAPI.Controllers;
 
 [ApiController]
-[Route("api/v1/documents")]
+[Route("api/v2/documents")]
 public class DocumentsController(
     IDocumentParser parser,
     IMappingTransformer transformer,
@@ -19,16 +20,15 @@ public class DocumentsController(
     [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(object), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(object), StatusCodes.Status500InternalServerError)]
-    public IActionResult TransformDocument([FromBody] List<string> request)
+    public IActionResult TransformDocument([FromBody] TransformRequest request)
     {
         var stopwatch = Stopwatch.StartNew();
 
         try
         {
-            List<dynamic> parsedDocument = parser.Parse(request);
+            List<dynamic> parsedDocument = parser.Parse(request.Document);
             
-            //TODO : Mapping should be taken from request body
-            dynamic mapping = JsonConvert.DeserializeObject(System.IO.File.ReadAllText("Mapping.json"))!;
+            dynamic mapping = request.Mapping;
             dynamic transformedDocument = transformer.Transform(parsedDocument, FieldMapping<int>.FromJArray(mapping));
 
             stopwatch.Stop();

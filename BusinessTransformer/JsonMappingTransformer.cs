@@ -1,5 +1,6 @@
 using System.Globalization;
 using BusinessTransformer.Mapping;
+using Microsoft.CSharp.RuntimeBinder;
 using Newtonsoft.Json.Linq;
 
 namespace BusinessTransformer;
@@ -18,7 +19,7 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
         {
             var fromIndex = fieldMapping.From;
 
-            if(input.Count <= fromIndex) throw new InvalidInputFormatException("From index out of range");
+            if(input.Count <= fromIndex) throw new BusinessTransformerInvalidInputFormatException("From index out of range");
             var inputValue = input[fromIndex];
 
             var transformedValue = ApplyMethods(inputValue, fieldMapping.Methods, bag);
@@ -44,21 +45,29 @@ public class JsonMappingTransformer(IStringManipulator stringManipulator) : IMap
         foreach (var method in methods)
         {
             var parameters = method.ComputedParameters(bag);
-            result = method.Name switch
+            try
             {
-                "RemovePrefixes" => stringManipulator.RemovePrefixes(result.ToString(), parameters.prefixes.ToObject<string[]>(), Convert.ToChar(parameters.separator)),
-                "ParseLocalisedDate" => stringManipulator.ParseLocalisedDate(result.ToString(), parameters.format.ToString(), 
-                    (parameters.cultures.ToObject<string[]>() as IEnumerable<string>).Select(c => new CultureInfo(c))),
-                "Split" => stringManipulator.Split(result.ToString(), parameters.separator.ToString()),
-                "ParseHourMinute" => stringManipulator.ParseHourMinute(result.ToString(), parameters.separator.ToString()),
-                "Regex" => stringManipulator.ApplyRegex(result.ToString(), parameters.pattern.ToString()),
-                "SplitLetterNumber" => stringManipulator.SplitLetterNumber(result.ToString()),
-                "Take" => Take(result, parameters.property.ToString()),
-                "ProcessArray" => ProcessArray(result, FieldMapping<string>.FromJArray(parameters.fields), FieldMapping<string>.FromJArray(parameters.parentFields), bag),
-                "CombineDateTime" => CombineDateTime(result, parameters.dateToAppend.ToObject<DateTime>()),
-                "EmptyToNull" => EmptyToNull(result),
-                _ => throw new NotImplementedException($"Method {method.Name} is not implemented.")
-            };
+                result = method.Name switch
+                {
+                    "RemovePrefixes" => stringManipulator.RemovePrefixes(result.ToString(), parameters.prefixes.ToObject<string[]>(), Convert.ToChar(parameters.separator)),
+                    "ParseLocalisedDate" => stringManipulator.ParseLocalisedDate(result.ToString(), parameters.format.ToString(), 
+                        (parameters.cultures.ToObject<string[]>() as IEnumerable<string>).Select(c => new CultureInfo(c))),
+                    "Split" => stringManipulator.Split(result.ToString(), parameters.separator.ToString()),
+                    "ParseHourMinute" => stringManipulator.ParseHourMinute(result.ToString(), parameters.separator.ToString()),
+                    "Regex" => stringManipulator.ApplyRegex(result.ToString(), parameters.pattern.ToString()),
+                    "SplitLetterNumber" => stringManipulator.SplitLetterNumber(result.ToString()),
+                    "Take" => Take(result, parameters.property.ToString()),
+                    "ProcessArray" => ProcessArray(result, FieldMapping<string>.FromJArray(parameters.fields), FieldMapping<string>.FromJArray(parameters.parentFields), bag),
+                    "CombineDateTime" => CombineDateTime(result, parameters.dateToAppend.ToObject<DateTime>()),
+                    "EmptyToNull" => EmptyToNull(result),
+                    _ => throw new BusinessTransformerMappingException($"Method name '{method.Name}' is not implemented.")
+                };
+            }
+            catch (RuntimeBinderException e)
+            {
+                // If parameters don't correspond to the method, throw a more specific exception
+                throw new BusinessTransformerMappingException($"Method '{method.Name}' failed because parameters were not in correct format: {e.Message}", e);
+            }
         }
 
         return result;

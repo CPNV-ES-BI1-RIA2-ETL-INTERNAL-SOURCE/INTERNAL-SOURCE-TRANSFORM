@@ -16,7 +16,16 @@ public record FieldMapping<T>(T From, string Name, bool OnlyBag, IEnumerable<Met
     /// <returns>The mapping schema created.</returns>
     public static FieldMapping<TFrom> FromJObject<TFrom>(dynamic obj)
     {
-        return new FieldMapping<TFrom>(obj.from.ToObject<TFrom>(), obj.name.ToString(), obj.ContainsKey("onlyBag") && (obj.onlyBag.ToObject<bool>()), Method.FromJArray(obj.methods));
+        if(obj.from == null || obj.name == null || obj.methods == null)
+        {
+            throw new BusinessTransformerMappingException("Mapping schema must have 'from', 'name' and 'methods' fields.");
+        }
+        
+        var fromObject = WrapFieldConversionWithExceptionCast<TFrom>(() => obj.from.ToObject<TFrom>(), "from");
+        var name = WrapFieldConversionWithExceptionCast<string>(() => obj.name.ToString(), "name");
+        var onlyBag = obj.ContainsKey("onlyBag") && WrapFieldConversionWithExceptionCast<bool>(() => obj.onlyBag.ToObject<bool>(), "onlyBag");
+        var methods = WrapFieldConversionWithExceptionCast<IEnumerable<Method>>(() => Method.FromJArray(obj.methods), "methods");
+        return new FieldMapping<TFrom>(fromObject, name, onlyBag, methods);
     }
     
     /// <summary>
@@ -32,5 +41,31 @@ public record FieldMapping<T>(T From, string Name, bool OnlyBag, IEnumerable<Met
             mappings.Add(FromJObject<T>(mapping));
         }
         return mappings;
+    }
+    
+    /// <summary>
+    /// Wraps a method call (field conversion) with exception handling and casting.
+    /// </summary>
+    /// <param name="conversion">The function to convert the field.</param>
+    /// <param name="fieldName">The name of the field being converted.</param>
+    /// <typeparam name="T">The type of the field to convert to.</typeparam>
+    /// <returns>The result of the function if success.</returns>
+    /// <exception cref="BusinessTransformerMappingException">This exception is thrown when the conversion of type fails.</exception>
+    private static T WrapFieldConversionWithExceptionCast<T>(Func<T> conversion, string fieldName)
+    {
+        try
+        {
+            return conversion();
+        }
+        catch (Exception e)
+        {
+            if (e is FormatException || e is ArgumentException)
+            {
+                //This means that one of the fields is not the proper type for the mapping schema (conversion failed).
+                throw new BusinessTransformerMappingException($"Invalid mapping field ({fieldName}). {e.Message}", e);
+            }
+            //Pass through any other exceptions
+            throw;
+        }
     }
 }

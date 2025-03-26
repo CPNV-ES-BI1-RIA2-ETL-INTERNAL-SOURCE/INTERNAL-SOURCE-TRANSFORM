@@ -1,0 +1,12 @@
+[
+  {
+    "from": 0,
+    "name": "Name",
+    "methods": [
+      {
+        "name": "RemovePrefixes",
+        "parameters": "nope"
+      }
+    ]
+  },
+]

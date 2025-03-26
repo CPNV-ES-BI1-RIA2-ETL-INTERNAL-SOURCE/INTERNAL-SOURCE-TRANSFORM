@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using RestAPI;
@@ -14,18 +13,17 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     : IClassFixture<WebApplicationFactory<RestAPIApp>>
 {
     private const string LogDirectory = "logs";
-    private static readonly List<string> invalidRequest = new() { "Invalid document" };
 
     [Fact]
     public async Task Post_DocumentTransform_ShouldReturnTransformedDocument_WhenInputIsValid()
     {
         // Arrange
         var client = factory.CreateClient();
-        var input = TestUtils.GetTestRawData("SimpleInput.txt").Split("\n").ToList();
+        var request = TestUtils.SerializeRequestFromFiles("SimpleInput.txt", "Mapping.json");
         var expectedOutput = TestUtils.GetTestData("SimpleOutput.json");
 
         // Act
-        var response = await client.PostAsJsonAsync("/api/v1/documents/transform", input);
+        var response = await client.PostAsync("/api/v2/documents/transform", request);
 
         // Assert (also that it's in JSON format)
         response.EnsureSuccessStatusCode();
@@ -35,14 +33,14 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     
     
     [Fact]
-    public async Task Post_DocumentTransform_ShouldReturnTransformedDocument_WhenInputIsInvalid()
+    public async Task Post_DocumentTransform_ShouldReturnErrorDocument_WhenInputIsInvalid()
     {
         // Arrange
         var client = factory.CreateClient();
-        var request = invalidRequest;
+        var request = TestUtils.SerializeInvalidDocumentRequest("Mapping.json");
 
         // Act
-        var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
+        var response = await client.PostAsync("/api/v2/documents/transform", request);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -56,7 +54,7 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
         var client = factory.CreateClient();
 
         // Act
-        var response = await client.GetAsync("/swagger/v1/swagger.json");
+        var response = await client.GetAsync("/swagger/v2/swagger.json");
         var expectedOutput = TestUtils.GetTestRawData("OpenApiEndpointOutput.json");
 
         // Assert
@@ -78,10 +76,10 @@ public class RestAPIAppTests(WebApplicationFactory<RestAPIApp> factory)
     {
         // Arrange
         var client = factory.CreateClient();
-        var request = invalidRequest;
+        var request = TestUtils.SerializeInvalidDocumentRequest("Mapping.json");
 
         // Act
-        var response = await client.PostAsJsonAsync("/api/v1/documents/transform", request);
+        var response = await client.PostAsync("/api/v2/documents/transform", request);
 
         // Assert (if the request is invalid, a log file should be created with a warning)
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);

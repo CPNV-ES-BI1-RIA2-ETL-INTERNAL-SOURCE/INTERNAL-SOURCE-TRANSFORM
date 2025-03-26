@@ -1,0 +1,20 @@
+[
+  {
+    "from": 0,
+    "name": "Name",
+    "methods": [
+      {
+        "name": "nope",
+        "parameters": {
+          "prefixes": [
+            "Bahnhof",
+            "Station",
+            "Gare de",
+            "Stazione di"
+          ],
+          "separator": "/"
+        }
+      }
+    ]
+  },
+]

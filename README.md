@@ -27,38 +27,107 @@ This is the **transformation** part of a SBB CFF FFS app. There are four distinc
 
 ### Getting started
 #### Build the project:
+##### Restore dependencies
 ```shell
 dotnet restore
-dotnet build
+# Expected: Restores all project dependencies with output showing restored packages
 ```
+
+##### Debug Mode (Development)
+```shell
+dotnet build
+# Expected: Builds with debug symbols and optimizations disabled
+# Successful build ends with "Build succeeded." and below "0 Error(s)"
+```
+
+#### Release Mode (Production)
+```shell
+dotnet build --configuration Release
+# Expected: Builds with optimizations enabled and debug symbols excluded
+# Successful build ends with "Build succeeded." and below "0 Error(s)"
+```
+
 
 _With Docker_
 ```shell
 docker build --target build -t build .
+# Expected: Builds Docker image with output showing each build step
+# Successful build contains "exporting to image" and "What's Next?" messages
+docker images
+# REPOSITORY   TAG     IMAGE ID       CREATED         SIZE
+# build        latest  XXXXXXXXXXXX   X seconds ago   XXXMB
 ```
 
 #### Run the api locally
+##### Debug Mode (Development)
 ```shell
 cd RestAPI
 dotnet run
+# [11:54:26 INF] Starting web application
+# [11:54:27 INF] Now listening on: http://localhost:5067
+# [11:54:27 INF] Application started. Press Ctrl+C to shut down.
+# [11:54:27 INF] Hosting environment: Development
 ```
 
 You can go to [http://localhost:5067/swagger/](http://localhost:5067/swagger/index.html) to see API endpoints.
 
-_With Docker (prod only so the /swagger isn't served)_
+##### Release Mode (Production)
+```shell
+cd RestAPI
+dotnet run --configuration Release --environment Production
+# [XX:XX:XX INF] Starting web application
+# [XX:XX:XX INF] Now listening on: http://localhost:5067
+# [XX:XX:XX INF] Application started. Press Ctrl+C to shut down.
+# [XX:XX:XX INF] Hosting environment: Production
+```
+
+**Note : in production versions, /swagger endpoint isn't served**
+
+
+_With Docker_
+
+*Note : Keep in mind that the logs are not stored in a volume*
 ```shell
 docker build --target runtime -t runtime .
+# Expected: Builds Docker image with output showing each build step
+# Successful build contains "exporting to image" and "What's Next?" messages
 docker run -d -p 8080:8080 --name runtime runtime
+# Expected: Starts the container in detached mode with the name "runtime"
+# Successful run contains the container ID
+docker ps
+# CONTAINER ID   IMAGE     COMMAND                CREATED          STATUS          PORTS                    NAMES
+# XXXXXXXXXXXX   runtime   "dotnet RestAPI.dll"   X seconds ago    Up X seconds    0.0.0.0:8080->8080/tcp   runtime
 ```
 
 #### Test projects:
 ```shell
 dotnet test
+# Success! - Failed: 0, Passed: X, Skipped: 0, Total: X, Duration: X ms - DocumentParserTests.dll (net8.0)
+# Success! - Failed: 0, Passed: X, Skipped: 0, Total: X, Duration: X ms - BusinessTransformerTests.dll (net8.0)
+# Success! - Failed: 0, Passed: X, Skipped: 0, Total: X, Duration: X ms - RestAPITests.dll (net8.0)
 ```
 
 _With Docker_
 ```shell
 docker build --target test -t test .
+# Expected: Builds Docker image with output showing each build step
+# Successful build contains "exporting to image" and "What's Next?" messages
+
+docker images
+# REPOSITORY   TAG     IMAGE ID       CREATED         SIZE
+# test         latest  XXXXXXXXXXXX   X seconds ago   XXXMB
+```
+
+##### For a specific test project:
+```shell
+dotnet test DocumentParserTests
+# Success! - Failed: 0, Passed: X, Skipped: 0, Total: X, Duration: X ms - DocumentParserTests.dll (net8.0)
+```
+
+##### For a specific test:
+```shell
+dotnet test DocumentParserTests --filter FullyQualifiedName~DocumentParserTests.Parse_SingleString
+# Success! - Failed: 0, Passed: 1, Skipped: 0, Total: 1, Duration: X ms - DocumentParserTests.dll (net8.0)
 ```
 
 ## How to use / configure for Docker Compose
@@ -68,6 +137,16 @@ You can use it as inspiration when creating your own. It exposes changes to envi
 You can run the example with the following command:
 ```shell
 docker-compose -f docker-compose-example.yml up -d 
+
+#[+] Running 1/1
+# ✔ Container internal-etl-transform  Started
+
+docker-compose -f docker-compose-example.yml ps    
+# NAME                     IMAGE                COMMAND                SERVICE   CREATED         STATUS         PORTS
+# internal-etl-transform   your-restapi-image   "dotnet RestAPI.dll"   restapi   X seconds ago   Up X seconds   0.0.0.0:5000->8080/tcp
+
+docker-compose -f docker-compose-example.yml logs
+# internal-etl-transform  | [XX:XX:XX INF] Starting web application
 ```
 
 ## Download latest docker image (built for production)
@@ -78,23 +157,23 @@ You don't want to clone the repo or install the depedencies? No worry, we automa
 4. Unzip the previously downloaded artifact.
 5. Load the .tar image in your docker with `docker load -i <path/to/the/image.tar>`
 6. Then run the image `docker run -d -p 8080:8080 --name internal-source-transform internal-source-transform` 
-
+   - Note: To log in a volume, you can add `-v logs:/var/logs` and `-e Serilog__WriteTo__1__Args__path=/var/logs/app.log` when running the image. (You will need to `docker volume create logs` the first time)
 
 ## Collaborate
 
 ### Directory Structure
 ```shell
-├───.idea                      // Project metadata for Rider configuration
-├── .gitignore                 // Git ignore rules
-├───Doc                        // Project documentation in markdown
+├───.idea                      
+├── .gitignore                 
+├───Doc                        
 ├───BusinessTransformer        // Core logic for business transformation and computation
-├───BusinessTransformerTests   // NUnit3 tests for BusinessTransformer
+├───BusinessTransformerTests   
 ├───DocumentParser             // Handles raw format conversion from PDF-extracted text
-├───DocumentParserTests        // NUnit3 tests for DocumentParser
+├───DocumentParserTests        
 ├───RestAPI                    // RESTful API using ASP.NET Core, contains only controllers
-├───RestAPITests               // Contains ent to end tests of RESTful API using ASP.NET Core
-├── LICENSE.txt                // MIT License for the project
-├── README.md                  // Project overview and usage instructions
+├───RestAPITests               // Contains integration + *e2e* tests of RESTful API using ASP.NET Core
+├── LICENSE.txt                // MIT License
+├── README.md                  
 ```
 
 ### General Architecture
@@ -120,7 +199,29 @@ For more information, see the [UML diagrams](Doc/UML.asta), the main [Technologi
 Classes and code structure follow the [Microsoft C# Coding Conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions).
 
 ### Workflow
-* [How to commit](https://www.conventionalcommits.org/en/v1.0.0/)
+#### Commits
+Follow the [Conventionnal Commits](https://www.conventionalcommits.org/en/v1.0.0/), inspired by [Angular Conventional Config](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional) and [Angular Contributing Guidelines](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines)
+Scheme: `<type>(<scope>): <description>`
+
+Types can be:
+- **feat:** A new feature for the user of the software (a *MINOR* change in [semantic versioning](https://semver.org/#summary))
+- **fix:** A bug fix for the user of the software (a *PATCH* change in [semantic versioning](https://semver.org/#summary))
+- **refactor:** A code change that neither fixes a bug nor adds a feature
+- **perf:** A code change that improves performance
+- **test:** Adding missing tests, correcting existing tests, adding test utils or refactoring tests
+- **style:** Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+- **docs:** Documentation only changes
+- **chore:** Changes to the build process, auxiliary tools and libraries such as documentation generation
+- **ci:** Changes to our CI configuration files and scripts
+
+To indicate a *MAJOR* change in [semantic versioning](https://semver.org/#summary), you can use the `BREAKING CHANGE: ` keyword in the commit body and draw attention to this change with a `!` after the type (e.g. `feat!: ...`).
+
+The list of supported scopes:
+- **business-transformer**
+- **document-parser**
+- **restapi**
+
+#### Branches
 * Pull requests are open to merge in the develop branch.
 * Feature branches are created from the develop branch and merged back into it. 
   * We use the [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).

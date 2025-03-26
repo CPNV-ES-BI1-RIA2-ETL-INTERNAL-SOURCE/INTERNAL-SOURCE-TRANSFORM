@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
 using RestAPI.Controllers;
+using RestAPI.DTOs;
 using RestAPITests.Utils;
 
 namespace RestAPITests;
@@ -24,7 +25,7 @@ public class DocumentsControllerTests
     public void TransformDocument_ShouldLogUnexpectedException()
     {
         // Given
-        DocumentsController controller = new(_mockParser.Object, _mockTransformer.Object, _mockLogger.Object);
+        var controller = new DocumentsController(_mockParser.Object, _mockTransformer.Object, _mockLogger.Object);
         Assert.NotNull(controller);
         
         // Mocks to Simulate an unexpected exception in transformation
@@ -34,7 +35,7 @@ public class DocumentsControllerTests
         _mockTransformer.Setup(t => t.Transform(It.IsAny<List<dynamic>>(), It.IsAny<IEnumerable<FieldMapping<int>>>()))
             .Throws(new Exception("Unexpected error"));
 
-        var request = new List<string> { "ValidData" };
+        var request = TestUtils.CreateInvalidDocumentRequest("Mapping.json");
 
         // When
         var result = controller.TransformDocument(request);
@@ -62,12 +63,15 @@ public class DocumentsControllerTests
     public void TransformDocument_ShouldLogTotalTimeTaken()
     {
         // Given
-        var input = TestUtils.GetTestRawData("SimpleInput.txt").Split("\n").ToList();
+        var parser = new DocumentParser.DocumentParser();
+        var transformer = new JsonMappingTransformer(new StandardLibStringManipulator());
+        var controller = new DocumentsController(parser, transformer, _mockLogger.Object);
+        
+        var request = TestUtils.CreateRequestFromFiles("SimpleInput.txt", "Mapping.json");
         var expectedOutput = TestUtils.GetTestData("SimpleOutput.json");
-        DocumentsController controller = new(new DocumentParser.DocumentParser(), new JsonMappingTransformer(new StandardLibStringManipulator()), _mockLogger.Object);
-
+        
         // When
-        var result = controller.TransformDocument(input);
+        var result = controller.TransformDocument(request);
 
         // Then
         var okResult = Assert.IsType<OkObjectResult>(result);
@@ -91,13 +95,14 @@ public class DocumentsControllerTests
     public void TransformDocument_ShouldReturnBadRequest_AndLogWarning_WhenInputIsInvalid()
     {
         // Given
-        var input = new List<string> { "INVALID_DATA" }; // Simule un document au mauvais format
         var parser = new DocumentParser.DocumentParser();
         var transformer = new JsonMappingTransformer(new StandardLibStringManipulator());
         var controller = new DocumentsController(parser, transformer, _mockLogger.Object);
+        
+        var request = TestUtils.CreateInvalidDocumentRequest("Mapping.json");
 
         // When
-        var result = controller.TransformDocument(input);
+        var result = controller.TransformDocument(request);
 
         // Then
         var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);

@@ -1,11 +1,11 @@
 ﻿# This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET
+name: 'Prevent main from untested code'
 
 on:
   push:
-    branches: [ "main", "develop", "release/**" ]
+    branches: [ "main", "master", "develop", "release/**" ]
   pull_request:
     branches: [ "*" ]
 
@@ -21,10 +21,10 @@ jobs:
         docker build --target test -f Dockerfile -t internal-source-transform:test . --no-cache
         docker run --rm internal-source-transform:test
 
-  # Deploy to production only on main  
-  deploy-production:
+  # Publish artifact for production only on main  
+  publish-artifact:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
