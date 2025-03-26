@@ -33,10 +33,6 @@ public static class TestUtils
         return new TransformRequest { Document = new List<string>() { "Invalid document" }, Mapping = GetTestData(mappingFile) };
     }
     
-    public static TransformRequest CreateInvalidMappingRequest(string documentFile)
-    {
-        return new TransformRequest { Document = GetTestRawData(documentFile).Split("\n").ToList(), Mapping = new { } };
-    }
     
     public static StringContent SerializeRequestFromFiles(string documentFile, string mappingFile)
     {
@@ -49,14 +45,6 @@ public static class TestUtils
     public static StringContent SerializeInvalidDocumentRequest(string mappingFile)
     {
         var request = CreateInvalidDocumentRequest(mappingFile); // Use the original method
-        var serializedRequest = JsonConvert.SerializeObject(request); // Manually serialize with Newtonsoft.Json
-        var content = new StringContent(serializedRequest, Encoding.UTF8, "application/json");
-        return content;
-    }
-
-    public static StringContent SerializeInvalidMappingRequest(string documentFile)
-    {
-        var request = CreateInvalidMappingRequest(documentFile); // Use the original method
         var serializedRequest = JsonConvert.SerializeObject(request); // Manually serialize with Newtonsoft.Json
         var content = new StringContent(serializedRequest, Encoding.UTF8, "application/json");
         return content;
