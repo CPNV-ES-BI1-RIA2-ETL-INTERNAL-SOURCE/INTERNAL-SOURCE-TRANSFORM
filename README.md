@@ -214,7 +214,7 @@ Types can be:
 - **chore:** Changes to the build process, auxiliary tools and libraries such as documentation generation
 - **ci:** Changes to our CI configuration files and scripts
 
-To indicate a *MAJOR* change in [semantic versioning](https://semver.org/#summary), you can use the `BREAKING CHANGE` keyword in the commit body and draw attention to this change with a `!` after the type (e.g. `feat!: ...`).
+To indicate a *MAJOR* change in [semantic versioning](https://semver.org/#summary), you can use the `BREAKING CHANGE: ` keyword in the commit body and draw attention to this change with a `!` after the type (e.g. `feat!: ...`).
 
 The list of supported scopes:
 - **business-transformer**
