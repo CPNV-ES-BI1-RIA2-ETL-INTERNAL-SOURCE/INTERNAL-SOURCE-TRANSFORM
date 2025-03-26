@@ -10,6 +10,10 @@ public class DocumentParserTests
     private static string GetTestRawData(string fileName)
     {
         var path = Path.Combine(AppContext.BaseDirectory, "Data", fileName);
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException($"Test file not found: {path}");
+        }
         return File.ReadAllText(path);
     }
     

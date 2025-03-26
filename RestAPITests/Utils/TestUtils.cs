@@ -13,6 +13,10 @@ public static class TestUtils
     public static string GetTestRawData(string fileName)
     {
         var path = Path.Combine(AppContext.BaseDirectory, "Data", fileName);
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException($"Test file not found: {path}");
+        }
         return File.ReadAllText(path);
     }
     
@@ -25,6 +29,8 @@ public static class TestUtils
     {
         var document = GetTestRawData(documentFile).Split("\n").ToList();
         var mapping = GetTestData(mappingFile);
+        Assert.NotNull(document);
+        Assert.NotNull(mapping);
         return new TransformRequest { Document = document, Mapping = mapping };
     }
     
@@ -39,6 +45,7 @@ public static class TestUtils
         var request = CreateRequestFromFiles(documentFile, mappingFile);  // Use the original method
         var serializedRequest = JsonConvert.SerializeObject(request); // Manually serialize with Newtonsoft.Json
         var content = new StringContent(serializedRequest, Encoding.UTF8, "application/json");
+        Assert.NotNull(content);
         return content;
     }
 

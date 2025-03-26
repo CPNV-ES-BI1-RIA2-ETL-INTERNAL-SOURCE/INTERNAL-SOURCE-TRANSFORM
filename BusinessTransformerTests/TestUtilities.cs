@@ -12,6 +12,10 @@ public class TestUtilities
     public static dynamic GetTestData(string fileName)
     {
         var path = Path.Combine(AppContext.BaseDirectory, "Data", fileName);
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException($"Test file not found: {path}");
+        }
         return JsonConvert.DeserializeObject(File.ReadAllText(path))!;
     }
 }
